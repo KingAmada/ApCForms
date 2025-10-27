@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>APC Councilors Wardship Nomination Form</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f0f2f5; /* Light grey background */
+        }
+        .gradient-header {
+            background-image: linear-gradient(to right, #006400, #3cb371); /* Dark Green to Medium Green */
+        }
+        .gradient-button {
+            background-image: linear-gradient(to right, #006400, #2e8b57); /* Dark Green to Sea Green */
+            transition: all 0.3s ease;
+        }
+        .gradient-button:hover {
+            background-image: linear-gradient(to right, #2e8b57, #006400);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(0, 100, 0, 0.4);
+        }
+        .card {
+            background-color: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            padding: 2.5rem;
+        }
+        .form-label {
+            display: block;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 0.5rem;
+            font-size: 0.95rem;
+        }
+        .form-input, .form-select, .form-textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #d1d5db; /* gray-300 */
+            border-radius: 0.5rem; /* rounded-lg */
+            font-size: 1rem;
+            color: #374151; /* gray-700 */
+            transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+        }
+        .form-input:focus, .form-select:focus, .form-textarea:focus {
+            border-color: #006400; /* APC Green */
+            box-shadow: 0 0 0 3px rgba(0, 100, 0, 0.2);
+            outline: none;
+        }
+        .apc-gold {
+            background-color: #FFD700; /* Gold */
+            color: #000;
+        }
+        .apc-green {
+            background-color: #006400; /* Dark Green */
+            color: #fff;
+        }
+        .hidden {
+            display: none;
+        }
+        /* Custom checkbox/radio styles */
+        input[type="checkbox"], input[type="radio"] {
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            display: inline-block;
+            width: 1.25rem;
+            height: 1.25rem;
+            border: 2px solid #006400;
+            border-radius: 0.25rem;
+            position: relative;
+            cursor: pointer;
+            vertical-align: middle;
+            margin-right: 0.5rem;
+        }
+        input[type="radio"] {
+            border-radius: 50%;
+        }
+        input[type="checkbox"]:checked, input[type="radio"]:checked {
+            background-color: #006400;
+            border-color: #006400;
+        }
+        input[type="checkbox"]:checked::after {
+            content: '✓';
+            color: white;
+            font-size: 1rem;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        input[type="radio"]:checked::after {
+            content: '';
+            width: 0.625rem;
+            height: 0.625rem;
+            background-color: white;
+            border-radius: 50%;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+    </style>
+</head>
+<body class="min-h-screen flex items-center justify-center py-10 px-4">
+
+    <div class="max-w-4xl w-full">
+        <!-- Header Section --><header class="gradient-header text-white p-8 rounded-t-xl flex flex-col md:flex-row items-center justify-between text-center md:text-left shadow-lg">
+            <div class="flex items-center space-x-4 mb-4 md:mb-0">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTqsRHyM2yS67F34fBfngJ3oC9U2GuLtUawNOh9qrYPn6WCON3BZzZA2NUS&s=10" alt="APC Logo" class="h-20 w-20 rounded-full bg-white p-2 border-2 border-yellow-400">
+                <div>
+                    <h1 class="text-3xl font-bold mb-1">APC Wardship Nomination Form</h1>
+                    <p class="text-lg font-light">Councilor Aspirant Registration</p>
+                </div>
+            </div>
+            <div class="text-yellow-400 font-semibold text-xl">
+                APC Congress 2025
+            </div>
+        </header>
+
+        <!-- Form Card --><div class="card">
+            <form action="#" method="POST" class="space-y-8">
+                <!-- Section 1: Aspirant's Personal Information --><section class="border-b pb-8 border-gray-200">
+                    <h2 class="text-2xl font-bold text-gray-800 mb-6 border-b pb-3 border-yellow-400">1. Aspirant's Personal Information</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label for="full_name" class="form-label">Full Name</label>
+                            <input type="text" id="full_name" name="full_name" class="form-input" placeholder="Enter your full name" required>
+                        </div>
+                        <div>
+                            <label for="dob" class="form-label">Date of Birth</label>
+                            <input type="date" id="dob" name="dob" class="form-input" required>
+                        </div>
+                        <div>
+                            <label for="gender" class="form-label">Gender</label>
+                            <select id="gender" name="gender" class="form-select" required>
+                                <option value="">Select Gender</option>
+                                <option value="male">Male</option>
+                                <option value="female">Female</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="phone" class="form-label">Phone Number</label>
+                            <input type="tel" id="phone" name="phone" class="form-input" placeholder="e.g., 08012345678" required>
+                        </div>
+                        <div class="md:col-span-2">
+                            <label for="email" class="form-label">Email Address</label>
+                            <input type="email" id="email" name="email" class="form-input" placeholder="e.g., yourname@example.com">
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Section 2: Contact Information --><section class="border-b pb-8 border-gray-200">
+                    <h2 class="text-2xl font-bold text-gray-800 mb-6 border-b pb-3 border-yellow-400">2. Contact Information</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label for="address" class="form-label">Residential Address</label>
+                            <input type="text" id="address" name="address" class="form-input" placeholder="House number, street name" required>
+                        </div>
+                        <div>
+                            <label for="city" class="form-label">City/Town</label>
+                            <input type="text" id="city" name="city" class="form-input" placeholder="e.g., Abuja" required>
+                        </div>
+                        <div>
+                            <label for="state_of_origin" class="form-label">State of Origin</label>
+                            <select id="state_of_origin" name="state_of_origin" class="form-select" required>
+                                <option value="">Select State</option>
+                                <option value="abia">Abia</option>
+                                <option value="adamawa">Adamawa</option>
+                                <option value="akwa_ibom">Akwa Ibom</option>
+                                <option value="anambra">Anambra</option>
+                                <option value="bauchi">Bauchi</option>
+                                <option value="bayelsa">Bayelsa</option>
+                                <option value="benue">Benue</option>
+                                <option value="borno">Borno</option>
+                                <option value="cross_river">Cross River</option>
+                                <option value="delta">Delta</option>
+                                <option value="ebonyi">Ebonyi</option>
+                                <option value="edo">Edo</option>
+                                <option value="ekiti">Ekiti</option>
+                                <option value="enugu">Enugu</option>
+                                <option value="gombe">Gombe</option>
+                                <option value="imo">Imo</option>
+                                <option value="jigawa">Jigawa</option>
+                                <option value="kaduna">Kaduna</option>
+                                <option value="kano">Kano</option>
+                                <option value="katsina">Katsina</option>
+                                <option value="kebbi">Kebbi</option>
+                                <option value="kogi">Kogi</option>
+                                <option value="kwara">Kwara</option>
+                                <option value="lagos">Lagos</option>
+                                <option value="nasarawa">Nasarawa</option>
+                                <option value="niger">Niger</option>
+                                <option value="ogun">Ogun</option>
+                                <option value="ondo">Ondo</option>
+                                <option value="osun">Osun</option>
+                                <option value="oyo">Oyo</option>
+                                <option value="plateau">Plateau</option>
+                                <option value="rivers">Rivers</option>
+                                <option value="sokoto">Sokoto</option>
+                                <option value="taraba">Taraba</option>
+                                <option value="yobe">Yobe</option>
+                                <option value="zamfara">Zamfara</option>
+                                <option value="fct">FCT</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="lga" class="form-label">Local Government Area (LGA)</label>
+                            <input type="text" id="lga" name="lga" class="form-input" placeholder="Enter your LGA" required>
+                        </div>
+                        <div class="md:col-span-2">
+                            <label for="ward" class="form-label">Ward</label>
+                            <input type="text" id="ward" name="ward" class="form-input" placeholder="Enter your Ward name/number" required>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Section 3: Party Affiliation --><section class="border-b pb-8 border-gray-200">
+                    <h2 class="text-2xl font-bold text-gray-800 mb-6 border-b pb-3 border-yellow-400">3. Party Affiliation</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label for="apc_reg_no" class="form-label">APC Membership Registration Number</label>
+                            <input type="text" id="apc_reg_no" name="apc_reg_no" class="form-input" placeholder="Enter APC Reg. No." required>
+                        </div>
+                        <div>
+                            <label for="apc_join_date" class="form-label">Date Joined APC</label>
+                            <input type="date" id="apc_join_date" name="apc_join_date" class="form-input" required>
+                        </div>
+                        <div class="md:col-span-2">
+                            <label class="form-label">Have you held any party position before?</label>
+                            <div class="flex items-center space-x-6 mt-2">
+                                <label class="flex items-center cursor-pointer">
+                                    <input type="radio" name="held_position" value="yes" id="pos_yes">
+                                    <span class="text-gray-700">Yes</span>
+                                </label>
+                                <label class="flex items-center cursor-pointer">
+                                    <input type="radio" name="held_position" value="no" id="pos_no" checked>
+                                    <span class="text-gray-700">No</span>
+                                </label>
+                            </div>
+                        </div>
+                        <div id="previous_position_section" class="md:col-span-2 hidden">
+                            <label for="previous_position" class="form-label">If Yes, please state the position(s) and year(s)</label>
+                            <textarea id="previous_position" name="previous_position" rows="3" class="form-textarea" placeholder="e.g., Ward Secretary (2018-2020)"></textarea>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Section 4: Academic Qualifications --><section class="border-b pb-8 border-gray-200">
+                    <h2 class="text-2xl font-bold text-gray-800 mb-6 border-b pb-3 border-yellow-400">4. Academic Qualifications</h2>
+                    <p class="text-gray-600 mb-4">Please list your academic qualifications, starting from the highest.</p>
+                    <div id="qualifications_container" class="space-y-4">
+                        <div class="qualification-entry grid grid-cols-1 md:grid-cols-3 gap-4 items-end">
+                            <div>
+                                <label for="qualification_1_degree" class="form-label">Degree/Certificate</label>
+                                <input type="text" id="qualification_1_degree" name="qualification_degree[]" class="form-input" placeholder="e.g., B.Sc. Political Science" required>
+                            </div>
+                            <div>
+                                <label for="qualification_1_institution" class="form-label">Institution</label>
+                                <input type="text" id="qualification_1_institution" name="qualification_institution[]" class="form-input" placeholder="e.g., University of Lagos" required>
+                            </div>
+                            <div>
+                                <label for="qualification_1_year" class="form-label">Year Obtained</label>
+                                <input type="number" id="qualification_1_year" name="qualification_year[]" class="form-input" placeholder="e.g., 2010" required min="1950" max="2024">
+                            </div>
+                        </div>
+                    </div>
+                    <button type="button" id="add_qualification" class="mt-6 inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white apc-green hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-apc-green transition-colors">
+                        <svg class="-ml-1 mr-2 h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd" />
+                        </svg>
+                        Add Another Qualification
+                    </button>
+                </section>
+
+                <!-- Section 5: Declaration --><section>
+                    <h2 class="text-2xl font-bold text-gray-800 mb-6 border-b pb-3 border-yellow-400">5. Declaration</h2>
+                    <div class="flex items-start mb-6">
+                        <input type="checkbox" id="declaration" name="declaration" class="mt-1" required>
+                        <label for="declaration" class="ml-3 text-gray-700 text-base leading-relaxed">
+                            I solemnly declare that all information provided in this nomination form is true and correct to the best of my knowledge and belief. I understand that any false information may lead to disqualification.
+                        </label>
+                    </div>
+                </section>
+
+                <!-- Submit Button --><div class="text-center pt-4">
+                    <button type="submit" class="gradient-button text-white font-bold py-3 px-10 rounded-full text-lg shadow-xl hover:shadow-2xl focus:outline-none focus:ring-4 focus:ring-green-300 focus:ring-opacity-75 transition-all duration-300">
+                        Submit Nomination Form
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Footer --><footer class="mt-8 text-center text-gray-600 text-sm">
+            <p>&copy; 2025 All Progressives Congress (APC). All Rights Reserved.</p>
+            <p>Powered by APC Directorate of Digital Operations.</p>
+        </footer>
+
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // JavaScript for showing/hiding previous position field
+            const posYes = document.getElementById('pos_yes');
+            const posNo = document.getElementById('pos_no');
+            const previousPositionSection = document.getElementById('previous_position_section');
+
+            function togglePreviousPosition() {
+                if (posYes.checked) {
+                    previousPositionSection.classList.remove('hidden');
+                    previousPositionSection.querySelector('textarea').setAttribute('required', 'required');
+                } else {
+                    previousPositionSection.classList.add('hidden');
+                    previousPositionSection.querySelector('textarea').removeAttribute('required');
+                }
+            }
+
+            posYes.addEventListener('change', togglePreviousPosition);
+            posNo.addEventListener('change', togglePreviousPosition);
+
+            // Initial check in case "yes" is pre-selected (though "no" is by default here)
+            togglePreviousPosition();
+
+            // JavaScript for adding more qualification fields
+            const addQualificationBtn = document.getElementById('add_qualification');
+            const qualificationsContainer = document.getElementById('qualifications_container');
+            let qualificationCount = 1;
+
+            addQualificationBtn.addEventListener('click', function() {
+                qualificationCount++;
+                const newQualificationEntry = document.createElement('div');
+                newQualificationEntry.className = 'qualification-entry grid grid-cols-1 md:grid-cols-3 gap-4 items-end';
+                newQualificationEntry.innerHTML = `
+                    <div>
+                        <label for="qualification_${qualificationCount}_degree" class="form-label">Degree/Certificate</label>
+                        <input type="text" id="qualification_${qualificationCount}_degree" name="qualification_degree[]" class="form-input" placeholder="e.g., M.Sc. Public Admin">
+                    </div>
+                    <div>
+                        <label for="qualification_${qualificationCount}_institution" class="form-label">Institution</label>
+                        <input type="text" id="qualification_${qualificationCount}_institution" name="qualification_institution[]" class="form-input" placeholder="e.g., Ahmadu Bello University">
+                    </div>
+                    <div>
+                        <label for="qualification_${qualificationCount}_year" class="form-label">Year Obtained</label>
+                        <input type="number" id="qualification_${qualificationCount}_year" name="qualification_year[]" class="form-input" placeholder="e.g., 2012" min="1950" max="2024">
+                    </div>
+                `;
+                qualificationsContainer.appendChild(newQualificationEntry);
+            });
+        });
+    </script>
+
+</body>
+</html>
