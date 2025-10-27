@@ -61,17 +61,11 @@
             background-color: #f3f4f6; /* gray-100 */
             cursor: not-allowed;
         }
-        .apc-gold {
-            background-color: #FFD700; /* Gold */
-            color: #000;
-        }
-        .apc-green {
-            background-color: #006400; /* Dark Green */
-            color: #fff;
-        }
-        .hidden {
-            display: none;
-        }
+        .apc-gold { background-color: #FFD700; color: #000; }
+        .apc-green { background-color: #006400; color: #fff; }
+
+        .hidden { display: none; }
+
         /* Custom checkbox/radio styles */
         input[type="checkbox"], input[type="radio"] {
             -webkit-appearance: none;
@@ -87,9 +81,7 @@
             vertical-align: middle;
             margin-right: 0.5rem;
         }
-        input[type="radio"] {
-            border-radius: 50%;
-        }
+        input[type="radio"] { border-radius: 50%; }
         input[type="checkbox"]:checked, input[type="radio"]:checked {
             background-color: #006400;
             border-color: #006400;
@@ -142,10 +134,7 @@
 </head>
 <body class="min-h-screen flex items-center justify-center py-10 px-4">
 
-    <!-- 
-      LOCK SCREEN OVERLAY
-      This is shown by default and hidden by JavaScript if a valid code is found.
-    -->
+    <!-- LOCK SCREEN OVERLAY -->
     <div id="lock-overlay">
         <div class="lock-card">
             <svg class="mx-auto h-16 w-16 text-red-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
@@ -161,12 +150,8 @@
         </div>
     </div>
 
-    <!-- 
-      MAIN FORM CONTAINER
-      This is hidden by default and shown by JavaScript.
-    -->
+    <!-- MAIN FORM CONTAINER -->
     <div id="main-form-container" class="max-w-4xl w-full hidden">
-        
         <!-- HEADER -->
         <header class="gradient-header text-white p-8 rounded-t-xl flex flex-col md:flex-row items-center justify-between text-center md:text-left shadow-lg">
             <div class="flex items-center space-x-4 mb-4 md:mb-0">
@@ -181,10 +166,8 @@
             </div>
         </header>
 
-        
         <div class="card">
             <form action="#" method="POST" class="space-y-8">
-                
                 <!-- SECTION 1: PERSONAL INFORMATION -->
                 <section class="border-b pb-8 border-gray-200">
                     <h2 class="text-2xl font-bold text-gray-800 mb-6 border-b pb-3 border-yellow-400">1. Aspirant's Personal Information</h2>
@@ -228,7 +211,6 @@
                     </div>
                 </section>
 
-                
                 <!-- SECTION 2: CONTACT INFORMATION -->
                 <section class="border-b pb-8 border-gray-200">
                     <h2 class="text-2xl font-bold text-gray-800 mb-6 border-b pb-3 border-yellow-400">2. Contact Information</h2>
@@ -260,12 +242,10 @@
                     </div>
                 </section>
 
-                
-                <!-- SECTION 3: PARTY AFFILIATION (Updated) -->
+                <!-- SECTION 3: PARTY AFFILIATION -->
                 <section class="border-b pb-8 border-gray-200">
                     <h2 class="text-2xl font-bold text-gray-800 mb-6 border-b pb-3 border-yellow-400">3. Party Affiliation</h2>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <!-- NEW NOMINATION CODE FIELD -->
                         <div>
                             <label for="nomination_code" class="form-label">Nomination Code (Verified)</label>
                             <input type="text" id="nomination_code" name="nomination_code" class="form-input" readonly required>
@@ -298,7 +278,6 @@
                     </div>
                 </section>
 
-                
                 <!-- SECTION 4: ACADEMIC QUALIFICATIONS -->
                 <section class="border-b pb-8 border-gray-200">
                     <h2 class="text-2xl font-bold text-gray-800 mb-6 border-b pb-3 border-yellow-400">4. Academic Qualifications</h2>
@@ -315,7 +294,7 @@
                             </div>
                             <div>
                                 <label for="qualification_1_year" class="form-label">Year Obtained</label>
-                                <input type="number" id="qualification_1_year" name="qualification_year[]" class="form-input" placeholder="e.g., 2010" required min="1950" max="2024">
+                                <input type="number" id="qualification_1_year" name="qualification_year[]" class="form-input" placeholder="e.g., 2010" required min="1950" max="2025">
                             </div>
                         </div>
                     </div>
@@ -327,11 +306,10 @@
                     </button>
                 </section>
 
-                
                 <!-- SECTION 5: DECLARATION -->
                 <section>
                     <h2 class="text-2xl font-bold text-gray-800 mb-6 border-b pb-3 border-yellow-400">5. Declaration</h2>
-                    <div classs="flex items-start mb-6">
+                    <div class="flex items-start mb-6">
                         <label for="declaration" class="flex items-start cursor-pointer">
                             <input type="checkbox" id="declaration" name="declaration" class="mt-1" required>
                             <span class="ml-3 text-gray-700 text-base leading-relaxed">
@@ -341,7 +319,6 @@
                     </div>
                 </section>
 
-                
                 <!-- SUBMIT BUTTON -->
                 <div class="text-center pt-4">
                     <button type="submit" class="gradient-button text-white font-bold py-3 px-10 rounded-full text-lg shadow-xl hover:shadow-2xl focus:outline-none focus:ring-4 focus:ring-green-300 focus:ring-opacity-75 transition-all duration-300">
@@ -351,56 +328,83 @@
             </form>
         </div>
 
-        
         <!-- FOOTER -->
         <footer class="mt-8 text-center text-gray-600 text-sm">
             <p>&copy; 2025 All Progressives Congress (APC). All Rights Reserved.</p>
             <p>Powered by APC Directorate of Digital Operations.</p>
         </footer>
-
     </div>
 
     <!-- JAVASCRIPT SECTION -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            
-            // --- QR CODE VERIFICATION LOGIC ---
+            // --- ROBUST QR CODE VERIFICATION LOGIC ---
             const lockOverlay = document.getElementById('lock-overlay');
             const mainFormContainer = document.getElementById('main-form-container');
             const nominationCodeInput = document.getElementById('nomination_code');
 
-            // Get URL parameters
-            const urlParams = new URLSearchParams(window.location.search);
-            const nominationCode = urlParams.get('code'); // We look for a parameter named 'code'
-
-            // Check if the 'code' parameter exists and is not empty
-            if (nominationCode && nominationCode.trim() !== '') {
-                // Code is valid!
-                // 1. Fill the input field
-                nominationCodeInput.value = nominationCode.trim();
-                
-                // 2. Hide the lock screen
-                lockOverlay.classList.add('hidden');
-                
-                // 3. Show the main form
-                mainFormContainer.classList.remove('hidden');
-            } else {
-                // Code is missing or empty
-                // 1. Make sure the lock screen is visible
-                lockOverlay.classList.remove('hidden');
-                
-                // 2. Make sure the form is hidden
-                mainFormContainer.classList.add('hidden');
+            // Helper: get query param, case-insensitive; also check hash fallback
+            function getParamInsensitive(name) {
+                const usp = new URLSearchParams(window.location.search);
+                for (const [k, v] of usp.entries()) {
+                    if (k.toLowerCase() === name.toLowerCase()) return v;
+                }
+                // Fallback: some hosts/redirects put params in the hash
+                if (window.location.hash && window.location.hash.includes('=')) {
+                    const hash = window.location.hash.replace(/^#/, '');
+                    const hashParams = new URLSearchParams(hash);
+                    for (const [k, v] of hashParams.entries()) {
+                        if (k.toLowerCase() === name.toLowerCase()) return v;
+                    }
+                }
+                return null;
             }
-            // --- END QR CODE VERIFICATION LOGIC ---
 
+            let nominationCode = getParamInsensitive('code');
+            if (nominationCode) {
+                try { nominationCode = decodeURIComponent(nominationCode); } catch (_) {}
+            }
+
+            console.log('[APC] Detected code param:', nominationCode);
+            const hasCode = typeof nominationCode === 'string' && nominationCode.trim().length > 0;
+
+            // Always set field (helps debugging)
+            if (nominationCodeInput) {
+                nominationCodeInput.value = hasCode ? nominationCode.trim() : '';
+            }
+
+            // Use BOTH class toggles and inline styles to beat any CSS conflicts/caching
+            function showForm() {
+                lockOverlay?.classList.add('hidden');
+                mainFormContainer?.classList.remove('hidden');
+                if (lockOverlay) lockOverlay.style.display = 'none';
+                if (mainFormContainer) mainFormContainer.style.display = 'block';
+            }
+            function showLock() {
+                lockOverlay?.classList.remove('hidden');
+                mainFormContainer?.classList.add('hidden');
+                if (lockOverlay) lockOverlay.style.display = 'flex';
+                if (mainFormContainer) mainFormContainer.style.display = 'none';
+            }
+
+            if (hasCode) { showForm(); } else { showLock(); }
+
+            // Defensive: if Tailwind isn’t loaded yet or caching fights us, retry once
+            setTimeout(() => {
+                const showingForm = mainFormContainer && getComputedStyle(mainFormContainer).display !== 'none';
+                if (hasCode && !showingForm) {
+                    console.warn('[APC] Retrying showForm due to style conflict/caching.');
+                    showForm();
+                }
+            }, 50);
+            // --- END ROBUST QR CODE VERIFICATION LOGIC ---
 
             // --- NIGERIA STATES & LGAs LOGIC ---
             const stateOfOriginSelect = document.getElementById('state_of_origin');
             const lgaOfOriginSelect = document.getElementById('lga_of_origin');
             const stateOfResidenceSelect = document.getElementById('state_of_residence');
             const lgaOfResidenceSelect = document.getElementById('lga_of_residence');
-            
+
             let nigeriaData = [];
             const jsonUrl = 'https://gist.githubusercontent.com/devhammed/0bb9eeac9ff22c895100d072f489dc98/raw/a7b19911407a89947c452339fee59f9335dc8225/nigeria-state-and-lgas.json';
 
@@ -432,7 +436,7 @@
             }
 
             function populateLGAs(stateAlias, lgaSelect) {
-                lgaSelect.innerHTML = `<option value="">Select LGA</option>`;
+                lgaSelect.innerHTML = '<option value="">Select LGA</option>';
                 if (!stateAlias) {
                     lgaSelect.disabled = true;
                     return;
@@ -460,7 +464,6 @@
             });
             // --- END NIGERIA STATES & LGAs LOGIC ---
 
-
             // --- PREVIOUS POSITION LOGIC ---
             const posYes = document.getElementById('pos_yes');
             const posNo = document.getElementById('pos_no');
@@ -478,9 +481,8 @@
 
             posYes.addEventListener('change', togglePreviousPosition);
             posNo.addEventListener('change', togglePreviousPosition);
-            togglePreviousPosition(); 
+            togglePreviousPosition();
             // --- END PREVIOUS POSITION LOGIC ---
-
 
             // --- DYNAMIC QUALIFICATIONS LOGIC ---
             const addQualificationBtn = document.getElementById('add_qualification');
@@ -502,17 +504,13 @@
                     </div>
                     <div>
                         <label for="qualification_${qualificationCount}_year" class="form-label">Year Obtained</label>
-                        <input type="number" id="qualification_${qualificationCount}_year" name="qualification_year[]" class="form-input" placeholder="e.g., 2012" min="1950" max="2024">
+                        <input type="number" id="qualification_${qualificationCount}_year" name="qualification_year[]" class="form-input" placeholder="e.g., 2012" min="1950" max="2025">
                     </div>
                 `;
                 qualificationsContainer.appendChild(newQualificationEntry);
             });
             // --- END DYNAMIC QUALIFICATIONS LOGIC ---
-
         });
     </script>
-
 </body>
 </html>
-
-
