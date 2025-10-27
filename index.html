@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale-1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>APC Councilors Wardship Nomination Form</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
@@ -11,57 +11,64 @@
     <style>
         body {
             font-family: 'Poppins', sans-serif;
-            background-color: #f7fafc; /* Lighter grey */
+            background-color: #f7fafc; 
             background-image: linear-gradient(to bottom, #f5f7fa, #eef2f7);
         }
         .gradient-header {
-            background-image: linear-gradient(to right, #004d00, #006400, #2e8b57); /* Deeper Green Gradient */
+            background-image: linear-gradient(to right, #004d00, #006400, #2e8b57);
         }
         .gradient-button {
-            background-image: linear-gradient(120deg, #006400, #2e8b57); /* Angled Gradient */
+            background-image: linear-gradient(120deg, #006400, #2e8b57);
             transition: all 0.3s ease;
         }
         .gradient-button:hover {
-            background-image: linear-gradient(120deg, #2e8b57, #006400); /* Reversed Gradient */
+            background-image: linear-gradient(120deg, #2e8b57, #006400);
             transform: translateY(-3px);
             box-shadow: 0 6px 12px rgba(0, 100, 0, 0.3);
         }
+        .gradient-button:disabled {
+            background-image: linear-gradient(120deg, #9ca3af, #6b7280);
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
         .card {
             background-color: #ffffff;
-            border-radius: 16px; /* Larger radius */
-            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.07); /* Softer shadow */
+            border-radius: 16px;
+            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.07);
             padding: 2.5rem;
+            overflow: hidden;
         }
         .form-label {
             display: block;
             font-weight: 600;
-            color: #2d3748; /* Darker gray */
+            color: #2d3748;
             margin-bottom: 0.5rem;
             font-size: 0.95rem;
         }
         .form-input, .form-select, .form-textarea {
             width: 100%;
-            padding: 0.85rem; /* Slightly more padding */
-            border: 1px solid #d1d5db; /* gray-300 */
-            border-radius: 0.5rem; /* rounded-lg */
+            padding: 0.85rem;
+            border: 1px solid #d1d5db;
+            border-radius: 0.5rem;
             font-size: 1rem;
-            color: #374151; /* gray-700 */
+            color: #374151;
             transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
         }
         .form-input:focus, .form-select:focus, .form-textarea:focus {
-            border-color: #006400; /* APC Green */
+            border-color: #006400;
             box-shadow: 0 0 0 3px rgba(0, 100, 0, 0.2);
             outline: none;
         }
         .form-input:read-only {
-            background-color: #e5e7eb; /* gray-200 */
-            color: #4b5563; /* gray-600 */
+            background-color: #e5e7eb;
+            color: #4b5563;
             font-weight: 600;
             cursor: not-allowed;
-            border-color: #16a34a; /* green-600 */
+            border-color: #16a34a;
         }
         .form-select:disabled {
-            background-color: #f3f4f6; /* gray-100 */
+            background-color: #f3f4f6;
             cursor: not-allowed;
         }
 
@@ -69,178 +76,124 @@
 
         /* Custom checkbox/radio styles */
         input[type="checkbox"], input[type="radio"].form-radio {
-            -webkit-appearance: none;
-            -moz-appearance: none;
-            appearance: none;
-            display: inline-block;
-            width: 1.25rem;
-            height: 1.25rem;
-            border: 2px solid #006400;
-            border-radius: 0.25rem;
-            position: relative;
-            cursor: pointer;
-            vertical-align: middle;
+            -webkit-appearance: none; -moz-appearance: none; appearance: none;
+            display: inline-block; width: 1.25rem; height: 1.25rem;
+            border: 2px solid #006400; border-radius: 0.25rem;
+            position: relative; cursor: pointer; vertical-align: middle;
             margin-right: 0.5rem;
         }
         input[type="radio"].form-radio { border-radius: 50%; }
         input[type="checkbox"]:checked, input[type="radio"].form-radio:checked {
-            background-color: #006400;
-            border-color: #006400;
+            background-color: #006400; border-color: #006400;
         }
         input[type="checkbox"]:checked::after {
-            content: '✓';
-            color: white;
-            font-size: 1rem;
-            position: absolute;
-            top: 50%;
-            left: 50%;
+            content: '✓'; color: white; font-size: 1rem;
+            position: absolute; top: 50%; left: 50%;
             transform: translate(-50%, -50%);
         }
         input[type="radio"].form-radio:checked::after {
-            content: '';
-            width: 0.625rem;
-            height: 0.625rem;
-            background-color: white;
-            border-radius: 50%;
-            position: absolute;
-            top: 50%;
-            left: 50%;
+            content: ''; width: 0.625rem; height: 0.625rem;
+            background-color: white; border-radius: 50%;
+            position: absolute; top: 50%; left: 50%;
             transform: translate(-50%, -50%);
         }
 
         /* Language Selector Styles */
         #lang-selector {
-            background-color: #e5e7eb;
-            border-radius: 9999px;
-            padding: 0.35rem;
-            display: inline-flex;
-            margin-bottom: 2rem;
+            background-color: #e5e7eb; border-radius: 9999px;
+            padding: 0.35rem; display: inline-flex; margin-bottom: 2rem;
         }
         #lang-selector label {
-            padding: 0.5rem 1.25rem;
-            border-radius: 9999px;
-            cursor: pointer;
-            font-weight: 600;
-            color: #4b5563;
+            padding: 0.5rem 1.25rem; border-radius: 9999px;
+            cursor: pointer; font-weight: 600; color: #4b5563;
             transition: all 0.3s ease;
         }
-        #lang-selector input[type="radio"] {
-            display: none;
-        }
+        #lang-selector input[type="radio"] { display: none; }
         #lang-selector input[type="radio"]:checked + label {
-            background-color: #006400;
-            color: white;
+            background-color: #006400; color: white;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         }
 
         /* Lock Screen Overlay */
         #lock-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background-color: rgba(0, 0, 0, 0.75);
             backdrop-filter: blur(8px);
-            z-index: 999;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 1rem;
+            z-index: 999; display: flex; align-items: center;
+            justify-content: center; padding: 1rem;
         }
         .lock-card {
-            background: white;
-            border-radius: 12px;
-            padding: 2.5rem;
-            text-align: center;
-            max-width: 500px;
+            background: white; border-radius: 12px; padding: 2.5rem;
+            text-align: center; max-width: 500px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
         }
 
         /* Chat Styles */
         #chat-messages {
-            height: 400px;
-            overflow-y: auto;
-            border: 1px solid #d1d5db;
-            border-radius: 0.5rem;
-            padding: 1rem;
-            background-color: #f9fafb;
+            height: 400px; overflow-y: auto; border: 1px solid #d1d5db;
+            border-radius: 0.5rem; padding: 1rem; background-color: #f9fafb;
         }
         .chat-bubble {
-            max-width: 80%;
-            padding: 0.75rem 1rem;
-            border-radius: 1rem;
-            margin-bottom: 1rem;
-            animation: fadeInUp 0.5s ease;
+            max-width: 80%; padding: 0.75rem 1rem; border-radius: 1rem;
+            margin-bottom: 1rem; animation: fadeInUp 0.5s ease;
             line-height: 1.6;
         }
-        .chat-bot {
-            background-color: #006400;
-            color: white;
-            margin-right: auto;
-        }
-        .chat-user {
-            background-color: #e5e7eb;
-            color: #333;
-            margin-left: auto;
-        }
+        .chat-bot { background-color: #006400; color: white; margin-right: auto; }
+        .chat-user { background-color: #e5e7eb; color: #333; margin-left: auto; }
         .chat-typing {
-            background-color: #006400;
-            color: white;
-            margin-right: auto;
-            padding: 0.5rem 1rem;
-            border-radius: 1rem;
-            display: flex;
-            align-items: center;
+            background-color: #006400; color: white; margin-right: auto;
+            padding: 0.5rem 1rem; border-radius: 1rem; display: flex; align-items: center;
         }
         .chat-typing::after {
-            content: '...';
-            animation: typing 1s steps(3, end) infinite;
+            content: '...'; animation: typing 1s steps(3, end) infinite;
         }
         @keyframes typing {
-            0% { content: '.'; }
-            33% { content: '..'; }
-            66% { content: '...'; }
+            0% { content: '.'; } 33% { content: '..'; } 66% { content: '...'; }
         }
         @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
-        .fade-in {
-            animation: fadeIn 0.5s ease;
-        }
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
+        .fade-in { animation: fadeIn 0.5s ease; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
         .error-message {
-            color: #dc2626; /* red-600 */
-            font-size: 0.875rem;
-            margin-top: 0.25rem;
+            color: #dc2626; font-size: 0.875rem; margin-top: 0.25rem;
+        }
+
+        /* Chat Options */
+        .chat-options-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-right: auto;
+            margin-top: -0.5rem;
+            margin-bottom: 1rem;
+            animation: fadeInUp 0.5s ease;
+        }
+        .chat-option-button {
+            background-color: #fff;
+            color: #006400;
+            border: 2px solid #006400;
+            padding: 0.5rem 1rem;
+            border-radius: 9999px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .chat-option-button:hover {
+            background-color: #006400;
+            color: #fff;
         }
 
         /* Progress Bar */
         .progress-container {
-            width: 100%;
-            background-color: #e5e7eb;
-            border-radius: 9999px;
-            height: 10px;
-            margin-bottom: 1.5rem;
-            overflow: hidden;
+            width: 100%; background-color: #e5e7eb; border-radius: 9999px;
+            height: 10px; margin-bottom: 1.5rem; overflow: hidden;
         }
         .progress-bar {
-            height: 100%;
-            width: 0%;
-            background-color: #006400;
+            height: 100%; width: 0%; background-color: #006400;
             background-image: linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
-            background-size: 1rem 1rem;
-            border-radius: 9999px;
+            background-size: 1rem 1rem; border-radius: 9999px;
             transition: width 0.4s ease-in-out;
             animation: progress-active 2s linear infinite;
         }
@@ -251,38 +204,25 @@
 
         /* Switch Button */
         .switch-button {
-            background-color: transparent;
-            border: 1px solid #006400;
-            color: #006400;
-            padding: 0.5rem 1rem;
-            border-radius: 9999px;
-            font-weight: 600;
-            font-size: 0.875rem;
-            transition: all 0.3s ease;
+            background-color: transparent; border: 1px solid #006400;
+            color: #006400; padding: 0.5rem 1rem;
+            border-radius: 9999px; font-weight: 600;
+            font-size: 0.875rem; transition: all 0.3s ease;
             cursor: pointer;
         }
-        .switch-button:hover {
-            background-color: #006400;
-            color: white;
-        }
+        .switch-button:hover { background-color: #006400; color: white; }
 
         /* Chat Back Button */
         #chat-back {
-            background-color: #d1d5db;
-            color: #374151;
-            padding: 0.75rem 1rem;
-            border-radius: 0.5rem;
-            font-weight: 600;
-            margin-right: 0.5rem;
+            background-color: #d1d5db; color: #374151;
+            padding: 0.75rem 1rem; border-radius: 0.5rem;
+            font-weight: 600; margin-right: 0.5rem;
             transition: background-color 0.3s ease;
         }
-        #chat-back:hover {
-            background-color: #b0b8c3;
-        }
+        #chat-back:hover { background-color: #b0b8c3; }
         #chat-back:disabled {
-            background-color: #e5e7eb;
-            color: #9ca3af;
-            cursor: not-allowed;
+            background-color: #e5e7eb; color: #9ca3af;
+            cursor: not-allowed; opacity: 0.7;
         }
     </style>
 </head>
@@ -360,7 +300,7 @@
                                 <span id="first_name_error" class="error-message hidden" data-translate="errorFirstName">First name is required.</span>
                             </div>
                             <div>
-                                <label for="middle_name" class="form-label" data-translate="middleNameLabel">Middle Name <span class="font-normal text-gray-500">(Optional)</span></label>
+                                <label for="middle_name" class="form-label" data-translate="middleNameLabel">Middle Name <span class="font-normal text-gray-500" data-translate="optional">(Optional)</span></label>
                                 <input type="text" id="middle_name" name="middle_name" class="form-input" data-translate-placeholder="middleNamePlaceholder" placeholder="Enter your middle name">
                             </div>
                             <div>
@@ -388,7 +328,7 @@
                                 <span id="phone_error" class="error-message hidden" data-translate="errorPhone">Valid Nigerian phone number is required (11 digits starting with 0).</span>
                             </div>
                             <div class="md:col-span-3">
-                                <label for="email" class="form-label" data-translate="emailLabel">Email Address</label>
+                                <label for="email" class="form-label" data-translate="emailLabel">Email Address <span class="font-normal text-gray-500" data-translate="optional">(Optional)</span></label>
                                 <input type="email" id="email" name="email" class="form-input" data-translate-placeholder="emailPlaceholder" placeholder="e.g., yourname@example.com">
                                 <span id="email_error" class="error-message hidden" data-translate="errorEmail">Valid email is required if provided.</span>
                             </div>
@@ -541,7 +481,8 @@
 
             <!-- CHAT SECTION -->
             <div id="chat-section" class="hidden">
-                <div class="text-right mb-4">
+                <div class="flex justify-between items-center mb-4">
+                    <span class="text-sm font-semibold text-gray-700" data-translate="chatProgress">Progress:</span>
                     <button id="switch-to-form-btn" class="switch-button" data-translate="switchToForm">Switch to Form Mode</button>
                 </div>
 
@@ -551,7 +492,7 @@
                 </div>
 
                 <div id="chat-messages" class="space-y-4 mb-4"></div>
-                <div class="flex">
+                <div id="chat-input-container" class="flex">
                     <button id="chat-back" data-translate="chatBackBtn">Back</button>
                     <input id="chat-input" type="text" class="form-input flex-1" data-translate-placeholder="chatPlaceholder" placeholder="Type your response...">
                     <button id="chat-send" class="gradient-button text-white font-bold py-2 px-6 ml-2 rounded-md shadow-md hover:shadow-xl transition-all duration-300" data-translate="chatSendBtn">Send</button>
@@ -600,6 +541,9 @@
                     'switchToChat': 'Switch to Chat Mode',
                     'switchToForm': 'Switch to Form Mode',
                     'chatBackBtn': 'Back',
+                    'chatProgress': 'Progress:',
+                    'optional': '(Optional)',
+                    'skipped': 'Skipped',
                     'section1Title': "1. Aspirant's Personal Information",
                     'firstNameLabel': 'First Name',
                     'firstNamePlaceholder': 'Enter your first name',
@@ -692,23 +636,23 @@
                     'chatErrorLastName': 'Last name is required.',
                     'chatQuestionDob': 'What is your date of birth? (Format: YYYY-MM-DD)',
                     'chatErrorDob': 'Invalid date format or date must be in the past (YYYY-MM-DD).',
-                    'chatQuestionGender': 'What is your gender? (male/female)',
-                    'chatErrorGender': 'Please enter "male" or "female".',
+                    'chatQuestionGender': 'What is your gender?',
+                    'chatErrorGender': 'Please select an option.',
                     'chatQuestionPhone': 'What is your phone number? (e.g., 08012345678)',
                     'chatErrorPhone': 'Invalid Nigerian phone number (11 digits starting with 0).',
                     'chatQuestionEmail': 'What is your email address? (optional, press enter to skip)',
                     'chatErrorEmail': 'Invalid email format.',
-                    'chatQuestionStateOrigin': 'What is your state of origin?',
+                    'chatQuestionStateOrigin': 'What is your state of origin? (Please type the name)',
                     'chatErrorStateOrigin': 'Invalid state name. Please check the spelling.',
-                    'chatQuestionLgaOrigin': 'What is your LGA of origin?',
+                    'chatQuestionLgaOrigin': 'What is your LGA of origin? (Please type the name)',
                     'chatErrorLgaOrigin': 'Invalid LGA for the selected state.',
                     'chatQuestionAddress': 'What is your residential address?',
                     'chatErrorAddress': 'Address is required.',
                     'chatQuestionCity': 'What is your city/town?',
                     'chatErrorCity': 'City/town is required.',
-                    'chatQuestionStateResidence': 'What is your state of residence?',
+                    'chatQuestionStateResidence': 'What is your state of residence? (Please type the name)',
                     'chatErrorStateResidence': 'Invalid state name. Please check the spelling.',
-                    'chatQuestionLgaResidence': 'What is your LGA of residence?',
+                    'chatQuestionLgaResidence': 'What is your LGA of residence? (Please type the name)',
                     'chatErrorLgaResidence': 'Invalid LGA for the selected state.',
                     'chatQuestionWard': 'What is your ward?',
                     'chatErrorWard': 'Ward is required.',
@@ -716,8 +660,8 @@
                     'chatErrorApcRegNo': 'APC registration number is required.',
                     'chatQuestionApcJoinDate': 'What is the date you joined APC? (Format: YYYY-MM-DD)',
                     'chatErrorApcJoinDate': 'Invalid date format or date must be in the past (YYYY-MM-DD).',
-                    'chatQuestionHeldPosition': 'Have you held any party position before? (yes/no)',
-                    'chatErrorHeldPosition': 'Please enter "yes" or "no".',
+                    'chatQuestionHeldPosition': 'Have you held any party position before?',
+                    'chatErrorHeldPosition': 'Please select an option.',
                     'chatQuestionPrevPosition': 'Please state the position(s) and year(s). (e.g., Ward Secretary (2018-2020))',
                     'chatErrorPrevPosition': 'Previous position details are required.',
                     'chatStartQual': "Now, let's add your academic qualifications. Starting with the highest.",
@@ -727,10 +671,10 @@
                     'chatErrorInstitution': 'Institution is required.',
                     'chatQuestionYear': 'What is the year obtained? (e.g., 2010)',
                     'chatErrorYear': 'Valid year between 1950 and 2025 is required.',
-                    'chatQuestionMoreQual': 'Do you want to add another qualification? (yes/no)',
-                    'chatErrorMoreQual': 'Please enter "yes" or "no".',
-                    'chatQuestionDeclaration': 'Do you agree to the declaration? (I solemnly declare that all information provided is true... Type "yes" to agree.)',
-                    'chatErrorDeclaration': 'You must type "yes" to agree to the declaration.',
+                    'chatQuestionMoreQual': 'Do you want to add another qualification?',
+                    'chatErrorMoreQual': 'Please select an option.',
+                    'chatQuestionDeclaration': 'Do you agree to the declaration? (I solemnly declare that all information provided is true...)',
+                    'chatErrorDeclaration': 'You must agree to the declaration.',
                     'chatComplete': 'All questions answered! Click "Submit Nomination" below.',
                     'selectLga': 'Select LGA',
                     'pdfTitle': 'APC Wardship Nomination Form',
@@ -765,83 +709,52 @@
                     'receiptThankYou': 'Thank you for your nomination!',
                     'receiptOfficial': 'This is your official receipt.'
                 },
-                'yo': { // ... YORUBA TRANSLATIONS (abbreviated for thought process) ...
-                    'switchToChat': 'Yipada sí Ipo Ibaraẹnisọrọ',
-                    'switchToForm': 'Yipada sí Ipo Fọọmu',
-                    'chatBackBtn': 'Padà',
-                    'firstNameLabel': 'Orúkọ Kìíní',
-                    'firstNamePlaceholder': 'Kọ orúkọ kìíní rẹ',
-                    'middleNameLabel': 'Orúkọ Àárín',
-                    'middleNamePlaceholder': 'Kọ orúkọ àárín rẹ',
-                    'lastNameLabel': 'Orúkọ Ìkẹyìn',
-                    'lastNamePlaceholder': 'Kọ orúkọ ìkẹyìn rẹ',
-                    'errorFirstName': 'Ó pọn dandan kí o kọ orúkọ kìíní rẹ.',
-                    'errorLastName': 'Ó pọn dandan kí o kọ orúkọ ìkẹyìn rẹ.',
-                    'chatQuestionFirstName': 'Kí ni orúkọ kìíní rẹ?',
-                    'chatErrorFirstName': 'Ó pọn dandan kí o kọ orúkọ kìíní rẹ.',
-                    'chatQuestionMiddleName': 'Kí ni orúkọ àárín rẹ? (kò pọn dandan, tẹ enter láti fò ó)',
-                    'chatQuestionLastName': 'Kí ni orúkọ ìkẹyìn rẹ?',
-                    'chatErrorLastName': 'Ó pọn dandan kí o kọ orúkọ ìkẹyìn rẹ.',
-                    // ... (other Yoruba translations) ...
+                'yo': {
+                    'switchToChat': 'Yipada sí Ipo Ibaraẹnisọrọ', 'switchToForm': 'Yipada sí Ipo Fọọmu', 'chatBackBtn': 'Padà',
+                    'chatProgress': 'Ìtẹ̀síwájú:', 'optional': '(Kò pọn dandan)', 'skipped': 'A fò ó',
+                    'firstNameLabel': 'Orúkọ Kìíní', 'firstNamePlaceholder': 'Kọ orúkọ kìíní rẹ', 'middleNameLabel': 'Orúkọ Àárín', 'middleNamePlaceholder': 'Kọ orúkọ àárín rẹ', 'lastNameLabel': 'Orúkọ Ìkẹyìn', 'lastNamePlaceholder': 'Kọ orúkọ ìkẹyìn rẹ',
+                    'errorFirstName': 'Ó pọn dandan kí o kọ orúkọ kìíní rẹ.', 'errorLastName': 'Ó pọn dandan kí o kọ orúkọ ìkẹyìn rẹ.',
+                    'chatQuestionFirstName': 'Kí ni orúkọ kìíní rẹ?', 'chatErrorFirstName': 'Ó pọn dandan kí o kọ orúkọ kìíní rẹ.', 'chatQuestionMiddleName': 'Kí ni orúkọ àárín rẹ? (kò pọn dandan, tẹ enter láti fò ó)', 'chatQuestionLastName': 'Kí ni orúkọ ìkẹyìn rẹ?', 'chatErrorLastName': 'Ó pọn dandan kí o kọ orúkọ ìkẹyìn rẹ.',
+                    'genderMale': 'Okùnrin', 'genderFemale': 'Obìnrin', 'yes': 'Bẹ́ẹ̀ni', 'no': 'Rárá',
+                    'chatQuestionGender': 'Kí ni akọ-abo rẹ?', 'chatErrorGender': 'Jọ̀wọ́ yan ọ̀kan.', 'chatQuestionHeldPosition': 'Ǹjẹ́ o ti di ipo kankan nínú ẹgbẹ́ rí?', 'chatErrorHeldPosition': 'Jọ̀wọ́ yan ọ̀kan.',
+                    'chatQuestionMoreQual': 'Ṣé o fẹ́ fi ìwé ẹ̀rí mìíràn kún?', 'chatErrorMoreQual': 'Jọ̀wọ́ yan ọ̀kan.', 'chatQuestionDeclaration': 'Ṣé o fọwọ́ sí ìpolongo náà?', 'chatErrorDeclaration': 'O gbọ́dọ̀ fọwọ́ sí.',
+                    // (Fill in other keys based on 'en' structure)
                 },
-                'ha': { // ... HAUSA TRANSLATIONS (abbreviated for thought process) ...
-                    'switchToChat': 'Canja zuwa Yanayin Hira',
-                    'switchToForm': 'Canja zuwa Yanayin Fom',
-                    'chatBackBtn': 'Baya',
-                    'firstNameLabel': 'Sunan Farko',
-                    'firstNamePlaceholder': 'Shigar da sunan farko',
-                    'middleNameLabel': 'Sunan Tsakiya',
-                    'middleNamePlaceholder': 'Shigar da sunan tsakiya',
-                    'lastNameLabel': 'Sunan Ƙarshe',
-                    'lastNamePlaceholder': 'Shigar da sunan ƙarshe',
-                    'errorFirstName': 'Ana buƙatar sunan farko.',
-                    'errorLastName': 'Ana buƙatar sunan ƙarshe.',
-                    'chatQuestionFirstName': 'Menene sunanka na farko?',
-                    'chatErrorFirstName': 'Ana buƙatar sunan farko.',
-                    'chatQuestionMiddleName': 'Menene sunanka na tsakiya? (na zaɓi, danna enter don tsallakewa)',
-                    'chatQuestionLastName': 'Menene sunanka na ƙarshe?',
-                    'chatErrorLastName': 'Ana buƙatar sunan ƙarshe.',
-                    // ... (other Hausa translations) ...
+                'ha': {
+                    'switchToChat': 'Canja zuwa Yanayin Hira', 'switchToForm': 'Canja zuwa Yanayin Fom', 'chatBackBtn': 'Baya',
+                    'chatProgress': 'Ci gaba:', 'optional': '(Na zaɓi)', 'skipped': 'An tsallake',
+                    'firstNameLabel': 'Sunan Farko', 'firstNamePlaceholder': 'Shigar da sunan farko', 'middleNameLabel': 'Sunan Tsakiya', 'middleNamePlaceholder': 'Shigar da sunan tsakiya', 'lastNameLabel': 'Sunan Ƙarshe', 'lastNamePlaceholder': 'Shigar da sunan ƙarshe',
+                    'errorFirstName': 'Ana buƙatar sunan farko.', 'errorLastName': 'Ana buƙatar sunan ƙarshe.',
+                    'chatQuestionFirstName': 'Menene sunanka na farko?', 'chatErrorFirstName': 'Ana buƙatar sunan farko.', 'chatQuestionMiddleName': 'Menene sunanka na tsakiya? (na zaɓi, danna enter don tsallakewa)', 'chatQuestionLastName': 'Menene sunanka na ƙarshe?', 'chatErrorLastName': 'Ana buƙatar sunan ƙarshe.',
+                    'genderMale': 'Namiji', 'genderFemale': 'Mace', 'yes': 'Eh', 'no': 'A\'a',
+                    'chatQuestionGender': 'Menene jinsinka?', 'chatErrorGender': 'Da fatan za a zaɓi ɗaya.', 'chatQuestionHeldPosition': 'Shin ka taɓa riƙe wani matsayi na jam\'iyya a baya?', 'chatErrorHeldPosition': 'Da fatan za a zaɓi ɗaya.',
+                    'chatQuestionMoreQual': 'Kuna so ku ƙara wata takardar?', 'chatErrorMoreQual': 'Da fatan za a zaɓi ɗaya.', 'chatQuestionDeclaration': 'Shin ka amince da bayanin?', 'chatErrorDeclaration': 'Dole ne ka amince.',
+                    // (Fill in other keys based on 'en' structure)
                 },
-                'ig': { // ... IGBO TRANSLATIONS (abbreviated for thought process) ...
-                    'switchToChat': 'Gbanwee gaa na Ọnọdụ Nkata',
-                    'switchToForm': 'Gbanwee gaa na Ọnọdụ Fọọmụ',
-                    'chatBackBtn': 'Azụ',
-                    'firstNameLabel': 'Aha Mbụ',
-                    'firstNamePlaceholder': 'Tinye aha mbụ gị',
-                    'middleNameLabel': 'Aha Etiti',
-                    'middleNamePlaceholder': 'Tinye aha etiti gị',
-                    'lastNameLabel': 'Aha Ikpeazụ',
-                    'lastNamePlaceholder': 'Tinye aha ikpeazụ gị',
-                    'errorFirstName': 'A chọrọ aha mbụ.',
-                    'errorLastName': 'A chọrọ aha ikpeazụ.',
-                    'chatQuestionFirstName': 'Gịnị bụ aha mbụ gị?',
-                    'chatErrorFirstName': 'A chọrọ aha mbụ.',
-                    'chatQuestionMiddleName': 'Gịnị bụ aha etiti gị? (nhọrọ, pịa enter ka ịwụfee)',
-                    'chatQuestionLastName': 'Gịnị bụ aha ikpeazụ gị?',
-                    'chatErrorLastName': 'A chọrọ aha ikpeazụ.',
-                    // ... (other Igbo translations) ...
+                'ig': {
+                    'switchToChat': 'Gbanwee gaa na Ọnọdụ Nkata', 'switchToForm': 'Gbanwee gaa na Ọnọdụ Fọọmụ', 'chatBackBtn': 'Azụ',
+                    'chatProgress': 'Ọganihu:', 'optional': '(Nhọrọ)', 'skipped': 'Awụfere',
+                    'firstNameLabel': 'Aha Mbụ', 'firstNamePlaceholder': 'Tinye aha mbụ gị', 'middleNameLabel': 'Aha Etiti', 'middleNamePlaceholder': 'Tinye aha etiti gị', 'lastNameLabel': 'Aha Ikpeazụ', 'lastNamePlaceholder': 'Tinye aha ikpeazụ gị',
+                    'errorFirstName': 'A chọrọ aha mbụ.', 'errorLastName': 'A chọrọ aha ikpeazụ.',
+                    'chatQuestionFirstName': 'Gịnị bụ aha mbụ gị?', 'chatErrorFirstName': 'A chọrọ aha mbụ.', 'chatQuestionMiddleName': 'Gịnị bụ aha etiti gị? (nhọrọ, pịa enter ka ịwụfee)', 'chatQuestionLastName': 'Gịnị bụ aha ikpeazụ gị?', 'chatErrorLastName': 'A chọrọ aha ikpeazụ.',
+                    'genderMale': 'Nwoke', 'genderFemale': 'Nwaanyị', 'yes': 'Ee', 'no': 'Mba',
+                    'chatQuestionGender': 'Gịnị bụ okike gị?', 'chatErrorGender': 'Biko họrọ otu.', 'chatQuestionHeldPosition': 'Ị nwetụla ọnọdụ ọ bụla n\'ime otu mbụ?', 'chatErrorHeldPosition': 'Biko họrọ otu.',
+                    'chatQuestionMoreQual': 'Ị chọrọ itinye asambodo ọzọ?', 'chatErrorMoreQual': 'Biko họrọ otu.', 'chatQuestionDeclaration': 'Ị kwenyere na nkwupụta ahụ?', 'chatErrorDeclaration': 'Ị ga-ekwenyerịrị.',
+                    // (Fill in other keys based on 'en' structure)
                 }
             };
-            // Add full translations for new keys
-            Object.assign(translations.yo, {
-                'switchToChat': 'Yipada sí Ipo Ibaraẹnisọrọ', 'switchToForm': 'Yipada sí Ipo Fọọmu', 'chatBackBtn': 'Padà',
-                'firstNameLabel': 'Orúkọ Kìíní', 'firstNamePlaceholder': 'Kọ orúkọ kìíní rẹ', 'middleNameLabel': 'Orúkọ Àárín', 'middleNamePlaceholder': 'Kọ orúkọ àárín rẹ', 'lastNameLabel': 'Orúkọ Ìkẹyìn', 'lastNamePlaceholder': 'Kọ orúkọ ìkẹyìn rẹ',
-                'errorFirstName': 'Ó pọn dandan kí o kọ orúkọ kìíní rẹ.', 'errorLastName': 'Ó pọn dandan kí o kọ orúkọ ìkẹyìn rẹ.',
-                'chatQuestionFirstName': 'Kí ni orúkọ kìíní rẹ?', 'chatErrorFirstName': 'Ó pọn dandan kí o kọ orúkọ kìíní rẹ.', 'chatQuestionMiddleName': 'Kí ni orúkọ àárín rẹ? (kò pọn dandan, tẹ enter láti fò ó)', 'chatQuestionLastName': 'Kí ni orúkọ ìkẹyìn rẹ?', 'chatErrorLastName': 'Ó pọn dandan kí o kọ orúkọ ìkẹyìn rẹ.',
+
+            // Auto-fill sparse translations
+            ['yo', 'ha', 'ig'].forEach(lang => {
+                const source = translations['en'];
+                const target = translations[lang];
+                for (const key in source) {
+                    if (!target[key]) {
+                        target[key] = source[key]; // Fallback to English
+                    }
+                }
             });
-            Object.assign(translations.ha, {
-                'switchToChat': 'Canja zuwa Yanayin Hira', 'switchToForm': 'Canja zuwa Yanayin Fom', 'chatBackBtn': 'Baya',
-                'firstNameLabel': 'Sunan Farko', 'firstNamePlaceholder': 'Shigar da sunan farko', 'middleNameLabel': 'Sunan Tsakiya', 'middleNamePlaceholder': 'Shigar da sunan tsakiya', 'lastNameLabel': 'Sunan Ƙarshe', 'lastNamePlaceholder': 'Shigar da sunan ƙarshe',
-                'errorFirstName': 'Ana buƙatar sunan farko.', 'errorLastName': 'Ana buƙatar sunan ƙarshe.',
-                'chatQuestionFirstName': 'Menene sunanka na farko?', 'chatErrorFirstName': 'Ana buƙatar sunan farko.', 'chatQuestionMiddleName': 'Menene sunanka na tsakiya? (na zaɓi, danna enter don tsallakewa)', 'chatQuestionLastName': 'Menene sunanka na ƙarshe?', 'chatErrorLastName': 'Ana buƙatar sunan ƙarshe.',
-            });
-            Object.assign(translations.ig, {
-                'switchToChat': 'Gbanwee gaa na Ọnọdụ Nkata', 'switchToForm': 'Gbanwee gaa na Ọnọdụ Fọọmụ', 'chatBackBtn': 'Azụ',
-                'firstNameLabel': 'Aha Mbụ', 'firstNamePlaceholder': 'Tinye aha mbụ gị', 'middleNameLabel': 'Aha Etiti', 'middleNamePlaceholder': 'Tinye aha etiti gị', 'lastNameLabel': 'Aha Ikpeazụ', 'lastNamePlaceholder': 'Tinye aha ikpeazụ gị',
-                'errorFirstName': 'A chọrọ aha mbụ.', 'errorLastName': 'A chọrọ aha ikpeazụ.',
-                'chatQuestionFirstName': 'Gịnị bụ aha mbụ gị?', 'chatErrorFirstName': 'A chọrọ aha mbụ.', 'chatQuestionMiddleName': 'Gịnị bụ aha etiti gị? (nhọrọ, pịa enter ka ịwụfee)', 'chatQuestionLastName': 'Gịnị bụ aha ikpeazụ gị?', 'chatErrorLastName': 'A chọrọ aha ikpeazụ.',
-            });
+
 
             let currentLang = 'en';
             let chatQuestions = [];
@@ -860,6 +773,7 @@
             
             // Chat UI
             const chatMessages = document.getElementById('chat-messages');
+            const chatInputContainer = document.getElementById('chat-input-container');
             const chatInput = document.getElementById('chat-input');
             const chatSend = document.getElementById('chat-send');
             const chatBackBtn = document.getElementById('chat-back');
@@ -873,21 +787,21 @@
                 });
             });
 
+            function getLangString(key) {
+                return translations[currentLang][key] || translations['en'][key];
+            }
+
             function setLanguage(lang) {
                 if (!translations[lang]) return;
                 currentLang = lang;
 
                 document.querySelectorAll('[data-translate]').forEach(el => {
                     const key = el.getAttribute('data-translate');
-                    if (translations[lang][key]) {
-                        el.textContent = translations[lang][key];
-                    }
+                    el.textContent = getLangString(key);
                 });
                 document.querySelectorAll('[data-translate-placeholder]').forEach(el => {
                     const key = el.getAttribute('data-translate-placeholder');
-                    if (translations[lang][key]) {
-                        el.setAttribute('placeholder', translations[lang][key]);
-                    }
+                    el.setAttribute('placeholder', getLangString(key));
                 });
                 document.querySelectorAll('.form-select').forEach(select => {
                     const firstOption = select.querySelector('option[value=""]');
@@ -899,18 +813,21 @@
                         else if (select.id === 'state_of_residence') key = 'stateResidenceSelect';
                         else if (select.id === 'lga_of_residence') key = 'lgaResidenceSelect';
                         
-                        if (key && translations[lang][key]) {
-                            firstOption.textContent = translations[lang][key];
+                        if (key) {
+                            firstOption.textContent = getLangString(key);
                         }
                     }
                 });
 
-                lgaOfOriginSelect.querySelector('option[value=""]').textContent = translations[lang]['lgaOriginSelect'] || 'Select LGA of Origin';
-                lgaOfResidenceSelect.querySelector('option[value=""]').textContent = translations[lang]['lgaResidenceSelect'] || 'Select LGA of Residence';
+                lgaOfOriginSelect.querySelector('option[value=""]').textContent = getLangString('lgaOriginSelect');
+                lgaOfResidenceSelect.querySelector('option[value=""]').textContent = getLangString('lgaResidenceSelect');
 
                 populateStates();
-                // Re-build chat questions with new language
                 buildChatQuestions(); 
+                
+                if (chatHasStarted && !chatSection.classList.contains('hidden')) {
+                    syncChatState(true); // Force rebuild of chat history
+                }
             }
 
             // --- ROBUST QR CODE VERIFICATION LOGIC ---
@@ -986,8 +903,8 @@
                 });
 
             function populateStates() {
-                const originPlaceholder = translations[currentLang]['stateOriginSelect'] || 'Select State of Origin';
-                const residencePlaceholder = translations[currentLang]['stateResidenceSelect'] || 'Select State of Residence';
+                const originPlaceholder = getLangString('stateOriginSelect');
+                const residencePlaceholder = getLangString('stateResidenceSelect');
 
                 const currentOrigin = stateOfOriginSelect.value;
                 const currentResidence = stateOfResidenceSelect.value;
@@ -1013,8 +930,8 @@
 
             function populateLGAs(stateAlias, lgaSelect, selectedLga = '') {
                 const lgaPlaceholder = (lgaSelect.id === 'lga_of_origin') 
-                    ? (translations[currentLang]['lgaOriginSelect'] || 'Select LGA of Origin')
-                    : (translations[currentLang]['lgaResidenceSelect'] || 'Select LGA of Residence');
+                    ? getLangString('lgaOriginSelect')
+                    : getLangString('lgaResidenceSelect');
 
                 lgaSelect.innerHTML = `<option value="">${lgaPlaceholder}</option>`;
                 if (!stateAlias) {
@@ -1078,19 +995,19 @@
                 newQualificationEntry.className = 'qualification-entry grid grid-cols-1 md:grid-cols-4 gap-4 items-end animate__animated animate__fadeIn';
                 newQualificationEntry.innerHTML = `
                     <div class="md:col-span-2">
-                        <label for="qualification_${qualificationCount}_degree" class="form-label" data-translate="degreeLabel">${translations[currentLang]['degreeLabel']}</label>
-                        <input type="text" id="qualification_${qualificationCount}_degree" name="qualification_degree" class="form-input" data-translate-placeholder="degreePlaceholder" placeholder="${translations[currentLang]['degreePlaceholder']}">
-                        <span id="qualification_${qualificationCount}_degree_error" class="error-message hidden" data-translate="errorDegree">${translations[currentLang]['errorDegree']}</span>
+                        <label for="qualification_${qualificationCount}_degree" class="form-label" data-translate="degreeLabel">${getLangString('degreeLabel')}</label>
+                        <input type="text" id="qualification_${qualificationCount}_degree" name="qualification_degree" class="form-input" data-translate-placeholder="degreePlaceholder" placeholder="${getLangString('degreePlaceholder')}">
+                        <span id="qualification_${qualificationCount}_degree_error" class="error-message hidden" data-translate="errorDegree">${getLangString('errorDegree')}</span>
                     </div>
                     <div>
-                        <label for="qualification_${qualificationCount}_institution" class="form-label" data-translate="institutionLabel">${translations[currentLang]['institutionLabel']}</label>
-                        <input type="text" id="qualification_${qualificationCount}_institution" name="qualification_institution" class="form-input" data-translate-placeholder="institutionPlaceholder" placeholder="${translations[currentLang]['institutionPlaceholder']}">
-                        <span id="qualification_${qualificationCount}_institution_error" class="error-message hidden" data-translate="errorInstitution">${translations[currentLang]['errorInstitution']}</span>
+                        <label for="qualification_${qualificationCount}_institution" class="form-label" data-translate="institutionLabel">${getLangString('institutionLabel')}</label>
+                        <input type="text" id="qualification_${qualificationCount}_institution" name="qualification_institution" class="form-input" data-translate-placeholder="institutionPlaceholder" placeholder="${getLangString('institutionPlaceholder')}">
+                        <span id="qualification_${qualificationCount}_institution_error" class="error-message hidden" data-translate="errorInstitution">${getLangString('errorInstitution')}</span>
                     </div>
                     <div>
-                        <label for="qualification_${qualificationCount}_year" class="form-label" data-translate="yearLabel">${translations[currentLang]['yearLabel']}</label>
-                        <input type="number" id="qualification_${qualificationCount}_year" name="qualification_year" class="form-input" data-translate-placeholder="yearPlaceholder" placeholder="${translations[currentLang]['yearPlaceholder']}" min="1950" max="2025">
-                        <span id="qualification_${qualificationCount}_year_error" class="error-message hidden" data-translate="errorYear">${translations[currentLang]['errorYear']}</span>
+                        <label for="qualification_${qualificationCount}_year" class="form-label" data-translate="yearLabel">${getLangString('yearLabel')}</label>
+                        <input type="number" id="qualification_${qualificationCount}_year" name="qualification_year" class="form-input" data-translate-placeholder="yearPlaceholder" placeholder="${getLangString('yearPlaceholder')}" min="1950" max="2025">
+                        <span id="qualification_${qualificationCount}_year_error" class="error-message hidden" data-translate="errorYear">${getLangString('errorYear')}</span>
                     </div>
                 `;
                 qualificationsContainer.appendChild(newQualificationEntry);
@@ -1100,24 +1017,12 @@
             // --- FORM DATA & STATE ---
             let formData = {
                 nomination_code: nominationCodeInput.value,
-                first_name: '',
-                middle_name: '',
-                last_name: '',
-                dob: '',
-                gender: '',
-                phone: '',
-                email: '',
-                state_of_origin: '',
-                lga_of_origin: '',
-                address: '',
-                city: '',
-                state_of_residence: '',
-                lga_of_residence: '',
-                ward: '',
-                apc_reg_no: '',
-                apc_join_date: '',
-                held_position: 'no',
-                previous_position: '',
+                first_name: '', middle_name: '', last_name: '',
+                dob: '', gender: '', phone: '', email: '',
+                state_of_origin: '', lga_of_origin: '',
+                address: '', city: '', state_of_residence: '', lga_of_residence: '', ward: '',
+                apc_reg_no: '', apc_join_date: '',
+                held_position: 'no', previous_position: '',
                 qualifications: [],
                 declaration: 'No'
             };
@@ -1139,23 +1044,18 @@
             });
 
             switchToChatBtn.addEventListener('click', () => {
-                // Sync data from Form TO Chat
-                formToChat();
-                // Switch views
+                formToChat(); // Sync data from Form TO formData
                 formSection.classList.add('hidden');
                 chatSection.classList.remove('hidden');
-                // Decide where to resume chat
                 if (!chatHasStarted) {
                     startChat();
                 } else {
-                    syncChatState();
+                    syncChatState(true); // Rebuild chat
                 }
             });
 
             switchToFormBtn.addEventListener('click', () => {
-                // Sync data from Chat TO Form
-                chatToForm();
-                // Switch views
+                chatToForm(); // Sync data from formData TO Form
                 chatSection.classList.add('hidden');
                 formSection.classList.remove('hidden');
             });
@@ -1173,37 +1073,27 @@
             function validateForm() {
                 let isValid = true;
                 const today = new Date('2025-10-27');
-
                 document.querySelectorAll('.error-message').forEach(el => el.classList.add('hidden'));
-
                 function showError(id) {
                     const el = document.getElementById(id);
-                    if (el) {
-                        el.classList.remove('hidden');
-                        isValid = false;
-                    }
+                    if (el) { el.classList.remove('hidden'); isValid = false; }
                 }
 
-                // Section 1
                 if (!document.getElementById('first_name').value.trim()) showError('first_name_error');
                 if (!document.getElementById('last_name').value.trim()) showError('last_name_error');
                 const dob = document.getElementById('dob').value;
                 if (!dob || new Date(dob) >= today) showError('dob_error');
                 if (!document.getElementById('gender').value) showError('gender_error');
-                const phoneRegex = /^0\d{10}$/;
-                if (!phoneRegex.test(document.getElementById('phone').value)) showError('phone_error');
+                if (!/^0\d{10}$/.test(document.getElementById('phone').value)) showError('phone_error');
                 const email = document.getElementById('email').value;
-                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-                if (email && !emailRegex.test(email)) showError('email_error');
+                if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) showError('email_error');
                 if (!document.getElementById('state_of_origin').value) showError('state_of_origin_error');
                 if (!document.getElementById('lga_of_origin').value) showError('lga_of_origin_error');
-                // Section 2
                 if (!document.getElementById('address').value.trim()) showError('address_error');
                 if (!document.getElementById('city').value.trim()) showError('city_error');
                 if (!document.getElementById('state_of_residence').value) showError('state_of_residence_error');
                 if (!document.getElementById('lga_of_residence').value) showError('lga_of_residence_error');
                 if (!document.getElementById('ward').value.trim()) showError('ward_error');
-                // Section 3
                 if (!document.getElementById('apc_reg_no').value.trim()) showError('apc_reg_no_error');
                 const apcJoinDate = document.getElementById('apc_join_date').value;
                 if (!apcJoinDate || new Date(apcJoinDate) >= today) showError('apc_join_date_error');
@@ -1213,27 +1103,19 @@
                 } else if (heldPosition.value === 'yes' && !document.getElementById('previous_position').value.trim()) {
                     showError('previous_position_error');
                 }
-                // Section 4
                 document.querySelectorAll('.qualification-entry').forEach((entry, index) => {
-                    const degree = entry.querySelector(`[name="qualification_degree"]`);
-                    const institution = entry.querySelector(`[name="qualification_institution"]`);
-                    const year = entry.querySelector(`[name="qualification_year"]`);
-                    
-                    // Only validate the first one as required
-                    if (index === 0) {
-                        if (degree.required && !degree.value.trim()) showError(`qualification_1_degree_error`);
-                        if (institution.required && !institution.value.trim()) showError(`qualification_1_institution_error`);
-                        if (year.required && (!year.value || year.value < 1950 || year.value > 2025)) showError(`qualification_1_year_error`);
+                    if (index === 0) { // Only first is required
+                        if (!entry.querySelector(`[name="qualification_degree"]`).value.trim()) showError(`qualification_1_degree_error`);
+                        if (!entry.querySelector(`[name="qualification_institution"]`).value.trim()) showError(`qualification_1_institution_error`);
+                        const year = entry.querySelector(`[name="qualification_year"]`).value;
+                        if (!year || year < 1950 || year > 2025) showError(`qualification_1_year_error`);
                     }
                 });
-                // Section 5
                 if (!document.getElementById('declaration').checked) showError('declaration_error');
-
                 return isValid;
             }
 
             function collectFormData() {
-                // Section 1
                 formData.first_name = document.getElementById('first_name').value;
                 formData.middle_name = document.getElementById('middle_name').value;
                 formData.last_name = document.getElementById('last_name').value;
@@ -1243,18 +1125,15 @@
                 formData.email = document.getElementById('email').value;
                 formData.state_of_origin = document.getElementById('state_of_origin').value; // Store alias
                 formData.lga_of_origin = document.getElementById('lga_of_origin').value;
-                // Section 2
                 formData.address = document.getElementById('address').value;
                 formData.city = document.getElementById('city').value;
                 formData.state_of_residence = document.getElementById('state_of_residence').value; // Store alias
                 formData.lga_of_residence = document.getElementById('lga_of_residence').value;
                 formData.ward = document.getElementById('ward').value;
-                // Section 3
                 formData.apc_reg_no = document.getElementById('apc_reg_no').value;
                 formData.apc_join_date = document.getElementById('apc_join_date').value;
                 formData.held_position = document.querySelector('input[name="held_position"]:checked').value;
                 formData.previous_position = (formData.held_position === 'yes') ? document.getElementById('previous_position').value : '';
-                // Section 4
                 formData.qualifications = [];
                 document.querySelectorAll('.qualification-entry').forEach(entry => {
                     const degree = entry.querySelector(`[name="qualification_degree"]`).value;
@@ -1264,14 +1143,12 @@
                         formData.qualifications.push({ degree, institution, year });
                     }
                 });
-                // Section 5
                 formData.declaration = document.getElementById('declaration').checked ? 'Yes' : 'No';
             }
 
             // --- STATE SYNC LOGIC ---
             
             function chatToForm() {
-                // Section 1
                 document.getElementById('first_name').value = formData.first_name || '';
                 document.getElementById('middle_name').value = formData.middle_name || '';
                 document.getElementById('last_name').value = formData.last_name || '';
@@ -1280,26 +1157,19 @@
                 document.getElementById('phone').value = formData.phone || '';
                 document.getElementById('email').value = formData.email || '';
                 
-                // Handle State/LGA selects
                 if (formData.state_of_origin) {
                     const stateAlias = nigeriaData.find(s => s.state.toLowerCase() === formData.state_of_origin.toLowerCase())?.alias || formData.state_of_origin;
                     document.getElementById('state_of_origin').value = stateAlias;
                     populateLGAs(stateAlias, lgaOfOriginSelect, formData.lga_of_origin);
                 }
-                
-                // Section 2
                 document.getElementById('address').value = formData.address || '';
                 document.getElementById('city').value = formData.city || '';
-                
                 if (formData.state_of_residence) {
                     const stateAlias = nigeriaData.find(s => s.state.toLowerCase() === formData.state_of_residence.toLowerCase())?.alias || formData.state_of_residence;
                     document.getElementById('state_of_residence').value = stateAlias;
                     populateLGAs(stateAlias, lgaOfResidenceSelect, formData.lga_of_residence);
                 }
-                
                 document.getElementById('ward').value = formData.ward || '';
-                
-                // Section 3
                 document.getElementById('apc_reg_no').value = formData.apc_reg_no || '';
                 document.getElementById('apc_join_date').value = formData.apc_join_date || '';
                 
@@ -1309,62 +1179,86 @@
                 } else {
                     document.getElementById('pos_no').checked = true;
                 }
-                togglePreviousPosition(); // Update visibility
+                togglePreviousPosition();
 
-                // Section 4
-                // Clear all but first qualification entry
-                qualificationsContainer.innerHTML = '';
-                if (formData.qualifications.length === 0) {
-                    // Add the default first entry
-                    addQualificationBtn.click();
-                    qualificationCount--; // Reset count
-                } else {
+                // Sync Qualifications
+                const qualEntries = document.querySelectorAll('.qualification-entry');
+                qualEntries.forEach((entry, index) => {
+                    if (index > 0) entry.remove(); // Remove all but the first
+                });
+                qualificationCount = 1;
+                document.getElementById('qualification_1_degree').value = '';
+                document.getElementById('qualification_1_institution').value = '';
+                document.getElementById('qualification_1_year').value = '';
+
+                if (formData.qualifications.length > 0) {
                     formData.qualifications.forEach((qual, index) => {
-                        if (index > 0) addQualificationBtn.click();
+                        if (index > 0) addQualificationBtn.click(); // Add new row
                         document.getElementById(`qualification_${index+1}_degree`).value = qual.degree || '';
                         document.getElementById(`qualification_${index+1}_institution`).value = qual.institution || '';
                         document.getElementById(`qualification_${index+1}_year`).value = qual.year || '';
                     });
                 }
-
-                // Section 5
+                
                 document.getElementById('declaration').checked = (formData.declaration === 'Yes');
             }
 
             function formToChat() {
-                // Update formData from form fields
                 collectFormData();
             }
 
-            function syncChatState() {
-                // Resumes chat from the first unanswered question
-                buildChatQuestions(); // Ensure questions are in current language
+            function syncChatState(forceRebuild = false) {
+                buildChatQuestions();
                 currentQuestionIndex = 0;
-                
+                chatState = 'base';
+
                 for (let i = 0; i < chatQuestions.length; i++) {
                     const q = chatQuestions[i];
                     const value = formData[q.key];
-                    
-                    if (value && q.validate(value)) {
+                    const isOptional = q.key === 'middle_name' || q.key === 'email';
+
+                    if (isOptional) {
+                        if (value && !q.validate(value)) break; 
                         currentQuestionIndex++;
                     } else {
-                        // This is the first unanswered/invalid question
-                        break;
+                        if (value && q.validate(value)) {
+                            currentQuestionIndex++;
+                        } else {
+                            break; 
+                        }
                     }
                 }
-                
-                // If all base questions are answered, check complex states
+
                 if (currentQuestionIndex === chatQuestions.length) {
                     if (formData.held_position === 'yes' && !formData.previous_position) {
-                        // Stay here, but need to ask prev_position
+                        chatState = 'prev_position';
                     } else if (formData.qualifications.length === 0) {
-                        // Stay here, need to ask qualifications
-                    } else if (formData.declaration !== 'Yes') {
-                        // Stay here, need to ask declaration
+                        collectingQual = true;
+                        chatState = 'qual_degree';
+                    } else {
+                        collectingQual = false; // Mark as done
+                        if (formData.declaration !== 'Yes') {
+                            chatState = 'declaration';
+                        } else {
+                            chatState = 'done';
+                        }
+                    }
+                }
+
+                if(forceRebuild) {
+                    chatMessages.innerHTML = ''; 
+                    addMessage(getLangString('chatWelcome'));
+                    addMessage(getLangString('chatCodeVerified') + formData.nomination_code);
+
+                    for (let i = 0; i < currentQuestionIndex; i++) {
+                        const q = chatQuestions[i];
+                        addMessage(q.text, false);
+                        const answer = formData[q.key];
+                        addMessage(answer || `(${getLangString('skipped')})`, true);
                     }
                 }
                 
-                askNextQuestion(); // Asks the question at the new currentQuestionIndex
+                askNextQuestion();
             }
 
             // --- CHAT LOGIC ---
@@ -1382,9 +1276,14 @@
                 { key: 'middle_name', textKey: 'chatQuestionMiddleName', validate: (res) => true, errorKey: '' }, // Optional
                 { key: 'last_name', textKey: 'chatQuestionLastName', validate: (res) => res.trim() !== '', errorKey: 'chatErrorLastName' },
                 { key: 'dob', textKey: 'chatQuestionDob', validate: (res) => /^\d{4}-\d{2}-\d{2}$/.test(res) && new Date(res) < today, errorKey: 'chatErrorDob' },
-                { key: 'gender', textKey: 'chatQuestionGender', validate: (res) => [translations[currentLang]['genderMale'].toLowerCase(), translations[currentLang]['genderFemale'].toLowerCase(), 'male', 'female'].includes(res.toLowerCase()), errorKey: 'chatErrorGender' },
+                { key: 'gender', textKey: 'chatQuestionGender', validate: (res) => ['male', 'female'].includes(res), errorKey: 'chatErrorGender', 
+                    options: (lang) => [
+                        { text: translations[lang]['genderMale'], value: 'male' },
+                        { text: translations[lang]['genderFemale'], value: 'female' }
+                    ]
+                },
                 { key: 'phone', textKey: 'chatQuestionPhone', validate: (res) => /^0\d{10}$/.test(res), errorKey: 'chatErrorPhone' },
-                { key: 'email', textKey: 'chatQuestionEmail', validate: (res) => !res || /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(res), errorKey: 'chatErrorEmail' },
+                { key: 'email', textKey: 'chatQuestionEmail', validate: (res) => !res || /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(res), errorKey: 'chatErrorEmail' }, // Optional
                 { key: 'state_of_origin', textKey: 'chatQuestionStateOrigin', validate: (res) => nigeriaData.some(state => state.state.toLowerCase() === res.toLowerCase()), errorKey: 'chatErrorStateOrigin' },
                 { key: 'lga_of_origin', textKey: 'chatQuestionLgaOrigin', validate: (res) => {
                     const state = nigeriaData.find(s => s.state.toLowerCase() === tempStateOrigin.toLowerCase());
@@ -1400,18 +1299,23 @@
                 { key: 'ward', textKey: 'chatQuestionWard', validate: (res) => res.trim() !== '', errorKey: 'chatErrorWard' },
                 { key: 'apc_reg_no', textKey: 'chatQuestionApcRegNo', validate: (res) => res.trim() !== '', errorKey: 'chatErrorApcRegNo' },
                 { key: 'apc_join_date', textKey: 'chatQuestionApcJoinDate', validate: (res) => /^\d{4}-\d{2}-\d{2}$/.test(res) && new Date(res) < today, errorKey: 'chatErrorApcJoinDate' },
-                { key: 'held_position', textKey: 'chatQuestionHeldPosition', validate: (res) => [translations[currentLang]['yes'].toLowerCase(), translations[currentLang]['no'].toLowerCase(), 'yes', 'no'].includes(res.toLowerCase()), errorKey: 'chatErrorHeldPosition' }
+                { key: 'held_position', textKey: 'chatQuestionHeldPosition', validate: (res) => ['yes', 'no'].includes(res), errorKey: 'chatErrorHeldPosition',
+                    options: (lang) => [
+                        { text: translations[lang]['yes'], value: 'yes' },
+                        { text: translations[lang]['no'], value: 'no' }
+                    ]
+                }
             ];
 
             function buildChatQuestions() {
                 chatQuestions = baseChatQuestions.map(q => ({
                     key: q.key,
-                    text: translations[currentLang][q.textKey],
+                    text: getLangString(q.textKey),
                     validate: q.validate,
-                    error: translations[currentLang][q.errorKey]
+                    error: getLangString(q.errorKey),
+                    options: q.options ? q.options(currentLang) : null
                 }));
-                // Total steps = base questions + 3 extra steps (prev_pos, qual, declaration)
-                totalChatSteps = chatQuestions.length + 3; 
+                totalChatSteps = chatQuestions.length + 3; // base + prev_pos + qual + declaration
             }
 
             function updateProgressBar() {
@@ -1429,7 +1333,7 @@
                 const bubble = document.createElement('div');
                 bubble.classList.add('chat-bubble', isUser ? 'chat-user' : 'chat-bot');
                 if (isError) {
-                    bubble.style.backgroundColor = '#dc2626'; // red-600
+                    bubble.style.backgroundColor = '#dc2626';
                 }
                 bubble.textContent = text;
                 chatMessages.appendChild(bubble);
@@ -1437,97 +1341,189 @@
             }
 
             function addTypingIndicator() {
+                const existing = document.getElementById('typing-indicator');
+                if (existing) existing.remove();
+                
                 const typing = document.createElement('div');
                 typing.classList.add('chat-typing');
                 typing.id = 'typing-indicator';
-                typing.textContent = translations[currentLang]['chatTyping'] || 'Secretary is typing';
+                typing.textContent = getLangString('chatTyping');
                 chatMessages.appendChild(typing);
                 chatMessages.scrollTop = chatMessages.scrollHeight;
                 return typing;
             }
+            
+            function removeTypingIndicator() {
+                 const typing = document.getElementById('typing-indicator');
+                 if (typing) typing.remove();
+            }
 
-            function askQuestionWithTyping(text) {
+            function addOptions(options) {
+                removeTypingIndicator();
+                const container = document.createElement('div');
+                container.className = 'chat-options-container';
+                options.forEach(opt => {
+                    const button = document.createElement('button');
+                    button.className = 'chat-option-button';
+                    button.textContent = opt.text;
+                    button.dataset.value = opt.value;
+                    button.addEventListener('click', () => handleOptionClick(opt.text, opt.value));
+                    container.appendChild(button);
+                });
+                chatMessages.appendChild(container);
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+                
+                // Disable text input
+                chatInput.disabled = true;
+                chatSend.disabled = true;
+            }
+
+            function handleOptionClick(text, value) {
+                addMessage(text, true); // Add user's choice as a bubble
+                
+                // Remove all option buttons
+                document.querySelectorAll('.chat-options-container').forEach(c => c.remove());
+                
+                // Re-enable text input
+                chatInput.disabled = false;
+                chatSend.disabled = false;
+                
+                // Process this value as an answer
+                processChatAnswer(value);
+            }
+
+            function askQuestionWithTyping(question) {
                 const typing = addTypingIndicator();
                 setTimeout(() => {
-                    if (typing.parentNode) {
-                        typing.remove();
+                    removeTypingIndicator();
+                    addMessage(question.text);
+                    if (question.options) {
+                        addOptions(question.options);
+                    } else {
+                        // Ensure input is enabled if no options
+                        chatInput.disabled = false;
+                        chatSend.disabled = false;
+                        chatInput.focus();
                     }
-                    addMessage(text);
-                }, 1000); // Shorter delay
+                }, 1000);
             }
 
             function askNextQuestion() {
                 const lang = currentLang;
+                chatInput.disabled = true; // Disable until question is asked
+                chatSend.disabled = true;
                 
-                if (currentQuestionIndex < chatQuestions.length) {
-                    chatState = 'base';
-                    chatBackBtn.disabled = (currentQuestionIndex === 0);
-                    askQuestionWithTyping(chatQuestions[currentQuestionIndex].text);
-                } else if (formData.held_position === 'yes' && !formData.previous_position) {
-                    chatState = 'prev_position';
-                    chatBackBtn.disabled = true; // Disable back for complex states
-                    askQuestionWithTyping(translations[lang]['chatQuestionPrevPosition']);
-                } else if (!collectingQual) {
-                    chatState = 'qual_intro';
+                if (chatState === 'base') {
+                    if (currentQuestionIndex < chatQuestions.length) {
+                        chatBackBtn.disabled = (currentQuestionIndex === 0);
+                        askQuestionWithTyping(chatQuestions[currentQuestionIndex]);
+                    }
+                } else if (chatState === 'prev_position') {
                     chatBackBtn.disabled = true;
-                    askQuestionWithTyping(translations[lang]['chatStartQual']);
-                    collectingQual = true;
-                    chatState = 'qual_degree';
-                    askQuestionWithTyping(translations[lang]['chatQuestionDegree']);
-                } else if (formData.declaration !== 'Yes') {
-                    chatState = 'declaration';
+                    askQuestionWithTyping({ text: getLangString('chatQuestionPrevPosition') });
+                } else if (chatState === 'qual_degree') {
                     chatBackBtn.disabled = true;
-                    askQuestionWithTyping(translations[lang]['chatQuestionDeclaration']);
-                } else {
-                    chatState = 'done';
+                    if (!collectingQual) collectingQual = true; // Ensure flag is set
+                    askQuestionWithTyping({ text: getLangString('chatQuestionDegree') });
+                } else if (chatState === 'qual_inst') {
+                    askQuestionWithTyping({ text: getLangString('chatQuestionInstitution') });
+                } else if (chatState === 'qual_year') {
+                    askQuestionWithTyping({ text: getLangString('chatQuestionYear') });
+                } else if (chatState === 'qual_more') {
+                    askQuestionWithTyping({ 
+                        text: getLangString('chatQuestionMoreQual'),
+                        options: [
+                            { text: getLangString('yes'), value: 'yes' },
+                            { text: getLangString('no'), value: 'no' }
+                        ]
+                    });
+                } else if (chatState === 'declaration') {
                     chatBackBtn.disabled = true;
-                    askQuestionWithTyping(translations[lang]['chatComplete']);
-                    chatSubmitSection.classList.remove('hidden');
+                    askQuestionWithTyping({ 
+                        text: getLangString('chatQuestionDeclaration'),
+                        options: [
+                            { text: getLangString('yes'), value: 'yes' },
+                            { text: getLangString('no'), value: 'no' }
+                        ]
+                    });
+                } else if (chatState === 'done') {
+                    chatBackBtn.disabled = true;
                     chatInput.disabled = true;
                     chatSend.disabled = true;
+                    addMessage(getLangString('chatComplete'));
+                    chatSubmitSection.classList.remove('hidden');
                 }
+                
                 updateProgressBar();
             }
 
             function startChat() {
                 chatHasStarted = true;
-                buildChatQuestions(); // Build questions with current language
-                addMessage(translations[currentLang]['chatWelcome']);
-                addMessage(translations[currentLang]['chatCodeVerified'] + formData.nomination_code);
-                askNextQuestion();
+                buildChatQuestions(); 
+                addMessage(getLangString('chatWelcome'));
+                addMessage(getLangString('chatCodeVerified') + formData.nomination_code);
+                syncChatState(); // Find first unanswered question
             }
 
             chatBackBtn.addEventListener('click', () => {
                 if (chatState !== 'base' || currentQuestionIndex === 0) return;
-
+                
+                // Remove current question and any potential user response
+                const bubbles = chatMessages.querySelectorAll('.chat-bubble');
+                if (bubbles.length > 0) bubbles[bubbles.length - 1].remove(); // Remove last bot question
+                
                 currentQuestionIndex--;
                 const q = chatQuestions[currentQuestionIndex];
-                addMessage(q.text); // Ask immediately
-                chatInput.value = formData[q.key] || '';
-                chatInput.focus();
                 
-                if (currentQuestionIndex === 0) {
-                    chatBackBtn.disabled = true;
+                // Remove previous user answer
+                const bubblesAfter = chatMessages.querySelectorAll('.chat-bubble');
+                if(bubblesAfter.length > 0) bubblesAfter[bubblesAfter.length - 1].remove();
+
+                addMessage(q.text); // Ask immediately
+                if(q.options) {
+                    addOptions(q.options);
+                } else {
+                    chatInput.value = formData[q.key] || '';
+                    chatInput.focus();
                 }
+                
+                chatBackBtn.disabled = (currentQuestionIndex === 0);
                 updateProgressBar();
             });
 
             chatSend.addEventListener('click', () => {
                 const response = chatInput.value.trim();
+                processChatAnswer(response);
+            });
+
+            function processChatAnswer(response) {
                 const lang = currentLang;
-                
-                // Allow empty for optional fields
-                if (chatState === 'base' && chatQuestions[currentQuestionIndex].key === 'middle_name') {
-                    // It's the optional middle name, just accept
-                } else if (chatState === 'base' && chatQuestions[currentQuestionIndex].key === 'email') {
-                    // It's the optional email
-                }
-                else if (!response) return; // All other fields require a response
-
-                addMessage(response, true);
-                chatInput.value = '';
-
                 let advanced = false;
+
+                // Handle optional skips
+                if (chatState === 'base') {
+                    const qKey = chatQuestions[currentQuestionIndex].key;
+                    if ((qKey === 'middle_name' || qKey === 'email') && response === '') {
+                        // Optional field skipped, this is valid
+                        formData[qKey] = ''; // Explicitly set as empty
+                        currentQuestionIndex++;
+                        advanced = true;
+                        if(qKey === 'middle_name') addMessage(`(${getLangString('skipped')})`, true);
+                        if(qKey === 'email') addMessage(`(${getLangString('skipped')})`, true);
+                    }
+                }
+                
+                if (advanced) { // If we already advanced (e.g., skipped optional)
+                   chatInput.value = '';
+                   askNextQuestion();
+                   return;
+                }
+
+                // Add user message if it wasn't an option click
+                if (!chatInput.disabled) { // chatInput is enabled for text, disabled for options
+                    addMessage(response, true);
+                }
+                chatInput.value = '';
 
                 if (chatState === 'base') {
                     const q = chatQuestions[currentQuestionIndex];
@@ -1535,12 +1531,9 @@
                         formData[q.key] = response;
                         if (q.key === 'state_of_origin') tempStateOrigin = response;
                         if (q.key === 'state_of_residence') tempStateResidence = response;
-                        if (q.key === 'held_position') {
-                            formData.held_position = [translations[lang]['yes'].toLowerCase(), 'yes'].includes(response.toLowerCase()) ? 'yes' : 'no';
-                        }
-                        if(q.key === 'gender') {
-                            formData.gender = [translations[lang]['genderMale'].toLowerCase(), 'male'].includes(response.toLowerCase()) ? 'male' : 'female';
-                        }
+                        if (q.key === 'held_position') formData.held_position = response;
+                        if (q.key === 'gender') formData.gender = response;
+                        
                         currentQuestionIndex++;
                         advanced = true;
                     } else {
@@ -1551,23 +1544,23 @@
                         formData.previous_position = response;
                         advanced = true;
                     } else {
-                        addMessage(translations[lang]['chatErrorPrevPosition'], false, true);
+                        addMessage(getLangString('chatErrorPrevPosition'), false, true);
                     }
                 } else if (chatState === 'qual_degree') {
                     if (response) {
                         qualTemp.degree = response;
                         chatState = 'qual_inst';
-                        askQuestionWithTyping(translations[lang]['chatQuestionInstitution']);
+                        advanced = true;
                     } else {
-                        addMessage(translations[lang]['chatErrorDegree'], false, true);
+                        addMessage(getLangString('chatErrorDegree'), false, true);
                     }
                 } else if (chatState === 'qual_inst') {
                     if (response) {
                         qualTemp.institution = response;
                         chatState = 'qual_year';
-                        askQuestionWithTyping(translations[lang]['chatQuestionYear']);
+                        advanced = true;
                     } else {
-                        addMessage(translations[lang]['chatErrorInstitution'], false, true);
+                        addMessage(getLangString('chatErrorInstitution'), false, true);
                     }
                 } else if (chatState === 'qual_year') {
                     const yearNum = parseInt(response);
@@ -1576,41 +1569,45 @@
                         formData.qualifications.push({ ...qualTemp });
                         qualTemp = { degree: '', institution: '', year: '' };
                         chatState = 'qual_more';
-                        askQuestionWithTyping(translations[lang]['chatQuestionMoreQual']);
-                    } else {
-                        addMessage(translations[lang]['chatErrorYear'], false, true);
-                    }
-                } else if (chatState === 'qual_more') {
-                    const resLower = response.toLowerCase();
-                    if ([translations[lang]['yes'].toLowerCase(), 'yes'].includes(resLower)) {
-                        chatState = 'qual_degree'; // Loop back
-                        askQuestionWithTyping(translations[lang]['chatQuestionDegree']);
-                    } else if ([translations[lang]['no'].toLowerCase(), 'no'].includes(resLower)) {
-                        collectingQual = false;
-                        advanced = true; // Move on
-                    } else {
-                        addMessage(translations[lang]['chatErrorMoreQual'], false, true);
-                    }
-                } else if (chatState === 'declaration') {
-                    if ([translations[lang]['yes'].toLowerCase(), 'yes'].includes(response.toLowerCase())) {
-                        formData.declaration = 'Yes';
                         advanced = true;
                     } else {
-                        addMessage(translations[lang]['chatErrorDeclaration'], false, true);
+                        addMessage(getLangString('chatErrorYear'), false, true);
+                    }
+                } else if (chatState === 'qual_more') {
+                    if (response === 'yes') {
+                        chatState = 'qual_degree'; // Loop back
+                        advanced = true;
+                    } else if (response === 'no') {
+                        collectingQual = false;
+                        chatState = 'declaration'; // Move on
+                        advanced = true;
+                    } else {
+                        addMessage(getLangString('chatErrorMoreQual'), false, true);
+                    }
+                } else if (chatState === 'declaration') {
+                    if (response === 'yes') {
+                        formData.declaration = 'Yes';
+                        chatState = 'done';
+                        advanced = true;
+                    } else {
+                        formData.declaration = 'No'; // Store 'No'
+                        addMessage(getLangString('chatErrorDeclaration'), false, true);
                     }
                 }
 
                 if (advanced) {
                     askNextQuestion();
                 }
-            });
+            }
 
             chatInput.addEventListener('keypress', (e) => {
-                if (e.key === 'Enter') chatSend.click();
+                if (e.key === 'Enter' && !chatSend.disabled) {
+                    chatSend.click();
+                }
             });
 
             chatSubmit.addEventListener('click', () => {
-                chatToForm(); // Final sync before success
+                chatToForm(); // Final sync
                 showSuccess();
             });
 
@@ -1621,12 +1618,9 @@
                 successSection.classList.remove('hidden');
                 successSection.classList.add('fade-in');
             }
-
-            function getLangString(key) {
-                return translations[currentLang][key] || translations['en'][key];
-            }
             
             function getStateNameByAlias(alias) {
+                if(!nigeriaData.length) return alias;
                 const state = nigeriaData.find(s => s.alias === alias);
                 return state ? state.state : alias;
             }
@@ -1636,7 +1630,7 @@
                 let y = 10;
                 doc.setFont('Helvetica');
                 
-                const fullName = `${formData.first_name || ''} ${formData.middle_name || ''} ${formData.last_name || ''}`.trim();
+                const fullName = `${formData.first_name || ''} ${formData.middle_name || ''} ${formData.last_name || ''}`.trim().replace(/\s+/g, ' ');
                 const stateOriginName = getStateNameByAlias(formData.state_of_origin);
                 const stateResidenceName = getStateNameByAlias(formData.state_of_residence);
 
@@ -1647,50 +1641,55 @@
                 doc.text(`${getLangString('pdfCode')} ${formData.nomination_code}`, 10, y);
                 y += 10;
                 doc.text(getLangString('pdfSection1'), 10, y);
-                y += 5;
+                y += 7;
                 doc.text(`${getLangString('pdfFullName')} ${fullName}`, 10, y);
-                y += 5;
-                doc.text(`${getLangString('pdfDob')} ${formData.dob}`, 10, y);
-                y += 5;
-                doc.text(`${getLangString('pdfGender')} ${formData.gender}`, 10, y);
-                y += 5;
-                doc.text(`${getLangString('pdfPhone')} ${formData.phone}`, 10, y);
-                y += 5;
+                y += 7;
+                doc.text(`${getLangString('pdfDob')} ${formData.dob || getLangString('pdfNotApplicable')}`, 10, y);
+                y += 7;
+                doc.text(`${getLangString('pdfGender')} ${formData.gender || getLangString('pdfNotApplicable')}`, 10, y);
+                y += 7;
+                doc.text(`${getLangString('pdfPhone')} ${formData.phone || getLangString('pdfNotApplicable')}`, 10, y);
+                y += 7;
                 doc.text(`${getLangString('pdfEmail')} ${formData.email || getLangString('pdfNotApplicable')}`, 10, y);
-                y += 5;
-                doc.text(`${getLangString('pdfStateOrigin')} ${stateOriginName}`, 10, y);
-                y += 5;
-                doc.text(`${getLangString('pdfLgaOrigin')} ${formData.lga_of_origin}`, 10, y);
+                y += 7;
+                doc.text(`${getLangString('pdfStateOrigin')} ${stateOriginName || getLangString('pdfNotApplicable')}`, 10, y);
+                y += 7;
+                doc.text(`${getLangString('pdfLgaOrigin')} ${formData.lga_of_origin || getLangString('pdfNotApplicable')}`, 10, y);
                 y += 10;
                 doc.text(getLangString('pdfSection2'), 10, y);
-                y += 5;
-                doc.text(`${getLangString('pdfAddress')} ${formData.address}`, 10, y);
-                y += 5;
-                doc.text(`${getLangString('pdfCity')} ${formData.city}`, 10, y);
-                y += 5;
-                doc.text(`${getLangString('pdfStateResidence')} ${stateResidenceName}`, 10, y);
-                y += 5;
-                doc.text(`${getLangString('pdfLgaResidence')} ${formData.lga_of_residence}`, 10, y);
-                y += 5;
-                doc.text(`${getLangString('pdfWard')} ${formData.ward}`, 10, y);
+                y += 7;
+                doc.text(`${getLangString('pdfAddress')} ${formData.address || getLangString('pdfNotApplicable')}`, 10, y);
+                y += 7;
+                doc.text(`${getLangString('pdfCity')} ${formData.city || getLangString('pdfNotApplicable')}`, 10, y);
+                y += 7;
+                doc.text(`${getLangString('pdfStateResidence')} ${stateResidenceName || getLangString('pdfNotApplicable')}`, 10, y);
+                y += 7;
+                doc.text(`${getLangString('pdfLgaResidence')} ${formData.lga_of_residence || getLangString('pdfNotApplicable')}`, 10, y);
+                y += 7;
+                doc.text(`${getLangString('pdfWard')} ${formData.ward || getLangString('pdfNotApplicable')}`, 10, y);
                 y += 10;
                 doc.text(getLangString('pdfSection3'), 10, y);
-                y += 5;
-                doc.text(`${getLangString('pdfApcRegNo')} ${formData.apc_reg_no}`, 10, y);
-                y += 5;
-                doc.text(`${getLangString('pdfJoinDate')} ${formData.apc_join_date}`, 10, y);
-                y += 5;
+                y += 7;
+                doc.text(`${getLangString('pdfApcRegNo')} ${formData.apc_reg_no || getLangString('pdfNotApplicable')}`, 10, y);
+                y += 7;
+                doc.text(`${getLangString('pdfJoinDate')} ${formData.apc_join_date || getLangString('pdfNotApplicable')}`, 10, y);
+                y += 7;
                 doc.text(`${getLangString('pdfHeldPosition')} ${formData.held_position}`, 10, y);
                 if (formData.held_position === 'yes') {
-                    y += 5;
-                    doc.text(`${getLangString('pdfPrevPosition')} ${formData.previous_position}`, 10, y);
+                    y += 7;
+                    doc.text(`${getLangString('pdfPrevPosition')} ${formData.previous_position || getLangString('pdfNotApplicable')}`, 10, y);
                 }
                 y += 10;
                 doc.text(getLangString('pdfSection4'), 10, y);
-                formData.qualifications.forEach((qual, index) => {
-                    y += 5;
-                    doc.text(`${index + 1}. ${getLangString('pdfDegree')} ${qual.degree}, ${getLangString('pdfInstitution')} ${qual.institution}, ${getLangString('pdfYear')} ${qual.year}`, 10, y);
-                });
+                if(formData.qualifications.length === 0) {
+                     y += 7;
+                     doc.text(getLangString('pdfNotApplicable'), 15, y);
+                } else {
+                    formData.qualifications.forEach((qual, index) => {
+                        y += 7;
+                        doc.text(`${index + 1}. ${getLangString('pdfDegree')} ${qual.degree}, ${getLangString('pdfInstitution')} ${qual.institution}, ${getLangString('pdfYear')} ${qual.year}`, 15, y);
+                    });
+                }
                 y += 10;
                 doc.text(`${getLangString('pdfDeclaration')} ${formData.declaration}`, 10, y);
                 doc.save('APC_Nomination_Form.pdf');
@@ -1699,20 +1698,20 @@
             document.getElementById('download-receipt-btn').addEventListener('click', () => {
                 const doc = new jsPDF();
                 let y = 10;
-                const fullName = `${formData.first_name || ''} ${formData.middle_name || ''} ${formData.last_name || ''}`.trim();
+                const fullName = `${formData.first_name || ''} ${formData.middle_name || ''} ${formData.last_name || ''}`.trim().replace(/\s+/g, ' ');
                 
                 doc.setFontSize(16);
                 doc.text(getLangString('receiptTitle'), 105, y, { align: 'center' });
                 y += 10;
                 doc.setFontSize(12);
                 doc.text(`${getLangString('pdfCode')} ${formData.nomination_code}`, 10, y);
-                y += 5;
+                y += 7;
                 doc.text(`${getLangString('pdfFullName')} ${fullName}`, 10, y);
-                y += 5;
+                y += 7;
                 doc.text(`${getLangString('receiptDate')} ${new Date().toLocaleDateString()}`, 10, y);
                 y += 10;
                 doc.text(getLangString('receiptThankYou'), 10, y);
-                y += 5;
+                y += 7;
                 doc.text(getLangString('receiptOfficial'), 10, y);
                 doc.save('APC_Nomination_Receipt.pdf');
             });
