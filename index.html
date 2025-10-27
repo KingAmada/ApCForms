@@ -50,6 +50,17 @@
             box-shadow: 0 0 0 3px rgba(0, 100, 0, 0.2);
             outline: none;
         }
+        .form-input:read-only {
+            background-color: #e5e7eb; /* gray-200 */
+            color: #4b5563; /* gray-600 */
+            font-weight: 600;
+            cursor: not-allowed;
+            border-color: #16a34a; /* green-600 */
+        }
+        .form-select:disabled {
+            background-color: #f3f4f6; /* gray-100 */
+            cursor: not-allowed;
+        }
         .apc-gold {
             background-color: #FFD700; /* Gold */
             color: #000;
@@ -103,12 +114,61 @@
             left: 50%;
             transform: translate(-50%, -50%);
         }
+
+        /* Lock Screen Overlay */
+        #lock-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.75);
+            backdrop-filter: blur(8px);
+            z-index: 999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+        }
+        .lock-card {
+            background: white;
+            border-radius: 12px;
+            padding: 2.5rem;
+            text-align: center;
+            max-width: 500px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
     </style>
 </head>
 <body class="min-h-screen flex items-center justify-center py-10 px-4">
 
-    <div class="max-w-4xl w-full">
-        <!-- Header Section --><header class="gradient-header text-white p-8 rounded-t-xl flex flex-col md:flex-row items-center justify-between text-center md:text-left shadow-lg">
+    <!-- 
+      LOCK SCREEN OVERLAY
+      This is shown by default and hidden by JavaScript if a valid code is found.
+    -->
+    <div id="lock-overlay">
+        <div class="lock-card">
+            <svg class="mx-auto h-16 w-16 text-red-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 0 0-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 0 0 2.25-2.25v-6.75a2.25 2.25 0 0 0-2.25-2.25H6.75a2.25 2.25 0 0 0-2.25 2.25v6.75a2.25 2.25 0 0 0 2.25 2.25Z" />
+            </svg>
+            <h2 class="mt-4 text-2xl font-bold text-gray-800">Access Denied</h2>
+            <p class="mt-2 text-gray-600">
+                A valid nomination code is required to access this form.
+            </p>
+            <p class="mt-4 text-sm font-medium text-gray-700">
+                Please scan the QR code on your official APC nomination card to proceed. If you have just purchased your card, please try again.
+            </p>
+        </div>
+    </div>
+
+    <!-- 
+      MAIN FORM CONTAINER
+      This is hidden by default and shown by JavaScript.
+    -->
+    <div id="main-form-container" class="max-w-4xl w-full hidden">
+        
+        <!-- HEADER -->
+        <header class="gradient-header text-white p-8 rounded-t-xl flex flex-col md:flex-row items-center justify-between text-center md:text-left shadow-lg">
             <div class="flex items-center space-x-4 mb-4 md:mb-0">
                 <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTqsRHyM2yS67F34fBfngJ3oC9U2GuLtUawNOh9qrYPn6WCON3BZzZA2NUS&s=10" alt="APC Logo" class="h-20 w-20 rounded-full bg-white p-2 border-2 border-yellow-400">
                 <div>
@@ -121,9 +181,12 @@
             </div>
         </header>
 
-        <!-- Form Card --><div class="card">
+        
+        <div class="card">
             <form action="#" method="POST" class="space-y-8">
-                <!-- Section 1: Aspirant's Personal Information --><section class="border-b pb-8 border-gray-200">
+                
+                <!-- SECTION 1: PERSONAL INFORMATION -->
+                <section class="border-b pb-8 border-gray-200">
                     <h2 class="text-2xl font-bold text-gray-800 mb-6 border-b pb-3 border-yellow-400">1. Aspirant's Personal Information</h2>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div>
@@ -150,10 +213,24 @@
                             <label for="email" class="form-label">Email Address</label>
                             <input type="email" id="email" name="email" class="form-input" placeholder="e.g., yourname@example.com">
                         </div>
+                        <div>
+                            <label for="state_of_origin" class="form-label">State of Origin</label>
+                            <select id="state_of_origin" name="state_of_origin" class="form-select" required>
+                                <option value="">Select State of Origin</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="lga_of_origin" class="form-label">LGA of Origin</label>
+                            <select id="lga_of_origin" name="lga_of_origin" class="form-select" required disabled>
+                                <option value="">Select LGA of Origin</option>
+                            </select>
+                        </div>
                     </div>
                 </section>
 
-                <!-- Section 2: Contact Information --><section class="border-b pb-8 border-gray-200">
+                
+                <!-- SECTION 2: CONTACT INFORMATION -->
+                <section class="border-b pb-8 border-gray-200">
                     <h2 class="text-2xl font-bold text-gray-800 mb-6 border-b pb-3 border-yellow-400">2. Contact Information</h2>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div>
@@ -165,51 +242,16 @@
                             <input type="text" id="city" name="city" class="form-input" placeholder="e.g., Abuja" required>
                         </div>
                         <div>
-                            <label for="state_of_origin" class="form-label">State of Origin</label>
-                            <select id="state_of_origin" name="state_of_origin" class="form-select" required>
-                                <option value="">Select State</option>
-                                <option value="abia">Abia</option>
-                                <option value="adamawa">Adamawa</option>
-                                <option value="akwa_ibom">Akwa Ibom</option>
-                                <option value="anambra">Anambra</option>
-                                <option value="bauchi">Bauchi</option>
-                                <option value="bayelsa">Bayelsa</option>
-                                <option value="benue">Benue</option>
-                                <option value="borno">Borno</option>
-                                <option value="cross_river">Cross River</option>
-                                <option value="delta">Delta</option>
-                                <option value="ebonyi">Ebonyi</option>
-                                <option value="edo">Edo</option>
-                                <option value="ekiti">Ekiti</option>
-                                <option value="enugu">Enugu</option>
-                                <option value="gombe">Gombe</option>
-                                <option value="imo">Imo</option>
-                                <option value="jigawa">Jigawa</option>
-                                <option value="kaduna">Kaduna</option>
-                                <option value="kano">Kano</option>
-                                <option value="katsina">Katsina</option>
-                                <option value="kebbi">Kebbi</option>
-                                <option value="kogi">Kogi</option>
-                                <option value="kwara">Kwara</option>
-                                <option value="lagos">Lagos</option>
-                                <option value="nasarawa">Nasarawa</option>
-                                <option value="niger">Niger</option>
-                                <option value="ogun">Ogun</option>
-                                <option value="ondo">Ondo</option>
-                                <option value="osun">Osun</option>
-                                <option value="oyo">Oyo</option>
-                                <option value="plateau">Plateau</option>
-                                <option value="rivers">Rivers</option>
-                                <option value="sokoto">Sokoto</option>
-                                <option value="taraba">Taraba</option>
-                                <option value="yobe">Yobe</option>
-                                <option value="zamfara">Zamfara</option>
-                                <option value="fct">FCT</option>
+                            <label for="state_of_residence" class="form-label">State of Residence</label>
+                            <select id="state_of_residence" name="state_of_residence" class="form-select" required>
+                                <option value="">Select State of Residence</option>
                             </select>
                         </div>
                         <div>
-                            <label for="lga" class="form-label">Local Government Area (LGA)</label>
-                            <input type="text" id="lga" name="lga" class="form-input" placeholder="Enter your LGA" required>
+                            <label for="lga_of_residence" class="form-label">LGA of Residence</label>
+                            <select id="lga_of_residence" name="lga_of_residence" class="form-select" required disabled>
+                                <option value="">Select LGA of Residence</option>
+                            </select>
                         </div>
                         <div class="md:col-span-2">
                             <label for="ward" class="form-label">Ward</label>
@@ -218,14 +260,21 @@
                     </div>
                 </section>
 
-                <!-- Section 3: Party Affiliation --><section class="border-b pb-8 border-gray-200">
+                
+                <!-- SECTION 3: PARTY AFFILIATION (Updated) -->
+                <section class="border-b pb-8 border-gray-200">
                     <h2 class="text-2xl font-bold text-gray-800 mb-6 border-b pb-3 border-yellow-400">3. Party Affiliation</h2>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <!-- NEW NOMINATION CODE FIELD -->
+                        <div>
+                            <label for="nomination_code" class="form-label">Nomination Code (Verified)</label>
+                            <input type="text" id="nomination_code" name="nomination_code" class="form-input" readonly required>
+                        </div>
                         <div>
                             <label for="apc_reg_no" class="form-label">APC Membership Registration Number</label>
                             <input type="text" id="apc_reg_no" name="apc_reg_no" class="form-input" placeholder="Enter APC Reg. No." required>
                         </div>
-                        <div>
+                        <div class="md:col-span-2">
                             <label for="apc_join_date" class="form-label">Date Joined APC</label>
                             <input type="date" id="apc_join_date" name="apc_join_date" class="form-input" required>
                         </div>
@@ -249,7 +298,9 @@
                     </div>
                 </section>
 
-                <!-- Section 4: Academic Qualifications --><section class="border-b pb-8 border-gray-200">
+                
+                <!-- SECTION 4: ACADEMIC QUALIFICATIONS -->
+                <section class="border-b pb-8 border-gray-200">
                     <h2 class="text-2xl font-bold text-gray-800 mb-6 border-b pb-3 border-yellow-400">4. Academic Qualifications</h2>
                     <p class="text-gray-600 mb-4">Please list your academic qualifications, starting from the highest.</p>
                     <div id="qualifications_container" class="space-y-4">
@@ -276,17 +327,23 @@
                     </button>
                 </section>
 
-                <!-- Section 5: Declaration --><section>
+                
+                <!-- SECTION 5: DECLARATION -->
+                <section>
                     <h2 class="text-2xl font-bold text-gray-800 mb-6 border-b pb-3 border-yellow-400">5. Declaration</h2>
-                    <div class="flex items-start mb-6">
-                        <input type="checkbox" id="declaration" name="declaration" class="mt-1" required>
-                        <label for="declaration" class="ml-3 text-gray-700 text-base leading-relaxed">
-                            I solemnly declare that all information provided in this nomination form is true and correct to the best of my knowledge and belief. I understand that any false information may lead to disqualification.
+                    <div classs="flex items-start mb-6">
+                        <label for="declaration" class="flex items-start cursor-pointer">
+                            <input type="checkbox" id="declaration" name="declaration" class="mt-1" required>
+                            <span class="ml-3 text-gray-700 text-base leading-relaxed">
+                                I solemnly declare that all information provided in this nomination form is true and correct to the best of my knowledge and belief. I understand that any false information may lead to disqualification.
+                            </span>
                         </label>
                     </div>
                 </section>
 
-                <!-- Submit Button --><div class="text-center pt-4">
+                
+                <!-- SUBMIT BUTTON -->
+                <div class="text-center pt-4">
                     <button type="submit" class="gradient-button text-white font-bold py-3 px-10 rounded-full text-lg shadow-xl hover:shadow-2xl focus:outline-none focus:ring-4 focus:ring-green-300 focus:ring-opacity-75 transition-all duration-300">
                         Submit Nomination Form
                     </button>
@@ -294,16 +351,117 @@
             </form>
         </div>
 
-        <!-- Footer --><footer class="mt-8 text-center text-gray-600 text-sm">
+        
+        <!-- FOOTER -->
+        <footer class="mt-8 text-center text-gray-600 text-sm">
             <p>&copy; 2025 All Progressives Congress (APC). All Rights Reserved.</p>
             <p>Powered by APC Directorate of Digital Operations.</p>
         </footer>
 
     </div>
 
+    <!-- JAVASCRIPT SECTION -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // JavaScript for showing/hiding previous position field
+            
+            // --- QR CODE VERIFICATION LOGIC ---
+            const lockOverlay = document.getElementById('lock-overlay');
+            const mainFormContainer = document.getElementById('main-form-container');
+            const nominationCodeInput = document.getElementById('nomination_code');
+
+            // Get URL parameters
+            const urlParams = new URLSearchParams(window.location.search);
+            const nominationCode = urlParams.get('code'); // We look for a parameter named 'code'
+
+            // Check if the 'code' parameter exists and is not empty
+            if (nominationCode && nominationCode.trim() !== '') {
+                // Code is valid!
+                // 1. Fill the input field
+                nominationCodeInput.value = nominationCode.trim();
+                
+                // 2. Hide the lock screen
+                lockOverlay.classList.add('hidden');
+                
+                // 3. Show the main form
+                mainFormContainer.classList.remove('hidden');
+            } else {
+                // Code is missing or empty
+                // 1. Make sure the lock screen is visible
+                lockOverlay.classList.remove('hidden');
+                
+                // 2. Make sure the form is hidden
+                mainFormContainer.classList.add('hidden');
+            }
+            // --- END QR CODE VERIFICATION LOGIC ---
+
+
+            // --- NIGERIA STATES & LGAs LOGIC ---
+            const stateOfOriginSelect = document.getElementById('state_of_origin');
+            const lgaOfOriginSelect = document.getElementById('lga_of_origin');
+            const stateOfResidenceSelect = document.getElementById('state_of_residence');
+            const lgaOfResidenceSelect = document.getElementById('lga_of_residence');
+            
+            let nigeriaData = [];
+            const jsonUrl = 'https://gist.githubusercontent.com/devhammed/0bb9eeac9ff22c895100d072f489dc98/raw/a7b19911407a89947c452339fee59f9335dc8225/nigeria-state-and-lgas.json';
+
+            fetch(jsonUrl)
+                .then(response => response.json())
+                .then(data => {
+                    nigeriaData = data;
+                    populateStates();
+                })
+                .catch(error => {
+                    console.error('Error fetching state/LGA data:', error);
+                });
+
+            function populateStates() {
+                stateOfOriginSelect.innerHTML = '<option value="">Select State of Origin</option>';
+                stateOfResidenceSelect.innerHTML = '<option value="">Select State of Residence</option>';
+
+                nigeriaData.forEach(state => {
+                    const option1 = document.createElement('option');
+                    option1.value = state.alias;
+                    option1.textContent = state.state;
+                    stateOfOriginSelect.appendChild(option1);
+
+                    const option2 = document.createElement('option');
+                    option2.value = state.alias;
+                    option2.textContent = state.state;
+                    stateOfResidenceSelect.appendChild(option2);
+                });
+            }
+
+            function populateLGAs(stateAlias, lgaSelect) {
+                lgaSelect.innerHTML = `<option value="">Select LGA</option>`;
+                if (!stateAlias) {
+                    lgaSelect.disabled = true;
+                    return;
+                }
+                const selectedState = nigeriaData.find(state => state.alias === stateAlias);
+                if (selectedState && selectedState.lgas) {
+                    selectedState.lgas.forEach(lga => {
+                        const option = document.createElement('option');
+                        option.value = lga;
+                        option.textContent = lga;
+                        lgaSelect.appendChild(option);
+                    });
+                    lgaSelect.disabled = false;
+                } else {
+                    lgaSelect.disabled = true;
+                }
+            }
+
+            stateOfOriginSelect.addEventListener('change', () => {
+                populateLGAs(stateOfOriginSelect.value, lgaOfOriginSelect);
+            });
+
+            stateOfResidenceSelect.addEventListener('change', () => {
+                populateLGAs(stateOfResidenceSelect.value, lgaOfResidenceSelect);
+            });
+            // --- END NIGERIA STATES & LGAs LOGIC ---
+
+
+            // --- PREVIOUS POSITION LOGIC ---
             const posYes = document.getElementById('pos_yes');
             const posNo = document.getElementById('pos_no');
             const previousPositionSection = document.getElementById('previous_position_section');
@@ -320,11 +478,11 @@
 
             posYes.addEventListener('change', togglePreviousPosition);
             posNo.addEventListener('change', togglePreviousPosition);
+            togglePreviousPosition(); 
+            // --- END PREVIOUS POSITION LOGIC ---
 
-            // Initial check in case "yes" is pre-selected (though "no" is by default here)
-            togglePreviousPosition();
 
-            // JavaScript for adding more qualification fields
+            // --- DYNAMIC QUALIFICATIONS LOGIC ---
             const addQualificationBtn = document.getElementById('add_qualification');
             const qualificationsContainer = document.getElementById('qualifications_container');
             let qualificationCount = 1;
@@ -349,8 +507,12 @@
                 `;
                 qualificationsContainer.appendChild(newQualificationEntry);
             });
+            // --- END DYNAMIC QUALIFICATIONS LOGIC ---
+
         });
     </script>
 
 </body>
 </html>
+
+
