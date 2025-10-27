@@ -4,56 +4,54 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>APC Councilors Wardship Nomination Form</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <style>
         body {
             font-family: 'Poppins', sans-serif;
-            background-color: #f0f2f5; /* Light grey background */
+            background-color: #f7fafc; /* Lighter grey */
+            background-image: linear-gradient(to bottom, #f5f7fa, #eef2f7);
         }
         .gradient-header {
-            background-image: linear-gradient(to right, #006400, #228b22, #3cb371); /* Enhanced gradient */
-            color: white;
-            text-shadow: 0 1px 2px rgba(0,0,0,0.5);
+            background-image: linear-gradient(to right, #004d00, #006400, #2e8b57); /* Deeper Green Gradient */
         }
         .gradient-button {
-            background-image: linear-gradient(to right, #006400, #228b22, #2e8b57); /* Enhanced gradient */
+            background-image: linear-gradient(120deg, #006400, #2e8b57); /* Angled Gradient */
             transition: all 0.3s ease;
         }
         .gradient-button:hover {
-            background-image: linear-gradient(to right, #2e8b57, #228b22, #006400);
-            transform: translateY(-2px);
-            box-shadow: 0 4px 10px rgba(0, 100, 0, 0.4);
+            background-image: linear-gradient(120deg, #2e8b57, #006400); /* Reversed Gradient */
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0, 100, 0, 0.3);
         }
         .card {
             background-color: #ffffff;
-            border-radius: 12px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12); /* Enhanced shadow */
+            border-radius: 16px; /* Larger radius */
+            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.07); /* Softer shadow */
             padding: 2.5rem;
         }
         .form-label {
             display: block;
             font-weight: 600;
-            color: #333;
+            color: #2d3748; /* Darker gray */
             margin-bottom: 0.5rem;
             font-size: 0.95rem;
         }
         .form-input, .form-select, .form-textarea {
             width: 100%;
-            padding: 0.75rem;
+            padding: 0.85rem; /* Slightly more padding */
             border: 1px solid #d1d5db; /* gray-300 */
             border-radius: 0.5rem; /* rounded-lg */
             font-size: 1rem;
             color: #374151; /* gray-700 */
-            transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out, transform 0.2s ease-in-out;
+            transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
         }
         .form-input:focus, .form-select:focus, .form-textarea:focus {
             border-color: #006400; /* APC Green */
             box-shadow: 0 0 0 3px rgba(0, 100, 0, 0.2);
             outline: none;
-            transform: scale(1.02); /* Slight scale on focus for interactivity */
         }
         .form-input:read-only {
             background-color: #e5e7eb; /* gray-200 */
@@ -66,13 +64,11 @@
             background-color: #f3f4f6; /* gray-100 */
             cursor: not-allowed;
         }
-        .apc-gold { background-color: #FFD700; color: #000; }
-        .apc-green { background-color: #006400; color: #fff; }
 
         .hidden { display: none; }
 
         /* Custom checkbox/radio styles */
-        input[type="checkbox"], input[type="radio"] {
+        input[type="checkbox"], input[type="radio"].form-radio {
             -webkit-appearance: none;
             -moz-appearance: none;
             appearance: none;
@@ -86,8 +82,8 @@
             vertical-align: middle;
             margin-right: 0.5rem;
         }
-        input[type="radio"] { border-radius: 50%; }
-        input[type="checkbox"]:checked, input[type="radio"]:checked {
+        input[type="radio"].form-radio { border-radius: 50%; }
+        input[type="checkbox"]:checked, input[type="radio"].form-radio:checked {
             background-color: #006400;
             border-color: #006400;
         }
@@ -100,7 +96,7 @@
             left: 50%;
             transform: translate(-50%, -50%);
         }
-        input[type="radio"]:checked::after {
+        input[type="radio"].form-radio:checked::after {
             content: '';
             width: 0.625rem;
             height: 0.625rem;
@@ -110,6 +106,31 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
+        }
+
+        /* Language Selector Styles */
+        #lang-selector {
+            background-color: #e5e7eb;
+            border-radius: 9999px;
+            padding: 0.35rem;
+            display: inline-flex;
+            margin-bottom: 2rem;
+        }
+        #lang-selector label {
+            padding: 0.5rem 1.25rem;
+            border-radius: 9999px;
+            cursor: pointer;
+            font-weight: 600;
+            color: #4b5563;
+            transition: all 0.3s ease;
+        }
+        #lang-selector input[type="radio"] {
+            display: none;
+        }
+        #lang-selector input[type="radio"]:checked + label {
+            background-color: #006400;
+            color: white;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         }
 
         /* Lock Screen Overlay */
@@ -151,6 +172,7 @@
             border-radius: 1rem;
             margin-bottom: 1rem;
             animation: fadeInUp 0.5s ease;
+            line-height: 1.6;
         }
         .chat-bot {
             background-color: #006400;
@@ -198,7 +220,7 @@
             to { opacity: 1; }
         }
         .error-message {
-            color: red;
+            color: #dc2626; /* red-600 */
             font-size: 0.875rem;
             margin-top: 0.25rem;
         }
@@ -209,59 +231,56 @@
     <!-- LOCK SCREEN OVERLAY -->
     <div id="lock-overlay">
         <div class="lock-card">
-            <svg class="mx-auto h-16 w-16 text-red-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+            <svg class="mx-auto h-16 w-16 text-red-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 0 0-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 0 0 2.25-2.25v-6.75a2.25 2.25 0 0 0-2.25-2.25H6.75a2.25 2.25 0 0 0-2.25 2.25v6.75a2.25 2.25 0 0 0 2.25 2.25Z" />
             </svg>
-            <h2 class="mt-4 text-2xl font-bold text-gray-800" data-i18n="access_denied">Access Denied</h2>
-            <p class="mt-2 text-gray-600" data-i18n="nomination_code_required">A valid nomination code is required to access this form.</p>
-            <p class="mt-4 text-sm font-medium text-gray-700" data-i18n="scan_qr">Please scan the QR code on your official APC nomination card to proceed. If you have just purchased your card, please try again.</p>
+            <h2 class="mt-4 text-2xl font-bold text-gray-800" data-translate="lockTitle">Access Denied</h2>
+            <p class="mt-2 text-gray-600" data-translate="lockMsg1">
+                A valid nomination code is required to access this form.
+            </p>
+            <p class="mt-4 text-sm font-medium text-gray-700" data-translate="lockMsg2">
+                Please scan the QR code on your official APC nomination card to proceed. If you have just purchased your card, please try again.
+            </p>
         </div>
     </div>
 
     <!-- MAIN FORM CONTAINER -->
     <div id="main-form-container" class="max-w-4xl w-full hidden">
         <!-- HEADER -->
-        <header class="gradient-header text-white p-8 rounded-t-xl flex flex-col md:flex-row items-center justify-between text-center md:text-left shadow-lg animate__animated animate__fadeInDown">
+        <header class="gradient-header text-white p-8 rounded-t-xl flex flex-col md:flex-row items-center justify-between text-center md:text-left shadow-xl">
             <div class="flex items-center space-x-4 mb-4 md:mb-0">
                 <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTqsRHyM2yS67F34fBfngJ3oC9U2GuLtUawNOh9qrYPn6WCON3BZzZA2NUS&s=10" alt="APC Logo" class="h-20 w-20 rounded-full bg-white p-2 border-2 border-yellow-400">
                 <div>
-                    <h1 class="text-3xl font-bold mb-1" data-i18n="apc_wardship_nomination_form">APC Wardship Nomination Form</h1>
-                    <p class="text-lg font-light" data-i18n="councilor_aspirant_registration">Councilor Aspirant Registration</p>
+                    <h1 class="text-3xl font-bold mb-1" data-translate="formTitle">APC Wardship Nomination Form</h1>
+                    <p class="text-lg font-light" data-translate="formSubtitle">Councilor Aspirant Registration</p>
                 </div>
             </div>
-            <div class="text-yellow-400 font-semibold text-xl" data-i18n="apc_congress_2025">APC Congress 2025</div>
+            <div class="text-yellow-400 font-semibold text-xl" data-translate="congressTitle">
+                APC Congress 2025
+            </div>
         </header>
 
         <div class="card">
             <!-- LANGUAGE SELECTOR -->
-            <div id="language-selector" class="text-center mb-8">
-                <h2 class="text-2xl font-bold text-gray-800 mb-4">Choose Language / Yan Harshe / Zaɓi Harshe / Họrọ Asụsụ</h2>
-                <div class="flex justify-center space-x-4">
-                    <label class="flex items-center cursor-pointer">
-                        <input type="radio" name="language" value="en" checked>
-                        <span class="text-gray-700">English</span>
-                    </label>
-                    <label class="flex items-center cursor-pointer">
-                        <input type="radio" name="language" value="yo">
-                        <span class="text-gray-700">Yoruba</span>
-                    </label>
-                    <label class="flex items-center cursor-pointer">
-                        <input type="radio" name="language" value="ha">
-                        <span class="text-gray-700">Hausa</span>
-                    </label>
-                    <label class="flex items-center cursor-pointer">
-                        <input type="radio" name="language" value="ig">
-                        <span class="text-gray-700">Igbo</span>
-                    </label>
+            <div class="flex justify-center">
+                <div id="lang-selector">
+                    <input type="radio" id="lang-en" name="language" value="en" checked>
+                    <label for="lang-en">English</label>
+                    <input type="radio" id="lang-yo" name="language" value="yo">
+                    <label for="lang-yo">Yorùbá</label>
+                    <input type="radio" id="lang-ha" name="language" value="ha">
+                    <label for="lang-ha">Hausa</label>
+                    <input type="radio" id="lang-ig" name="language" value="ig">
+                    <label for="lang-ig">Igbo</label>
                 </div>
             </div>
 
             <!-- MODE SELECTOR -->
             <div id="mode-selector" class="text-center mb-8">
-                <h2 class="text-2xl font-bold text-gray-800 mb-4" data-i18n="choose_interaction_mode">Choose Interaction Mode</h2>
-                <div class="flex justify-center space-x-4">
-                    <button id="form-mode-btn" class="gradient-button text-white font-bold py-3 px-8 rounded-full text-lg shadow-md hover:shadow-xl transition-all duration-300" data-i18n="normal_form">Normal Form</button>
-                    <button id="chat-mode-btn" class="gradient-button text-white font-bold py-3 px-8 rounded-full text-lg shadow-md hover:shadow-xl transition-all duration-300" data-i18n="chat_with_secretary">Chat with the Secretary</button>
+                <h2 class="text-2xl font-bold text-gray-800 mb-4" data-translate="modeTitle">Choose Interaction Mode</h2>
+                <div class="flex flex-col sm:flex-row justify-center sm:space-x-4 space-y-4 sm:space-y-0">
+                    <button id="form-mode-btn" class="gradient-button text-white font-bold py-3 px-8 rounded-full text-lg shadow-md hover:shadow-xl transition-all duration-300" data-translate="modeForm">Normal Form</button>
+                    <button id="chat-mode-btn" class="gradient-button text-white font-bold py-3 px-8 rounded-full text-lg shadow-md hover:shadow-xl transition-all duration-300" data-translate="modeChat">Chat with the Secretary</button>
                 </div>
             </div>
 
@@ -270,154 +289,154 @@
                 <form id="nomination-form" class="space-y-8">
                     <!-- SECTION 1: PERSONAL INFORMATION -->
                     <section class="border-b pb-8 border-gray-200 animate__animated animate__fadeIn">
-                        <h2 class="text-2xl font-bold text-gray-800 mb-6 border-b pb-3 border-yellow-400" data-i18n="personal_information">1. Aspirant's Personal Information</h2>
+                        <h2 class="text-2xl font-bold text-gray-800 mb-6 border-b-2 pb-3 border-yellow-400" data-translate="section1Title">1. Aspirant's Personal Information</h2>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div>
-                                <label for="full_name" class="form-label" data-i18n="full_name">Full Name</label>
-                                <input type="text" id="full_name" name="full_name" class="form-input" data-i18n-placeholder="enter_full_name" placeholder="Enter your full name" required>
-                                <span id="full_name_error" class="error-message hidden" data-i18n="full_name_required">Full name is required.</span>
+                                <label for="full_name" class="form-label" data-translate="fullNameLabel">Full Name</label>
+                                <input type="text" id="full_name" name="full_name" class="form-input" data-translate-placeholder="fullNamePlaceholder" placeholder="Enter your full name" required>
+                                <span id="full_name_error" class="error-message hidden" data-translate="errorFullName">Full name is required.</span>
                             </div>
                             <div>
-                                <label for="dob" class="form-label" data-i18n="date_of_birth">Date of Birth</label>
+                                <label for="dob" class="form-label" data-translate="dobLabel">Date of Birth</label>
                                 <input type="date" id="dob" name="dob" class="form-input" required max="2025-10-27">
-                                <span id="dob_error" class="error-message hidden" data-i18n="valid_dob_required">Valid date of birth is required (must be in the past).</span>
+                                <span id="dob_error" class="error-message hidden" data-translate="errorDob">Valid date of birth is required (must be in the past).</span>
                             </div>
                             <div>
-                                <label for="gender" class="form-label" data-i18n="gender">Gender</label>
+                                <label for="gender" class="form-label" data-translate="genderLabel">Gender</label>
                                 <select id="gender" name="gender" class="form-select" required>
-                                    <option value="" data-i18n="select_gender">Select Gender</option>
-                                    <option value="male" data-i18n="male">Male</option>
-                                    <option value="female" data-i18n="female">Female</option>
+                                    <option value="" data-translate="genderSelect">Select Gender</option>
+                                    <option value="male" data-translate="genderMale">Male</option>
+                                    <option value="female" data-translate="genderFemale">Female</option>
                                 </select>
-                                <span id="gender_error" class="error-message hidden" data-i18n="gender_required">Gender is required.</span>
+                                <span id="gender_error" class="error-message hidden" data-translate="errorGender">Gender is required.</span>
                             </div>
                             <div>
-                                <label for="phone" class="form-label" data-i18n="phone_number">Phone Number</label>
-                                <input type="tel" id="phone" name="phone" class="form-input" data-i18n-placeholder="phone_example" placeholder="e.g., 08012345678" required pattern="0\d{10}">
-                                <span id="phone_error" class="error-message hidden" data-i18n="valid_phone_required">Valid Nigerian phone number is required (11 digits starting with 0).</span>
+                                <label for="phone" class="form-label" data-translate="phoneLabel">Phone Number</label>
+                                <input type="tel" id="phone" name="phone" class="form-input" data-translate-placeholder="phonePlaceholder" placeholder="e.g., 08012345678" required pattern="0\d{10}">
+                                <span id="phone_error" class="error-message hidden" data-translate="errorPhone">Valid Nigerian phone number is required (11 digits starting with 0).</span>
                             </div>
                             <div class="md:col-span-2">
-                                <label for="email" class="form-label" data-i18n="email_address">Email Address</label>
-                                <input type="email" id="email" name="email" class="form-input" data-i18n-placeholder="email_example" placeholder="e.g., yourname@example.com">
-                                <span id="email_error" class="error-message hidden" data-i18n="valid_email_required">Valid email is required if provided.</span>
+                                <label for="email" class="form-label" data-translate="emailLabel">Email Address</label>
+                                <input type="email" id="email" name="email" class="form-input" data-translate-placeholder="emailPlaceholder" placeholder="e.g., yourname@example.com">
+                                <span id="email_error" class="error-message hidden" data-translate="errorEmail">Valid email is required if provided.</span>
                             </div>
                             <div>
-                                <label for="state_of_origin" class="form-label" data-i18n="state_of_origin">State of Origin</label>
+                                <label for="state_of_origin" class="form-label" data-translate="stateOriginLabel">State of Origin</label>
                                 <select id="state_of_origin" name="state_of_origin" class="form-select" required>
-                                    <option value="" data-i18n="select_state_of_origin">Select State of Origin</option>
+                                    <option value="" data-translate="stateOriginSelect">Select State of Origin</option>
                                 </select>
-                                <span id="state_of_origin_error" class="error-message hidden" data-i18n="state_of_origin_required">State of origin is required.</span>
+                                <span id="state_of_origin_error" class="error-message hidden" data-translate="errorStateOrigin">State of origin is required.</span>
                             </div>
                             <div>
-                                <label for="lga_of_origin" class="form-label" data-i18n="lga_of_origin">LGA of Origin</label>
+                                <label for="lga_of_origin" class="form-label" data-translate="lgaOriginLabel">LGA of Origin</label>
                                 <select id="lga_of_origin" name="lga_of_origin" class="form-select" required disabled>
-                                    <option value="" data-i18n="select_lga_of_origin">Select LGA of Origin</option>
+                                    <option value="" data-translate="lgaOriginSelect">Select LGA of Origin</option>
                                 </select>
-                                <span id="lga_of_origin_error" class="error-message hidden" data-i18n="lga_of_origin_required">LGA of origin is required.</span>
+                                <span id="lga_of_origin_error" class="error-message hidden" data-translate="errorLgaOrigin">LGA of origin is required.</span>
                             </div>
                         </div>
                     </section>
 
                     <!-- SECTION 2: CONTACT INFORMATION -->
                     <section class="border-b pb-8 border-gray-200 animate__animated animate__fadeIn">
-                        <h2 class="text-2xl font-bold text-gray-800 mb-6 border-b pb-3 border-yellow-400" data-i18n="contact_information">2. Contact Information</h2>
+                        <h2 class="text-2xl font-bold text-gray-800 mb-6 border-b-2 pb-3 border-yellow-400" data-translate="section2Title">2. Contact Information</h2>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div>
-                                <label for="address" class="form-label" data-i18n="residential_address">Residential Address</label>
-                                <input type="text" id="address" name="address" class="form-input" data-i18n-placeholder="house_number_street" placeholder="House number, street name" required>
-                                <span id="address_error" class="error-message hidden" data-i18n="residential_address_required">Residential address is required.</span>
+                                <label for="address" class="form-label" data-translate="addressLabel">Residential Address</label>
+                                <input type="text" id="address" name="address" class="form-input" data-translate-placeholder="addressPlaceholder" placeholder="House number, street name" required>
+                                <span id="address_error" class="error-message hidden" data-translate="errorAddress">Residential address is required.</span>
                             </div>
                             <div>
-                                <label for="city" class="form-label" data-i18n="city_town">City/Town</label>
-                                <input type="text" id="city" name="city" class="form-input" data-i18n-placeholder="city_example" placeholder="e.g., Abuja" required>
-                                <span id="city_error" class="error-message hidden" data-i18n="city_town_required">City/town is required.</span>
+                                <label for="city" class="form-label" data-translate="cityLabel">City/Town</label>
+                                <input type="text" id="city" name="city" class="form-input" data-translate-placeholder="cityPlaceholder" placeholder="e.g., Abuja" required>
+                                <span id="city_error" class="error-message hidden" data-translate="errorCity">City/town is required.</span>
                             </div>
                             <div>
-                                <label for="state_of_residence" class="form-label" data-i18n="state_of_residence">State of Residence</label>
+                                <label for="state_of_residence" class="form-label" data-translate="stateResidenceLabel">State of Residence</label>
                                 <select id="state_of_residence" name="state_of_residence" class="form-select" required>
-                                    <option value="" data-i18n="select_state_of_residence">Select State of Residence</option>
+                                    <option value="" data-translate="stateResidenceSelect">Select State of Residence</option>
                                 </select>
-                                <span id="state_of_residence_error" class="error-message hidden" data-i18n="state_of_residence_required">State of residence is required.</span>
+                                <span id="state_of_residence_error" class="error-message hidden" data-translate="errorStateResidence">State of residence is required.</span>
                             </div>
                             <div>
-                                <label for="lga_of_residence" class="form-label" data-i18n="lga_of_residence">LGA of Residence</label>
+                                <label for="lga_of_residence" class="form-label" data-translate="lgaResidenceLabel">LGA of Residence</label>
                                 <select id="lga_of_residence" name="lga_of_residence" class="form-select" required disabled>
-                                    <option value="" data-i18n="select_lga_of_residence">Select LGA of Residence</option>
+                                    <option value="" data-translate="lgaResidenceSelect">Select LGA of Residence</option>
                                 </select>
-                                <span id="lga_of_residence_error" class="error-message hidden" data-i18n="lga_of_residence_required">LGA of residence is required.</span>
+                                <span id="lga_of_residence_error" class="error-message hidden" data-translate="errorLgaResidence">LGA of residence is required.</span>
                             </div>
                             <div class="md:col-span-2">
-                                <label for="ward" class="form-label" data-i18n="ward">Ward</label>
-                                <input type="text" id="ward" name="ward" class="form-input" data-i18n-placeholder="enter_ward" placeholder="Enter your Ward name/number" required>
-                                <span id="ward_error" class="error-message hidden" data-i18n="ward_required">Ward is required.</span>
+                                <label for="ward" class="form-label" data-translate="wardLabel">Ward</label>
+                                <input type="text" id="ward" name="ward" class="form-input" data-translate-placeholder="wardPlaceholder" placeholder="Enter your Ward name/number" required>
+                                <span id="ward_error" class="error-message hidden" data-translate="errorWard">Ward is required.</span>
                             </div>
                         </div>
                     </section>
 
                     <!-- SECTION 3: PARTY AFFILIATION -->
                     <section class="border-b pb-8 border-gray-200 animate__animated animate__fadeIn">
-                        <h2 class="text-2xl font-bold text-gray-800 mb-6 border-b pb-3 border-yellow-400" data-i18n="party_affiliation">3. Party Affiliation</h2>
+                        <h2 class="text-2xl font-bold text-gray-800 mb-6 border-b-2 pb-3 border-yellow-400" data-translate="section3Title">3. Party Affiliation</h2>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div>
-                                <label for="nomination_code" class="form-label" data-i18n="nomination_code_verified">Nomination Code (Verified)</label>
+                                <label for="nomination_code" class="form-label" data-translate="nominationCodeLabel">Nomination Code (Verified)</label>
                                 <input type="text" id="nomination_code" name="nomination_code" class="form-input" readonly required>
                             </div>
                             <div>
-                                <label for="apc_reg_no" class="form-label" data-i18n="apc_membership_registration_number">APC Membership Registration Number</label>
-                                <input type="text" id="apc_reg_no" name="apc_reg_no" class="form-input" data-i18n-placeholder="enter_apc_reg_no" placeholder="Enter APC Reg. No." required>
-                                <span id="apc_reg_no_error" class="error-message hidden" data-i18n="apc_registration_number_required">APC registration number is required.</span>
+                                <label for="apc_reg_no" class="form-label" data-translate="apcRegNoLabel">APC Membership Registration Number</label>
+                                <input type="text" id="apc_reg_no" name="apc_reg_no" class="form-input" data-translate-placeholder="apcRegNoPlaceholder" placeholder="Enter APC Reg. No." required>
+                                <span id="apc_reg_no_error" class="error-message hidden" data-translate="errorApcRegNo">APC registration number is required.</span>
                             </div>
                             <div class="md:col-span-2">
-                                <label for="apc_join_date" class="form-label" data-i18n="date_joined_apc">Date Joined APC</label>
+                                <label for="apc_join_date" class="form-label" data-translate="apcJoinDateLabel">Date Joined APC</label>
                                 <input type="date" id="apc_join_date" name="apc_join_date" class="form-input" required max="2025-10-27">
-                                <span id="apc_join_date_error" class="error-message hidden" data-i18n="valid_join_date_required">Valid join date is required (must be in the past).</span>
+                                <span id="apc_join_date_error" class="error-message hidden" data-translate="errorApcJoinDate">Valid join date is required (must be in the past).</span>
                             </div>
                             <div class="md:col-span-2">
-                                <label class="form-label" data-i18n="held_party_position_before">Have you held any party position before?</label>
+                                <label class="form-label" data-translate="heldPositionLabel">Have you held any party position before?</label>
                                 <div class="flex items-center space-x-6 mt-2">
                                     <label class="flex items-center cursor-pointer">
-                                        <input type="radio" name="held_position" value="yes" id="pos_yes">
-                                        <span class="text-gray-700" data-i18n="yes">Yes</span>
+                                        <input type="radio" name="held_position" value="yes" id="pos_yes" class="form-radio">
+                                        <span class="text-gray-700" data-translate="yes">Yes</span>
                                     </label>
                                     <label class="flex items-center cursor-pointer">
-                                        <input type="radio" name="held_position" value="no" id="pos_no" checked>
-                                        <span class="text-gray-700" data-i18n="no">No</span>
+                                        <input type="radio" name="held_position" value="no" id="pos_no" class="form-radio" checked>
+                                        <span class="text-gray-700" data-translate="no">No</span>
                                     </label>
                                 </div>
-                                <span id="held_position_error" class="error-message hidden" data-i18n="this_field_required">This field is required.</span>
+                                <span id="held_position_error" class="error-message hidden" data-translate="errorHeldPosition">This field is required.</span>
                             </div>
                             <div id="previous_position_section" class="md:col-span-2 hidden">
-                                <label for="previous_position" class="form-label" data-i18n="if_yes_state_positions_years">If Yes, please state the position(s) and year(s)</label>
-                                <textarea id="previous_position" name="previous_position" rows="3" class="form-textarea" data-i18n-placeholder="previous_position_example" placeholder="e.g., Ward Secretary (2018-2020)"></textarea>
-                                <span id="previous_position_error" class="error-message hidden" data-i18n="this_field_required_if_yes">This field is required if yes.</span>
+                                <label for="previous_position" class="form-label" data-translate="prevPositionLabel">If Yes, please state the position(s) and year(s)</label>
+                                <textarea id="previous_position" name="previous_position" rows="3" class="form-textarea" data-translate-placeholder="prevPositionPlaceholder" placeholder="e.g., Ward Secretary (2018-2020)"></textarea>
+                                <span id="previous_position_error" class="error-message hidden" data-translate="errorPrevPosition">This field is required if yes.</span>
                             </div>
                         </div>
                     </section>
 
                     <!-- SECTION 4: ACADEMIC QUALIFICATIONS -->
                     <section class="border-b pb-8 border-gray-200 animate__animated animate__fadeIn">
-                        <h2 class="text-2xl font-bold text-gray-800 mb-6 border-b pb-3 border-yellow-400" data-i18n="academic_qualifications">4. Academic Qualifications</h2>
-                        <p class="text-gray-600 mb-4" data-i18n="list_qualifications">Please list your academic qualifications, starting from the highest.</p>
+                        <h2 class="text-2xl font-bold text-gray-800 mb-6 border-b-2 pb-3 border-yellow-400" data-translate="section4Title">4. Academic Qualifications</h2>
+                        <p class="text-gray-600 mb-4" data-translate="section4Desc">Please list your academic qualifications, starting from the highest.</p>
                         <div id="qualifications_container" class="space-y-4">
                             <div class="qualification-entry grid grid-cols-1 md:grid-cols-3 gap-4 items-end">
                                 <div>
-                                    <label for="qualification_1_degree" class="form-label" data-i18n="degree_certificate">Degree/Certificate</label>
-                                    <input type="text" id="qualification_1_degree" name="qualification_degree[]" class="form-input" data-i18n-placeholder="degree_example" placeholder="e.g., B.Sc. Political Science" required>
-                                    <span id="qualification_1_degree_error" class="error-message hidden" data-i18n="degree_required">Degree is required.</span>
+                                    <label for="qualification_1_degree" class="form-label" data-translate="degreeLabel">Degree/Certificate</label>
+                                    <input type="text" id="qualification_1_degree" name="qualification_degree[]" class="form-input" data-translate-placeholder="degreePlaceholder" placeholder="e.g., B.Sc. Political Science" required>
+                                    <span id="qualification_1_degree_error" class="error-message hidden" data-translate="errorDegree">Degree is required.</span>
                                 </div>
                                 <div>
-                                    <label for="qualification_1_institution" class="form-label" data-i18n="institution">Institution</label>
-                                    <input type="text" id="qualification_1_institution" name="qualification_institution[]" class="form-input" data-i18n-placeholder="institution_example" placeholder="e.g., University of Lagos" required>
-                                    <span id="qualification_1_institution_error" class="error-message hidden" data-i18n="institution_required">Institution is required.</span>
+                                    <label for="qualification_1_institution" class="form-label" data-translate="institutionLabel">Institution</label>
+                                    <input type="text" id="qualification_1_institution" name="qualification_institution[]" class="form-input" data-translate-placeholder="institutionPlaceholder" placeholder="e.g., University of Lagos" required>
+                                    <span id="qualification_1_institution_error" class="error-message hidden" data-translate="errorInstitution">Institution is required.</span>
                                 </div>
                                 <div>
-                                    <label for="qualification_1_year" class="form-label" data-i18n="year_obtained">Year Obtained</label>
-                                    <input type="number" id="qualification_1_year" name="qualification_year[]" class="form-input" data-i18n-placeholder="year_example" placeholder="e.g., 2010" required min="1950" max="2025">
-                                    <span id="qualification_1_year_error" class="error-message hidden" data-i18n="year_between_required">Year between 1950 and 2025 is required.</span>
+                                    <label for="qualification_1_year" class="form-label" data-translate="yearLabel">Year Obtained</label>
+                                    <input type="number" id="qualification_1_year" name="qualification_year[]" class="form-input" data-translate-placeholder="yearPlaceholder" placeholder="e.g., 2010" required min="1950" max="2025">
+                                    <span id="qualification_1_year_error" class="error-message hidden" data-translate="errorYear">Year between 1950 and 2025 is required.</span>
                                 </div>
                             </div>
                         </div>
-                        <button type="button" id="add_qualification" class="mt-6 inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white apc-green hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-apc-green transition-colors" data-i18n="add_another_qualification">
+                        <button type="button" id="add_qualification" class="mt-6 inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white apc-green hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-apc-green transition-colors" style="background-color: #006400;" data-translate="addQualificationBtn">
                             <svg class="-ml-1 mr-2 h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                                 <path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd" />
                             </svg>
@@ -427,21 +446,21 @@
 
                     <!-- SECTION 5: DECLARATION -->
                     <section class="animate__animated animate__fadeIn">
-                        <h2 class="text-2xl font-bold text-gray-800 mb-6 border-b pb-3 border-yellow-400" data-i18n="declaration">5. Declaration</h2>
+                        <h2 class="text-2xl font-bold text-gray-800 mb-6 border-b-2 pb-3 border-yellow-400" data-translate="section5Title">5. Declaration</h2>
                         <div class="flex items-start mb-6">
                             <label for="declaration" class="flex items-start cursor-pointer">
                                 <input type="checkbox" id="declaration" name="declaration" class="mt-1" required>
-                                <span class="ml-3 text-gray-700 text-base leading-relaxed" data-i18n="declaration_text">
+                                <span class="ml-3 text-gray-700 text-base leading-relaxed" data-translate="declarationText">
                                     I solemnly declare that all information provided in this nomination form is true and correct to the best of my knowledge and belief. I understand that any false information may lead to disqualification.
                                 </span>
                             </label>
                         </div>
-                        <span id="declaration_error" class="error-message hidden" data-i18n="agree_declaration_required">You must agree to the declaration.</span>
+                        <span id="declaration_error" class="error-message hidden" data-translate="errorDeclaration">You must agree to the declaration.</span>
                     </section>
 
                     <!-- SUBMIT BUTTON -->
                     <div class="text-center pt-4">
-                        <button type="submit" class="gradient-button text-white font-bold py-3 px-10 rounded-full text-lg shadow-xl hover:shadow-2xl focus:outline-none focus:ring-4 focus:ring-green-300 focus:ring-opacity-75 transition-all duration-300" data-i18n="submit_nomination_form">
+                        <button type="submit" class="gradient-button text-white font-bold py-3 px-10 rounded-full text-lg shadow-xl hover:shadow-2xl focus:outline-none focus:ring-4 focus:ring-green-300 focus:ring-opacity-75 transition-all duration-300" data-translate="submitFormBtn">
                             Submit Nomination Form
                         </button>
                     </div>
@@ -452,28 +471,30 @@
             <div id="chat-section" class="hidden">
                 <div id="chat-messages" class="space-y-4 mb-4"></div>
                 <div class="flex">
-                    <input id="chat-input" type="text" class="form-input flex-1 mr-2" data-i18n-placeholder="type_response" placeholder="Type your response...">
-                    <button id="chat-send" class="gradient-button text-white font-bold py-2 px-4 rounded-md shadow-md hover:shadow-xl transition-all duration-300" data-i18n="send">Send</button>
+                    <input id="chat-input" type="text" class="form-input flex-1 mr-2" data-translate-placeholder="chatPlaceholder" placeholder="Type your response...">
+                    <button id="chat-send" class="gradient-button text-white font-bold py-2 px-4 rounded-md shadow-md hover:shadow-xl transition-all duration-300" data-translate="chatSendBtn">Send</button>
                 </div>
                 <div id="chat-submit-section" class="text-center pt-4 hidden">
-                    <button id="chat-submit" class="gradient-button text-white font-bold py-3 px-10 rounded-full text-lg shadow-xl hover:shadow-2xl transition-all duration-300" data-i18n="submit_nomination">Submit Nomination</button>
+                    <button id="chat-submit" class="gradient-button text-white font-bold py-3 px-10 rounded-full text-lg shadow-xl hover:shadow-2xl transition-all duration-300" data-translate="chatSubmitBtn">
+                        Submit Nomination
+                    </button>
                 </div>
             </div>
 
             <!-- SUCCESS SECTION -->
             <div id="success-section" class="hidden text-center">
-                <h2 class="text-2xl font-bold text-green-600 mb-6 animate__animated animate__bounceIn" data-i18n="submission_successful">Submission Successful!</h2>
-                <div class="flex justify-center space-x-4">
-                    <button id="download-form-btn" class="gradient-button text-white font-bold py-3 px-8 rounded-full text-lg shadow-md hover:shadow-xl transition-all duration-300" data-i18n="download_filled_form">Download Filled Form</button>
-                    <button id="download-receipt-btn" class="gradient-button text-white font-bold py-3 px-8 rounded-full text-lg shadow-md hover:shadow-xl transition-all duration-300" data-i18n="download_receipt">Download Receipt</button>
+                <h2 class="text-2xl font-bold text-green-600 mb-6 animate__animated animate__bounceIn" data-translate="successTitle">Submission Successful!</h2>
+                <div class="flex flex-col sm:flex-row justify-center sm:space-x-4 space-y-4 sm:space-y-0">
+                    <button id="download-form-btn" class="gradient-button text-white font-bold py-3 px-8 rounded-full text-lg shadow-md hover:shadow-xl transition-all duration-300" data-translate="downloadFormBtn">Download Filled Form</button>
+                    <button id="download-receipt-btn" class="gradient-button text-white font-bold py-3 px-8 rounded-full text-lg shadow-md hover:shadow-xl transition-all duration-300" data-translate="downloadReceiptBtn">Download Receipt</button>
                 </div>
             </div>
         </div>
 
         <!-- FOOTER -->
         <footer class="mt-8 text-center text-gray-600 text-sm">
-            <p data-i18n="copyright_apc">&copy; 2025 All Progressives Congress (APC). All Rights Reserved.</p>
-            <p data-i18n="powered_by">Powered by APC Directorate of Digital Operations.</p>
+            <p data-translate="footer1">&copy; 2025 All Progressives Congress (APC). All Rights Reserved.</p>
+            <p data-translate="footer2">Powered by APC Directorate of Digital Operations.</p>
         </footer>
     </div>
 
@@ -482,314 +503,1364 @@
         document.addEventListener('DOMContentLoaded', function() {
             const { jsPDF } = window.jspdf;
 
-            // Translations
+            // --- TRANSLATIONS OBJECT ---
             const translations = {
-                en: {
-                    full_name: 'Full Name',
-                    enter_full_name: 'Enter your full name',
-                    date_of_birth: 'Date of Birth',
-                    gender: 'Gender',
-                    select_gender: 'Select Gender',
-                    male: 'Male',
-                    female: 'Female',
-                    phone_number: 'Phone Number',
-                    phone_example: 'e.g., 08012345678',
-                    email_address: 'Email Address',
-                    email_example: 'e.g., yourname@example.com',
-                    state_of_origin: 'State of Origin',
-                    select_state_of_origin: 'Select State of Origin',
-                    lga_of_origin: 'LGA of Origin',
-                    select_lga_of_origin: 'Select LGA of Origin',
-                    residential_address: 'Residential Address',
-                    house_number_street: 'House number, street name',
-                    city_town: 'City/Town',
-                    city_example: 'e.g., Abuja',
-                    state_of_residence: 'State of Residence',
-                    select_state_of_residence: 'Select State of Residence',
-                    lga_of_residence: 'LGA of Residence',
-                    select_lga_of_residence: 'Select LGA of Residence',
-                    ward: 'Ward',
-                    enter_ward: 'Enter your Ward name/number',
-                    nomination_code_verified: 'Nomination Code (Verified)',
-                    apc_membership_registration_number: 'APC Membership Registration Number',
-                    enter_apc_reg_no: 'Enter APC Reg. No.',
-                    date_joined_apc: 'Date Joined APC',
-                    held_party_position_before: 'Have you held any party position before?',
-                    yes: 'Yes',
-                    no: 'No',
-                    if_yes_state_positions_years: 'If Yes, please state the position(s) and year(s)',
-                    previous_position_example: 'e.g., Ward Secretary (2018-2020)',
-                    degree_certificate: 'Degree/Certificate',
-                    degree_example: 'e.g., B.Sc. Political Science',
-                    institution: 'Institution',
-                    institution_example: 'e.g., University of Lagos',
-                    year_obtained: 'Year Obtained',
-                    year_example: 'e.g., 2010',
-                    add_another_qualification: 'Add Another Qualification',
-                    declaration: 'Declaration',
-                    declaration_text: 'I solemnly declare that all information provided in this nomination form is true and correct to the best of my knowledge and belief. I understand that any false information may lead to disqualification.',
-                    submit_nomination_form: 'Submit Nomination Form',
-                    choose_interaction_mode: 'Choose Interaction Mode',
-                    normal_form: 'Normal Form',
-                    chat_with_secretary: 'Chat with the Secretary',
-                    submission_successful: 'Submission Successful!',
-                    download_filled_form: 'Download Filled Form',
-                    download_receipt: 'Download Receipt',
-                    welcome: 'Welcome to the APC Nomination Chat with the Secretary! I\'ll ask questions one by one.',
-                    nomination_code_verified: 'Your nomination code is verified:',
-                    full_name_question: 'What is your full name?',
-                    dob_question: 'What is your date of birth? (Format: YYYY-MM-DD)',
-                    gender_question: 'What is your gender? (male/female)',
-                    phone_question: 'What is your phone number? (e.g., 08012345678)',
-                    email_question: 'What is your email address? (optional)',
-                    state_of_origin_question: 'What is your state of origin?',
-                    lga_of_origin_question: 'What is your LGA of origin?',
-                    residential_address_question: 'What is your residential address?',
-                    city_question: 'What is your city/town?',
-                    state_of_residence_question: 'What is your state of residence?',
-                    lga_of_residence_question: 'What is your LGA of residence?',
-                    ward_question: 'What is your ward?',
-                    apc_reg_no_question: 'What is your APC membership registration number?',
-                    apc_join_date_question: 'What is the date you joined APC? (Format: YYYY-MM-DD)',
-                    held_position_question: 'Have you held any party position before? (yes/no)',
-                    previous_position_question: 'Please state the position(s) and year(s). (e.g., Ward Secretary (2018-2020))',
-                    academic_qualifications_intro: 'Now, let\'s add your academic qualifications. Starting with the highest.',
-                    degree_question: 'What is your degree/certificate? (e.g., B.Sc. Political Science)',
-                    institution_question: 'What is the institution? (e.g., University of Lagos)',
-                    year_question: 'What is the year obtained? (e.g., 2010)',
-                    add_another_qualification_question: 'Do you want to add another qualification? (yes/no)',
-                    declaration_question: 'Do you agree to the declaration? (I solemnly declare that all information provided is true... Type "yes" to agree.)',
-                    all_questions_answered: 'All questions answered! Click "Submit Nomination" below.',
-                    send: 'Send',
-                    submit_nomination: 'Submit Nomination',
-                    full_name_required: 'Full name is required.',
-                    valid_dob_required: 'Valid date of birth is required (must be in the past).',
-                    gender_required: 'Gender is required.',
-                    valid_phone_required: 'Valid Nigerian phone number is required (11 digits starting with 0).',
-                    valid_email_required: 'Valid email is required if provided.',
-                    state_of_origin_required: 'State of origin is required.',
-                    lga_of_origin_required: 'LGA of origin is required.',
-                    residential_address_required: 'Residential address is required.',
-                    city_town_required: 'City/town is required.',
-                    state_of_residence_required: 'State of residence is required.',
-                    lga_of_residence_required: 'LGA of residence is required.',
-                    ward_required: 'Ward is required.',
-                    apc_registration_number_required: 'APC registration number is required.',
-                    valid_join_date_required: 'Valid join date is required (must be in the past).',
-                    this_field_required: 'This field is required.',
-                    this_field_required_if_yes: 'This field is required if yes.',
-                    degree_required: 'Degree is required.',
-                    institution_required: 'Institution is required.',
-                    year_between_required: 'Year between 1950 and 2025 is required.',
-                    agree_declaration_required: 'You must agree to the declaration.',
-                    invalid_date_format: 'Invalid date format or date must be in the past (YYYY-MM-DD).',
-                    enter_male_female: 'Please enter "male" or "female".',
-                    invalid_email_format: 'Invalid email format.',
-                    invalid_state_name: 'Invalid state name.',
-                    invalid_lga: 'Invalid LGA for the selected state.',
-                    enter_yes_no: 'Please enter "yes" or "no".',
-                    previous_position_required: 'Previous position details are required.',
-                    type_yes_to_agree: 'You must type "yes" to agree to the declaration.',
-                    personal_information: '1. Aspirant\'s Personal Information',
-                    contact_information: '2. Contact Information',
-                    party_affiliation: '3. Party Affiliation',
-                    academic_qualifications: '4. Academic Qualifications',
-                    list_qualifications: 'Please list your academic qualifications, starting from the highest.',
-                    declaration: '5. Declaration',
-                    access_denied: 'Access Denied',
-                    nomination_code_required: 'A valid nomination code is required to access this form.',
-                    scan_qr: 'Please scan the QR code on your official APC nomination card to proceed. If you have just purchased your card, please try again.',
-                    apc_wardship_nomination_form: 'APC Wardship Nomination Form',
-                    councilor_aspirant_registration: 'Councilor Aspirant Registration',
-                    apc_congress_2025: 'APC Congress 2025',
-                    copyright_apc: '&copy; 2025 All Progressives Congress (APC). All Rights Reserved.',
-                    powered_by: 'Powered by APC Directorate of Digital Operations.',
-                    // Add more keys as needed
+                'en': {
+                    'lockTitle': 'Access Denied',
+                    'lockMsg1': 'A valid nomination code is required to access this form.',
+                    'lockMsg2': 'Please scan the QR code on your official APC nomination card to proceed. If you have just purchased your card, please try again.',
+                    'formTitle': 'APC Wardship Nomination Form',
+                    'formSubtitle': 'Councilor Aspirant Registration',
+                    'congressTitle': 'APC Congress 2025',
+                    'modeTitle': 'Choose Interaction Mode',
+                    'modeForm': 'Normal Form',
+                    'modeChat': 'Chat with the Secretary',
+                    'section1Title': "1. Aspirant's Personal Information",
+                    'fullNameLabel': 'Full Name',
+                    'fullNamePlaceholder': 'Enter your full name',
+                    'dobLabel': 'Date of Birth',
+                    'genderLabel': 'Gender',
+                    'genderSelect': 'Select Gender',
+                    'genderMale': 'Male',
+                    'genderFemale': 'Female',
+                    'phoneLabel': 'Phone Number',
+                    'phonePlaceholder': 'e.g., 08012345678',
+                    'emailLabel': 'Email Address',
+                    'emailPlaceholder': 'e.g., yourname@example.com',
+                    'stateOriginLabel': 'State of Origin',
+                    'stateOriginSelect': 'Select State of Origin',
+                    'lgaOriginLabel': 'LGA of Origin',
+                    'lgaOriginSelect': 'Select LGA of Origin',
+                    'section2Title': '2. Contact Information',
+                    'addressLabel': 'Residential Address',
+                    'addressPlaceholder': 'House number, street name',
+                    'cityLabel': 'City/Town',
+                    'cityPlaceholder': 'e.g., Abuja',
+                    'stateResidenceLabel': 'State of Residence',
+                    'stateResidenceSelect': 'Select State of Residence',
+                    'lgaResidenceLabel': 'LGA of Residence',
+                    'lgaResidenceSelect': 'Select LGA of Residence',
+                    'wardLabel': 'Ward',
+                    'wardPlaceholder': 'Enter your Ward name/number',
+                    'section3Title': '3. Party Affiliation',
+                    'nominationCodeLabel': 'Nomination Code (Verified)',
+                    'apcRegNoLabel': 'APC Membership Registration Number',
+                    'apcRegNoPlaceholder': 'Enter APC Reg. No.',
+                    'apcJoinDateLabel': 'Date Joined APC',
+                    'heldPositionLabel': 'Have you held any party position before?',
+                    'yes': 'Yes',
+                    'no': 'No',
+                    'prevPositionLabel': 'If Yes, please state the position(s) and year(s)',
+                    'prevPositionPlaceholder': 'e.g., Ward Secretary (2018-2020)',
+                    'section4Title': '4. Academic Qualifications',
+                    'section4Desc': 'Please list your academic qualifications, starting from the highest.',
+                    'degreeLabel': 'Degree/Certificate',
+                    'degreePlaceholder': 'e.g., B.Sc. Political Science',
+                    'institutionLabel': 'Institution',
+                    'institutionPlaceholder': 'e.g., University of Lagos',
+                    'yearLabel': 'Year Obtained',
+                    'yearPlaceholder': 'e.g., 2010',
+                    'addQualificationBtn': 'Add Another Qualification',
+                    'section5Title': '5. Declaration',
+                    'declarationText': 'I solemnly declare that all information provided in this nomination form is true and correct to the best of my knowledge and belief. I understand that any false information may lead to disqualification.',
+                    'submitFormBtn': 'Submit Nomination Form',
+                    'chatPlaceholder': 'Type your response...',
+                    'chatSendBtn': 'Send',
+                    'chatSubmitBtn': 'Submit Nomination',
+                    'successTitle': 'Submission Successful!',
+                    'downloadFormBtn': 'Download Filled Form',
+                    'downloadReceiptBtn': 'Download Receipt',
+                    'footer1': '© 2025 All Progressives Congress (APC). All Rights Reserved.',
+                    'footer2': 'Powered by APC Directorate of Digital Operations.',
+                    'errorFullName': 'Full name is required.',
+                    'errorDob': 'Valid date of birth is required (must be in the past).',
+                    'errorGender': 'Gender is required.',
+                    'errorPhone': 'Valid Nigerian phone number is required (11 digits starting with 0).',
+                    'errorEmail': 'Valid email is required if provided.',
+                    'errorStateOrigin': 'State of origin is required.',
+                    'errorLgaOrigin': 'LGA of origin is required.',
+                    'errorAddress': 'Residential address is required.',
+                    'errorCity': 'City/town is required.',
+                    'errorStateResidence': 'State of residence is required.',
+                    'errorLgaResidence': 'LGA of residence is required.',
+                    'errorWard': 'Ward is required.',
+                    'errorApcRegNo': 'APC registration number is required.',
+                    'errorApcJoinDate': 'Valid join date is required (must be in the past).',
+                    'errorHeldPosition': 'This field is required.',
+                    'errorPrevPosition': 'This field is required if yes.',
+                    'errorDegree': 'Degree is required.',
+                    'errorInstitution': 'Institution is required.',
+                    'errorYear': 'Year between 1950 and 2025 is required.',
+                    'errorDeclaration': 'You must agree to the declaration.',
+                    'chatWelcome': 'Welcome to the APC Nomination Chat with the Secretary! I\'ll ask questions one by one.',
+                    'chatCodeVerified': 'Your nomination code is verified: ',
+                    'chatTyping': 'Secretary is typing',
+                    'chatQuestionFullName': 'What is your full name?',
+                    'chatErrorFullName': 'Full name is required.',
+                    'chatQuestionDob': 'What is your date of birth? (Format: YYYY-MM-DD)',
+                    'chatErrorDob': 'Invalid date format or date must be in the past (YYYY-MM-DD).',
+                    'chatQuestionGender': 'What is your gender? (male/female)',
+                    'chatErrorGender': 'Please enter "male" or "female".',
+                    'chatQuestionPhone': 'What is your phone number? (e.g., 08012345678)',
+                    'chatErrorPhone': 'Invalid Nigerian phone number (11 digits starting with 0).',
+                    'chatQuestionEmail': 'What is your email address? (optional, press enter to skip)',
+                    'chatErrorEmail': 'Invalid email format.',
+                    'chatQuestionStateOrigin': 'What is your state of origin?',
+                    'chatErrorStateOrigin': 'Invalid state name. Please check the spelling.',
+                    'chatQuestionLgaOrigin': 'What is your LGA of origin?',
+                    'chatErrorLgaOrigin': 'Invalid LGA for the selected state.',
+                    'chatQuestionAddress': 'What is your residential address?',
+                    'chatErrorAddress': 'Address is required.',
+                    'chatQuestionCity': 'What is your city/town?',
+                    'chatErrorCity': 'City/town is required.',
+                    'chatQuestionStateResidence': 'What is your state of residence?',
+                    'chatErrorStateResidence': 'Invalid state name. Please check the spelling.',
+                    'chatQuestionLgaResidence': 'What is your LGA of residence?',
+                    'chatErrorLgaResidence': 'Invalid LGA for the selected state.',
+                    'chatQuestionWard': 'What is your ward?',
+                    'chatErrorWard': 'Ward is required.',
+                    'chatQuestionApcRegNo': 'What is your APC membership registration number?',
+                    'chatErrorApcRegNo': 'APC registration number is required.',
+                    'chatQuestionApcJoinDate': 'What is the date you joined APC? (Format: YYYY-MM-DD)',
+                    'chatErrorApcJoinDate': 'Invalid date format or date must be in the past (YYYY-MM-DD).',
+                    'chatQuestionHeldPosition': 'Have you held any party position before? (yes/no)',
+                    'chatErrorHeldPosition': 'Please enter "yes" or "no".',
+                    'chatQuestionPrevPosition': 'Please state the position(s) and year(s). (e.g., Ward Secretary (2018-2020))',
+                    'chatErrorPrevPosition': 'Previous position details are required.',
+                    'chatStartQual': "Now, let's add your academic qualifications. Starting with the highest.",
+                    'chatQuestionDegree': 'What is your degree/certificate? (e.g., B.Sc. Political Science)',
+                    'chatErrorDegree': 'Degree is required.',
+                    'chatQuestionInstitution': 'What is the institution? (e.g., University of Lagos)',
+                    'chatErrorInstitution': 'Institution is required.',
+                    'chatQuestionYear': 'What is the year obtained? (e.g., 2010)',
+                    'chatErrorYear': 'Valid year between 1950 and 2025 is required.',
+                    'chatQuestionMoreQual': 'Do you want to add another qualification? (yes/no)',
+                    'chatErrorMoreQual': 'Please enter "yes" or "no".',
+                    'chatQuestionDeclaration': 'Do you agree to the declaration? (I solemnly declare that all information provided is true... Type "yes" to agree.)',
+                    'chatErrorDeclaration': 'You must type "yes" to agree to the declaration.',
+                    'chatComplete': 'All questions answered! Click "Submit Nomination" below.',
+                    'selectLga': 'Select LGA',
+                    'pdfTitle': 'APC Wardship Nomination Form',
+                    'pdfCode': 'Nomination Code:',
+                    'pdfSection1': 'Personal Information:',
+                    'pdfFullName': 'Full Name:',
+                    'pdfDob': 'DOB:',
+                    'pdfGender': 'Gender:',
+                    'pdfPhone': 'Phone:',
+                    'pdfEmail': 'Email:',
+                    'pdfStateOrigin': 'State of Origin:',
+                    'pdfLgaOrigin': 'LGA of Origin:',
+                    'pdfSection2': 'Contact Information:',
+                    'pdfAddress': 'Address:',
+                    'pdfCity': 'City:',
+                    'pdfStateResidence': 'State of Residence:',
+                    'pdfLgaResidence': 'LGA of Residence:',
+                    'pdfWard': 'Ward:',
+                    'pdfSection3': 'Party Affiliation:',
+                    'pdfApcRegNo': 'APC Reg No:',
+                    'pdfJoinDate': 'Join Date:',
+                    'pdfHeldPosition': 'Held Position:',
+                    'pdfPrevPosition': 'Previous Positions:',
+                    'pdfSection4': 'Academic Qualifications:',
+                    'pdfDegree': 'Degree:',
+                    'pdfInstitution': 'Institution:',
+                    'pdfYear': 'Year:',
+                    'pdfDeclaration': 'Declaration:',
+                    'pdfNotApplicable': 'N/A',
+                    'receiptTitle': 'APC Nomination Receipt',
+                    'receiptDate': 'Submission Date:',
+                    'receiptThankYou': 'Thank you for your nomination!',
+                    'receiptOfficial': 'This is your official receipt.'
                 },
-                yo: {
-                    full_name: 'Orukọ ni kikun',
-                    enter_full_name: 'Tẹ orukọ rẹ ni kikun',
-                    date_of_birth: 'Ọjọ ibi',
-                    gender: 'Iwa',
-                    select_gender: 'Yan Iwa',
-                    male: 'Ọkùnrin',
-                    female: 'Obìnrin',
-                    phone_number: 'Nọmba foonu',
-                    phone_example: 'Fun apẹẹrẹ, 08012345678',
-                    email_address: 'Adirẹsi imeeli',
-                    email_example: 'Fun apẹẹrẹ, orukọrẹ@example.com',
-                    state_of_origin: 'Ipinle ti o wa',
-                    select_state_of_origin: 'Yan Ipinle ti o wa',
-                    lga_of_origin: 'LGA ti o wa',
-                    select_lga_of_origin: 'Yan LGA ti o wa',
-                    residential_address: 'Adirẹsi ibugbe',
-                    house_number_street: 'Nọmba ile, orukọ opopona',
-                    city_town: 'Ilu/Ilu',
-                    city_example: 'Fun apẹẹrẹ, Abuja',
-                    state_of_residence: 'Ipinle ti ngbe',
-                    select_state_of_residence: 'Yan Ipinle ti ngbe',
-                    lga_of_residence: 'LGA ti ngbe',
-                    select_lga_of_residence: 'Yan LGA ti ngbe',
-                    ward: 'Wadi',
-                    enter_ward: 'Tẹ orukọ wadi rẹ / nọmba',
-                    nomination_code_verified: 'Koodu yiyan (Ti fọwọsi)',
-                    apc_membership_registration_number: 'Nọmba Iforukọsilẹ APC',
-                    enter_apc_reg_no: 'Tẹ APC Reg. No.',
-                    date_joined_apc: 'Ọjọ ti o darapọ mọ APC',
-                    held_party_position_before: 'Ṣe o ti di ipo ẹgbẹ kan tẹlẹ?',
-                    yes: 'Bẹẹni',
-                    no: 'Rara',
-                    if_yes_state_positions_years: 'Ti Bẹẹni, jọwọ sọ ipo (rẹ) ati ọdun (rẹ)',
-                    previous_position_example: 'Fun apẹẹrẹ, Akọwe Wadi (2018-2020)',
-                    degree_certificate: 'Degree/Sertifika',
-                    degree_example: 'Fun apẹẹrẹ, B.Sc. Imọ-ọrọ Orilẹ-ede',
-                    institution: 'Ìdásílẹ̀',
-                    institution_example: 'Fun apẹẹrẹ, University of Lagos',
-                    year_obtained: 'Ọdún Gba',
-                    year_example: 'Fun apẹẹrẹ, 2010',
-                    add_another_qualification: 'Fi Afikun Ijẹrisi Miiran kun',
-                    declaration: 'Ipolowo',
-                    declaration_text: 'Mo ń sọ̀rọ̀ ní ìdásílẹ̀ pé gbogbo ìwé ìròyìn tí a fún ni òtítọ́ ati òtítọ́ sí ojú ìwòye mi àti ìgbàgbọ́. Mo lóye pé eyikeyi ìròyìn eke le yori si disqualification.',
-                    submit_nomination_form: 'Fífi Orukọ Iṣẹ',
-                    choose_interaction_mode: 'Yan Iwa Iṣẹ',
-                    normal_form: 'Fọọmu Normal',
-                    chat_with_secretary: 'Ibaṣepọ pẹlu Akowe',
-                    submission_successful: 'Iṣẹ Iṣẹ Gba!',
-                    download_filled_form: 'Gba Fọọmu Ti Kun',
-                    download_receipt: 'Gba Iwe',
-                    welcome: 'Kaabọ si Ibaṣepọ Orukọ APC pẹlu Akowe! Mo ni ibeere ibeere ni ọkan si ọkan.',
-                    nomination_code_verified: 'Koodu orukọ rẹ ti fọwọsi:',
-                    full_name_question: 'Kí ni orukọ rẹ ni kikun?',
-                    dob_question: 'Kí ni ọjọ ibi rẹ? (Format: YYYY-MM-DD)',
-                    gender_question: 'Kí ni iwa rẹ? (ọkùnrin/obìnrin)',
-                    phone_question: 'Kí ni nọmba foonu rẹ? (fun apẹẹrẹ, 08012345678)',
-                    email_question: 'Kí ni adirẹsi imeeli rẹ? (optional)',
-                    state_of_origin_question: 'Kí ni ipinle ti o wa?',
-                    lga_of_origin_question: 'Kí ni LGA ti o wa?',
-                    residential_address_question: 'Kí ni adirẹsi ibugbe rẹ?',
-                    city_question: 'Kí ni ilu/ilu rẹ?',
-                    state_of_residence_question: 'Kí ni ipinle ti ngbe rẹ?',
-                    lga_of_residence_question: 'Kí ni LGA ti ngbe rẹ?',
-                    ward_question: 'Kí ni wadi rẹ?',
-                    apc_reg_no_question: 'Kí ni nọmba iforukọsilẹ ọmọ ẹgbẹ APC rẹ?',
-                    apc_join_date_question: 'Kí ni ọjọ ti o darapọ mọ APC? (Format: YYYY-MM-DD)',
-                    held_position_question: 'Ṣe o ti di ipo ẹgbẹ kan tẹlẹ? (bẹẹni/rara)',
-                    previous_position_question: 'Jọwọ sọ ipo (rẹ) ati ọdun (rẹ). (fun apẹẹrẹ, Akọwe Wadi (2018-2020))',
-                    academic_qualifications_intro: 'Bayi, jẹ ki a fi afikun ẹkọ rẹ kun. Bẹrẹ pẹlu ti o ga julọ.',
-                    degree_question: 'Kí ni degree/sertifika rẹ? (fun apẹẹrẹ, B.Sc. Imọ-ọrọ Orilẹ-ede)',
-                    institution_question: 'Kí ni ìdásílẹ̀? (fun apẹẹrẹ, University of Lagos)',
-                    year_question: 'Kí ni ọdún ti a gba? (fun apẹẹrẹ, 2010)',
-                    add_another_qualification_question: 'Ṣe o fẹ fi afikun ijẹrisi miiran kun? (bẹẹni/rara)',
-                    declaration_question: 'Ṣe o gbà fún ìpolówó yìí? (Mo ń sọ́kálẹ̀ ní ìfẹ́kún pé gbogbo ìwàásù tí a fúnni jẹ́ òtítọ́... Kọ̀wé "bẹẹni" láti gbà.)',
-                    all_questions_answered: 'Gbogbo ibeere ti dahun! Tẹ "Fífi ìsọdáṣiṣẹ́" ní isalẹ.',
-                    send: 'Fífi ránṣẹ́',
-                    submit_nomination: 'Fífi ìsọdáṣiṣẹ́',
-                    full_name_required: 'Orúkọ tí ó péyé ni a nilo.',
-                    valid_dob_required: 'Ọjọ́ ìbí tí ó tọ́ ni a nilo (gbọ́dọ̀ jẹ́ ti òde òní).',
-                    gender_required: 'Ìbálòpọ̀ ni a nilo.',
-                    valid_phone_required: 'Nọ́mbà fọ́nù tí ó tọ́ fún Nàìjíríà ni a nilo (ìsọ́jú 11 tí ó bẹ̀rẹ̀ pẹ̀lú 0).',
-                    valid_email_required: 'Imeeli tí ó tọ́ ni a nilo tí a bá fúnni.',
-                    state_of_origin_required: 'Ìpínlẹ̀ ìbílẹ̀ ni a nilo.',
-                    lga_of_origin_required: 'Ìpínlẹ̀ ìbílẹ̀ ni a nilo.',
-                    residential_address_required: 'Àdúúlẹ̀ ibẹ̀wọ̀ ni a nilo.',
-                    city_town_required: 'Ìlú/ìlú ni a nilo.',
-                    state_of_residence_required: 'Ìpínlẹ̀ ibẹ̀wọ̀ ni a nilo.',
-                    lga_of_residence_required: 'Ìpínlẹ̀ ibẹ̀wọ̀ ni a nilo.',
-                    ward_required: 'Wọ́ọ̀ ni a nilo.',
-                    apc_registration_number_required: 'Nọ́mbà ìforúkọsílẹ̀ APC ni a nilo.',
-                    valid_join_date_required: 'Ọjọ́ tí ó tọ́ tí a fi kọ́lẹ̀ ni a nilo (gbọ́dọ̀ jẹ́ ti òde òní).',
-                    this_field_required: 'Èyí ni a nilo.',
-                    this_field_required_if_yes: 'Èyí ni a nilo tí bẹẹni bá jẹ́.',
-                    degree_required: 'Ìwé ẹ̀kọ́ ni a nilo.',
-                    institution_required: 'Ìsàkóso ni a nilo.',
-                    year_between_required: 'Ọdún láàárín 1950 àti 2025 ni a nilo.',
-                    agree_declaration_required: 'O gbọ́dọ̀ gbà fún ìpolówó náà.',
-                    invalid_date_format: 'Ìfòròwe ọjọ́ tí kò tọ́ tàbí ọjọ́ gbọ́dọ̀ jẹ́ ti òde òní (YYYY-MM-DD).',
-                    enter_male_female: 'Jọ̀wọ́ kọ̀wé “ọkùnrin” tàbí “obìnrin”.',
-                    invalid_email_format: 'Ìfòròwe fọ́mà imeeli tí kò tọ́.',
-                    invalid_state_name: 'Orúkọ ìpínlẹ̀ tí kò tọ́.',
-                    invalid_lga: 'Ìpínlẹ̀ tí kò tọ́ fún ìpínlẹ̀ tí a yan.',
-                    enter_yes_no: 'Jọ̀wọ́ kọ̀wé “bẹẹni” tàbí “rara”.',
-                    previous_position_required: 'Àwọn kọ́ọ̀kan tí ó ti wà tẹ́lẹ̀ ni a nilo.',
-                    type_yes_to_agree: 'O gbọ́dọ̀ kọ̀wé “bẹẹni” láti gbà fún ìpolówó náà.',
-                    personal_information: '1. Ìwé Ìdásílẹ̀ ti Aspirant',
-                    contact_information: '2. Ìwé Ibaṣepọ',
-                    party_affiliation: '3. Ìbáṣepọ Ẹgbẹ',
-                    academic_qualifications: '4. Ìwé Ẹ̀kọ́',
-                    list_qualifications: 'Jọwọ ṣe atokọ ìwé ẹ̀kọ́ rẹ, bẹ̀rẹ̀ lati ti o ga julọ.',
-                    declaration: '5. Ipolowo',
-                    access_denied: 'Iwa ti ko gba laaye',
-                    nomination_code_required: 'Koodu yiyan ti o tọ ni a nilo lati wọle si fọọmu yìí.',
-                    scan_qr: 'Jọwọ scan koodu QR lori kaadi yiyan APC rẹ ti o fọwọsi lati tẹsiwaju. Ti o ba ti ra kaadi rẹ, jọwọ gbiyanju lẹẹkansi.',
-                    apc_wardship_nomination_form: 'Fọọmu Yiyan Wadi APC',
-                    councilor_aspirant_registration: 'Iforukọsilẹ Aspirant Councilor',
-                    apc_congress_2025: 'APC Congress 2025',
-                    copyright_apc: '&copy; 2025 All Progressives Congress (APC). Gbogbo Ẹtọ Wa.',
-                    powered_by: 'Ti a fúnni nipasẹ APC Directorate of Digital Operations.',
-                    // ... add similar for other keys
+                'yo': {
+                    'lockTitle': 'Ìdínà Wiwọlé',
+                    'lockMsg1': 'Ó pọn dandan kí o ní koodu ìdánimọ̀ tó tọ́ kí o tó lè wọlé sí fọ́ọ̀mu yìí.',
+                    'lockMsg2': 'Jọ̀wọ́ ṣayẹwo koodu QR lórí káàdì ìdánimọ̀ APC rẹ láti tẹ̀síwájú. Tí o bá ṣẹ̀ṣẹ̀ ra káàdì rẹ, jọ̀wọ́ gbìyànjú lẹ́ẹ̀kan síi.',
+                    'formTitle': 'Fọ́ọ̀mu Ìdánimọ̀ fún Ipo Kánsílọ̀ Agbègbè APC',
+                    'formSubtitle': 'Ìforúkọsílẹ̀ Olùdíje Ipo Kánsílọ̀',
+                    'congressTitle': 'Ìpéjọpọ̀ APC 2025',
+                    'modeTitle': 'Yan Ipa Ìbáraẹnisọ̀rọ̀',
+                    'modeForm': 'Fọ́ọ̀mu Gangan',
+                    'modeChat': 'Bá Akọ̀wé Sọ̀rọ̀',
+                    'section1Title': '1. Àlàyé Nípa Olùdíje',
+                    'fullNameLabel': 'Orúkọ Kíkún',
+                    'fullNamePlaceholder': 'Kọ orúkọ kíkún rẹ',
+                    'dobLabel': 'Ọjọ́ Ìbí',
+                    'genderLabel': 'Akọ-abo',
+                    'genderSelect': 'Yan Akọ-abo',
+                    'genderMale': 'Okùnrin',
+                    'genderFemale': 'Obìnrin',
+                    'phoneLabel': 'Nọ́mbà Fóònù',
+                    'phonePlaceholder': 'àpẹẹrẹ, 08012345678',
+                    'emailLabel': 'Adirẹsi Imeeli',
+                    'emailPlaceholder': 'àpẹẹrẹ, orukore@apere.com',
+                    'stateOriginLabel': 'Ìpínlẹ̀ Ìbí',
+                    'stateOriginSelect': 'Yan Ìpínlẹ̀ Ìbí',
+                    'lgaOriginLabel': 'Agbègbè Ìjọba Ìbílẹ̀ Ìbí',
+                    'lgaOriginSelect': 'Yan Agbègbè Ìjọba Ìbílẹ̀ Ìbí',
+                    'section2Title': '2. Àlàyé Ìbáraẹnisọ̀rọ̀',
+                    'addressLabel': 'Adirẹsi Ilé',
+                    'addressPlaceholder': 'Nọ́mbà ilé, orúkọ òpópónà',
+                    'cityLabel': 'Ìlú/Agbègbè',
+                    'cityPlaceholder': 'àpẹẹrẹ, Abuja',
+                    'stateResidenceLabel': 'Ìpínlẹ̀ Tí Ò Ń Gbé',
+                    'stateResidenceSelect': 'Yan Ìpínlẹ̀ Tí Ò Ń Gbé',
+                    'lgaResidenceLabel': 'Agbègbè Ìjọba Ìbílẹ̀ Tí Ò Ń Gbé',
+                    'lgaResidenceSelect': 'Yan Agbègbè Ìjọba Ìbílẹ̀ Tí Ò Ń Gbé',
+                    'wardLabel': 'Agbègbè',
+                    'wardPlaceholder': 'Kọ orúkọ tàbí nọ́mbà Agbègbè rẹ',
+                    'section3Title': '3. Ìbáṣepọ̀ pẹ̀lú Ẹgbẹ́',
+                    'nominationCodeLabel': 'Koodu Ìdánimọ̀ (Tí a ti Dájú)',
+                    'apcRegNoLabel': 'Nọ́mbà Ìforúkọsílẹ̀ Ẹgbẹ́ APC',
+                    'apcRegNoPlaceholder': 'Kọ Nọ́mbà Ìforúkọsílẹ̀ APC',
+                    'apcJoinDateLabel': 'Ọjọ́ Tí O Darapọ̀ mọ́ APC',
+                    'heldPositionLabel': 'Ǹjẹ́ o ti di ipo kankan nínú ẹgbẹ́ rí?',
+                    'yes': 'Bẹ́ẹ̀ni',
+                    'no': 'Rárá',
+                    'prevPositionLabel': 'Tí ó bá jẹ́ Bẹ́ẹ̀ni, jọ̀wọ́ sọ ipò(àwọn) àti ọdún(àwọn)',
+                    'prevPositionPlaceholder': 'àpẹẹrẹ, Akọ̀wé Agbègbè (2018-2020)',
+                    'section4Title': '4. Ìwé Ẹ̀rí Ẹ̀kọ́',
+                    'section4Desc': 'Jọ̀wọ́ kọ àwọn ìwé ẹ̀rí ẹ̀kọ́ rẹ, bẹ̀rẹ̀ láti èyí tó ga jùlọ.',
+                    'degreeLabel': 'Ìwé Ẹ̀rí/Degree',
+                    'degreePlaceholder': 'àpẹẹrẹ, B.Sc. Political Science',
+                    'institutionLabel': 'Ilé-Ẹ̀kọ́',
+                    'institutionPlaceholder': 'àpẹẹrẹ, University of Lagos',
+                    'yearLabel': 'Ọdún Tí O Gba',
+                    'yearPlaceholder': 'àpẹẹrẹ, 2010',
+                    'addQualificationBtn': 'Fi Ìwé Ẹ̀rí Mìíràn Kún',
+                    'section5Title': '5. Ìpolongo',
+                    'declarationText': 'Mo polongo pẹ̀lú òtítọ́ inú pé gbogbo àlàyé tí mo pèsè nínú fọ́ọ̀mu ìdánimọ̀ yìí jẹ́ òtítọ́ àti pé ó tọ́ gẹ́gẹ́ bí mo ti mọ̀. Mo mọ̀ pé àlàyé èké èyíkéyìí le fa ìyọkúrò lórúkọ.',
+                    'submitFormBtn': 'Fi Fọ́ọ̀mu Ìdánimọ̀ Ránṣẹ́',
+                    'chatPlaceholder': 'Kọ ìdáhùn rẹ...',
+                    'chatSendBtn': 'Ránṣẹ́',
+                    'chatSubmitBtn': 'Fi Ìdánimọ̀ Ránṣẹ́',
+                    'successTitle': 'Ìránṣẹ́ Yọrí sí Rere!',
+                    'downloadFormBtn': 'Gba Fọ́ọ̀mu Tí A Kún Sókè',
+                    'downloadReceiptBtn': 'Gba Rísíìtì',
+                    'footer1': '© 2025 All Progressives Congress (APC). Gbogbo Ẹ̀tọ́ Wa Ni Pamọ́.',
+                    'footer2': 'Agbára láti ọwọ́ Olùdarí Àwọn Iṣẹ́ Digita ti APC.',
+                    'errorFullName': 'Ó pọn dandan kí o kọ orúkọ kíkún rẹ.',
+                    'errorDob': 'Ó pọn dandan kí o kọ ọjọ́ ìbí tó tọ́ (kò gbọdọ̀ jẹ́ ọjọ́ iwájú).',
+                    'errorGender': 'Ó pọn dandan kí o yan akọ-abo.',
+                    'errorPhone': 'Nọ́mbà fóònù Nàìjíríà tó tọ́ ni a fẹ́ (digit 11 tí ó bẹ̀rẹ̀ pẹ̀lú 0).',
+                    'errorEmail': 'Adirẹsi imeeli tó tọ́ ni a fẹ́ tí o bá pèsè é.',
+                    'errorStateOrigin': 'Ó pọn dandan kí o yan ìpínlẹ̀ ìbí.',
+                    'errorLgaOrigin': 'Ó pọn dandan kí o yan agbègbè ìjọba ìbílẹ̀ ìbí.',
+                    'errorAddress': 'Ó pọn dandan kí o kọ adirẹsi ilé rẹ.',
+                    'errorCity': 'Ó pọn dandan kí o kọ ìlú/agbègbè rẹ.',
+                    'errorStateResidence': 'Ó pọn dandan kí o yan ìpínlẹ̀ tí ò ń gbé.',
+                    'errorLgaResidence': 'Ó pọn dandan kí o yan agbègbè ìjọba ìbílẹ̀ tí ò ń gbé.',
+                    'errorWard': 'Ó pọn dandan kí o kọ agbègbè rẹ.',
+                    'errorApcRegNo': 'Ó pọn dandan kí o kọ nọ́mbà ìforúkọsílẹ̀ APC rẹ.',
+                    'errorApcJoinDate': 'Ó pọn dandan kí o kọ ọjọ́ tó tọ́ (kò gbọdọ̀ jẹ́ ọjọ́ iwájú).',
+                    'errorHeldPosition': 'Ó pọn dandan kí o dáhùn èyí.',
+                    'errorPrevPosition': 'Ó pọn dandan kí o kọ èyí tí o bá yan Bẹ́ẹ̀ni.',
+                    'errorDegree': 'Ó pọn dandan kí o kọ ìwé ẹ̀rí/degree.',
+                    'errorInstitution': 'Ó pọn dandan kí o kọ ilé-ẹ̀kọ́.',
+                    'errorYear': 'Ọdún laarin 1950 sí 2025 ni a fẹ́.',
+                    'errorDeclaration': 'O gbọ́dọ̀ fọwọ́ sí ìpolongo náà.',
+                    'chatWelcome': 'Kaabọ sí Ìbáraẹnisọ̀rọ̀ Ìdánimọ̀ APC pẹ̀lú Akọ̀wé! Èmi yóò máa beere àwọn ìbéèrè lọ́kọ̀ọ̀kan.',
+                    'chatCodeVerified': 'Koodu ìdánimọ̀ rẹ ti dájú: ',
+                    'chatTyping': 'Akọ̀wé ń tẹ̀wé lọ́wọ́',
+                    'chatQuestionFullName': 'Kí ni orúkọ kíkún rẹ?',
+                    'chatErrorFullName': 'Ó pọn dandan kí o kọ orúkọ kíkún rẹ.',
+                    'chatQuestionDob': 'Kí ni ọjọ́ ìbí rẹ? (Ìrísí: YYYY-MM-DD)',
+                    'chatErrorDob': 'Ìrísí ọjọ́ kò tọ́ tàbí ọjọ́ gbọdọ̀ jẹ́ ọjọ́ tí ó ti kọjá (YYYY-MM-DD).',
+                    'chatQuestionGender': 'Kí ni akọ-abo rẹ? (okùnrin/obìnrin)',
+                    'chatErrorGender': 'Jọ̀wọ́ kọ "okùnrin" tàbí "obìnrin".',
+                    'chatQuestionPhone': 'Kí ni nọ́mbà fóònù rẹ? (àpẹẹrẹ, 08012345678)',
+                    'chatErrorPhone': 'Nọ́mbà fóònù Nàìjíríà kò tọ́ (digit 11 tí ó bẹ̀rẹ̀ pẹ̀lú 0).',
+                    'chatQuestionEmail': 'Kí ni adirẹsi imeeli rẹ? (kò pọn dandan, tẹ enter láti fò ó)',
+                    'chatErrorEmail': 'Ìrísí imeeli kò tọ́.',
+                    'chatQuestionStateOrigin': 'Kí ni ìpínlẹ̀ ìbí rẹ?',
+                    'chatErrorStateOrigin': 'Orúkọ ìpínlẹ̀ kò tọ́. Jọ̀wọ́ yẹ lẹ́tàwé wò.',
+                    'chatQuestionLgaOrigin': 'Kí ni agbègbè ìjọba ìbílẹ̀ ìbí rẹ?',
+                    'chatErrorLgaOrigin': 'Agbègbè ìjọba ìbílẹ̀ kò tọ́ fún ìpínlẹ̀ tí o yàn.',
+                    'chatQuestionAddress': 'Kí ni adirẹsi ilé rẹ?',
+                    'chatErrorAddress': 'Ó pọn dandan kí o kọ adirẹsi.',
+                    'chatQuestionCity': 'Kí ni ìlú/agbègbè rẹ?',
+                    'chatErrorCity': 'Ó pọn dandan kí o kọ ìlú/agbègbè.',
+                    'chatQuestionStateResidence': 'Kí ni ìpínlẹ̀ tí ò ń gbé?',
+                    'chatErrorStateResidence': 'Orúkọ ìpínlẹ̀ kò tọ́. Jọ̀wọ́ yẹ lẹ́tàwé wò.',
+                    'chatQuestionLgaResidence': 'Kí ni agbègbè ìjọba ìbílẹ̀ tí ò ń gbé?',
+                    'chatErrorLgaResidence': 'Agbègbè ìjọba ìbílẹ̀ kò tọ́ fún ìpínlẹ̀ tí o yàn.',
+                    'chatQuestionWard': 'Kí ni agbègbè rẹ?',
+                    'chatErrorWard': 'Ó pọn dandan kí o kọ agbègbè.',
+                    'chatQuestionApcRegNo': 'Kí ni nọ́mbà ìforúkọsílẹ̀ ẹgbẹ́ APC rẹ?',
+                    'chatErrorApcRegNo': 'Ó pọn dandan kí o kọ nọ́mbà ìforúkọsílẹ̀ APC.',
+                    'chatQuestionApcJoinDate': 'Ọjọ́ wo ni o darapọ̀ mọ́ APC? (Ìrísí: YYYY-MM-DD)',
+                    'chatErrorApcJoinDate': 'Ìrísí ọjọ́ kò tọ́ tàbí ọjọ́ gbọdọ̀ jẹ́ ọjọ́ tí ó ti kọjá (YYYY-MM-DD).',
+                    'chatQuestionHeldPosition': 'Ǹjẹ́ o ti di ipo kankan nínú ẹgbẹ́ rí? (bẹ́ẹ̀ni/rárá)',
+                    'chatErrorHeldPosition': 'Jọ̀wọ́ kọ "bẹ́ẹ̀ni" tàbí "rárá".',
+                    'chatQuestionPrevPosition': 'Jọ̀wọ́ sọ ipò(àwọn) àti ọdún(àwọn). (àpẹẹrẹ, Akọ̀wé Agbègbè (2018-2020))',
+                    'chatErrorPrevPosition': 'Ó pọn dandan kí o sọ àlàyé ipò tí o ti dì rí.',
+                    'chatStartQual': 'Nísinsìnyí, ẹ jẹ́ ká fi àwọn ìwé ẹ̀rí ẹ̀kọ́ rẹ kún. Bẹ̀rẹ̀ láti èyí tó ga jùlọ.',
+                    'chatQuestionDegree': 'Kí ni ìwé ẹ̀rí/degree rẹ? (àpẹẹrẹ, B.Sc. Political Science)',
+                    'chatErrorDegree': 'Ó pọn dandan kí o kọ ìwé ẹ̀rí/degree.',
+                    'chatQuestionInstitution': 'Kí ni orúkọ ilé-ẹ̀kọ́ náà? (àpẹẹrẹ, University of Lagos)',
+                    'chatErrorInstitution': 'Ó pọn dandan kí o kọ ilé-ẹ̀kọ́.',
+                    'chatQuestionYear': 'Ọdún wo ni o gbà á? (àpẹẹrẹ, 2010)',
+                    'chatErrorYear': 'Ó pọn dandan kí o kọ ọdún tó tọ́ laarin 1950 sí 2025.',
+                    'chatQuestionMoreQual': 'Ṣé o fẹ́ fi ìwé ẹ̀rí mìíràn kún? (bẹ́ẹ̀ni/rárá)',
+                    'chatErrorMoreQual': 'Jọ̀wọ́ kọ "bẹ́ẹ̀ni" tàbí "rárá".',
+                    'chatQuestionDeclaration': 'Ṣé o fọwọ́ sí ìpolongo náà? (Mo polongo pẹ̀lú òtítọ́ inú pé gbogbo àlàyé tí mo pèsè jẹ́ òtítọ́... Kọ "bẹ́ẹ̀ni" láti fọwọ́ sí.)',
+                    'chatErrorDeclaration': 'O gbọ́dọ̀ kọ "bẹ́ẹ̀ni" láti fọwọ́ sí.',
+                    'chatComplete': 'O ti dáhùn gbogbo ìbéèrè! Tẹ "Fi Ìdánimọ̀ Ránṣẹ́" ní ìsàlẹ̀.',
+                    'selectLga': 'Yan LGA',
+                    'pdfTitle': 'Fọ́ọ̀mu Ìdánimọ̀ fún Ipo Kánsílọ̀ Agbègbè APC',
+                    'pdfCode': 'Koodu Ìdánimọ̀:',
+                    'pdfSection1': 'Àlàyé Nípa Olùdíje:',
+                    'pdfFullName': 'Orúkọ Kíkún:',
+                    'pdfDob': 'Ọjọ́ Ìbí:',
+                    'pdfGender': 'Akọ-abo:',
+                    'pdfPhone': 'Fóònù:',
+                    'pdfEmail': 'Imeeli:',
+                    'pdfStateOrigin': 'Ìpínlẹ̀ Ìbí:',
+                    'pdfLgaOrigin': 'LGA Ìbí:',
+                    'pdfSection2': 'Àlàyé Ìbáraẹnisọ̀rọ̀:',
+                    'pdfAddress': 'Adirẹsi:',
+                    'pdfCity': 'Ìlú:',
+                    'pdfStateResidence': 'Ìpínlẹ̀ Tí Ò Ń Gbé:',
+                    'pdfLgaResidence': 'LGA Tí Ò Ń Gbé:',
+                    'pdfWard': 'Agbègbè:',
+                    'pdfSection3': 'Ìbáṣepọ̀ pẹ̀lú Ẹgbẹ́:',
+                    'pdfApcRegNo': 'Nọ́mbà Ìforúkọsílẹ̀ APC:',
+                    'pdfJoinDate': 'Ọjọ́ Tí O Darapọ̀:',
+                    'pdfHeldPosition': 'Ipo Tí O Ti Dì:',
+                    'pdfPrevPosition': 'Àwọn Ipo Tẹ́lẹ̀:',
+                    'pdfSection4': 'Ìwé Ẹ̀rí Ẹ̀kọ́:',
+                    'pdfDegree': 'Ìwé Ẹ̀rí:',
+                    'pdfInstitution': 'Ilé-Ẹ̀kọ́:',
+                    'pdfYear': 'Ọdún:',
+                    'pdfDeclaration': 'Ìpolongo:',
+                    'pdfNotApplicable': 'Kò Rí Bẹ́ẹ̀',
+                    'receiptTitle': 'Rísíìtì Ìdánimọ̀ APC',
+                    'receiptDate': 'Ọjọ́ Ìránṣẹ́:',
+                    'receiptThankYou': 'A dúpẹ́ fún ìdánimọ̀ rẹ!',
+                    'receiptOfficial': 'Èyí ni rísíìtì rẹ gangan.'
                 },
-                // Similarly for ha and ig using the translations from the tool results
-                ha: {
-                    full_name: 'Sunan cikakken suna',
-                    enter_full_name: 'Shigar da cikakken suna',
-                    // Fill with Hausa translations
-                    // ...
+                'ha': {
+                    'lockTitle': 'An Hana Shiga',
+                    'lockMsg1': 'Ana buƙatar lambar tantancewa mai inganci don shiga wannan fom ɗin.',
+                    'lockMsg2': 'Da fatan za a duba lambar QR da ke kan katin tantancewar APC na hukuma don ci gaba. Idan yanzu ka sayi katin naka, da fatan za a sake gwadawa.',
+                    'formTitle': 'Fom ɗin Neman Takarar Kansila na Mazabar APC',
+                    'formSubtitle': 'Rijistar Masu Neman Takarar Kansila',
+                    'congressTitle': 'Babban Taron APC 2025',
+                    'modeTitle': 'Zaɓi Hanyar Hulɗa',
+                    'modeForm': 'Fom na Al\'ada',
+                    'modeChat': 'Tattaunawa da Sakatare',
+                    'section1Title': '1. Bayanan Keɓaɓɓu na Mai Neman Takara',
+                    'fullNameLabel': 'Cikakken Suna',
+                    'fullNamePlaceholder': 'Shigar da cikakken sunanka',
+                    'dobLabel': 'Ranar Haihuwa',
+                    'genderLabel': 'Jinsi',
+                    'genderSelect': 'Zaɓi Jinsi',
+                    'genderMale': 'Namiji',
+                    'genderFemale': 'Mace',
+                    'phoneLabel': 'Lambar Waya',
+                    'phonePlaceholder': 'misali, 08012345678',
+                    'emailLabel': 'Adireshin Imel',
+                    'emailPlaceholder': 'misali, sunanka@example.com',
+                    'stateOriginLabel': 'Jihar Asali',
+                    'stateOriginSelect': 'Zaɓi Jihar Asali',
+                    'lgaOriginLabel': 'Ƙaramar Hukumar Asali',
+                    'lgaOriginSelect': 'Zaɓi Ƙaramar Hukumar Asali',
+                    'section2Title': '2. Bayanan Tuntuɓa',
+                    'addressLabel': 'Adireshin Gida',
+                    'addressPlaceholder': 'Lambar gida, sunan titi',
+                    'cityLabel': 'Birni/Gari',
+                    'cityPlaceholder': 'misali, Abuja',
+                    'stateResidenceLabel': 'Jihar Zama',
+                    'stateResidenceSelect': 'Zaɓi Jihar Zama',
+                    'lgaResidenceLabel': 'Ƙaramar Hukumar Zama',
+                    'lgaResidenceSelect': 'Zaɓi Ƙaramar Hukumar Zama',
+                    'wardLabel': 'Mazaba',
+                    'wardPlaceholder': 'Shigar da sunan Mazabar ka/lamba',
+                    'section3Title': '3. Alaƙar Jam\'iyya',
+                    'nominationCodeLabel': 'Lambar Tabbatarwa (An Tabbatar)',
+                    'apcRegNoLabel': 'Lambar Rijistar Zama Memba na APC',
+                    'apcRegNoPlaceholder': 'Shigar da Lambar Rijistar APC',
+                    'apcJoinDateLabel': 'Ranar Shiga APC',
+                    'heldPositionLabel': 'Shin ka taɓa riƙe wani matsayi na jam\'iyya a baya?',
+                    'yes': 'Eh',
+                    'no': 'A\'a',
+                    'prevPositionLabel': 'Idan Eh, da fatan za a faɗi matsayi(n) da shekara(ru)',
+                    'prevPositionPlaceholder': 'misali, Sakataren Mazaba (2018-2020)',
+                    'section4Title': '4. Takaddun Karatu',
+                    'section4Desc': 'Da fatan za a jero takaddun karatunka, farawa daga mafi girma.',
+                    'degreeLabel': 'Digiri/Takardar Shaida',
+                    'degreePlaceholder': 'misali, B.Sc. Kimiyyar Siyasa',
+                    'institutionLabel': 'Hukumar/Makarantar',
+                    'institutionPlaceholder': 'misali, Jami\'ar Lagos',
+                    'yearLabel': 'Shekarar Samu',
+                    'yearPlaceholder': 'misali, 2010',
+                    'addQualificationBtn': 'Ƙara Wata Takardar',
+                    'section5Title': '5. Bayyana',
+                    'declarationText': 'Na bayyana da gaskiya cewa duk bayanan da na bayar a cikin wannan fom ɗin neman takara gaskiya ne kuma daidai ne gwargwadon ilimina da imanina. Na fahimci cewa duk wani bayani na ƙarya na iya haifar da soke ni.',
+                    'submitFormBtn': 'Miƙa Fom ɗin Neman Takara',
+                    'chatPlaceholder': 'Rubuta amsarka...',
+                    'chatSendBtn': 'Aika',
+                    'chatSubmitBtn': 'Miƙa Takara',
+                    'successTitle': 'An Yi Nasarar Miƙawa!',
+                    'downloadFormBtn': 'Sauke Fom ɗin da Aka Cike',
+                    'downloadReceiptBtn': 'Sauke Rasit',
+                    'footer1': '© 2025 All Progressives Congress (APC). An adana duk haƙƙoƙi.',
+                    'footer2': 'Ƙarfin gwiwa daga Hukumar Ayyukan Dijital ta APC.',
+                    'errorFullName': 'Ana buƙatar cikakken suna.',
+                    'errorDob': 'Ana buƙatar ranar haihuwa mai inganci (dole ne ta kasance a baya).',
+                    'errorGender': 'Ana buƙatar zaɓar jinsi.',
+                    'errorPhone': 'Ana buƙatar lambar wayar Najeriya mai inganci (lambobi 11 farawa da 0).',
+                    'errorEmail': 'Ana buƙatar imel mai inganci idan an bayar.',
+                    'errorStateOrigin': 'Ana buƙatar zaɓar jihar asali.',
+                    'errorLgaOrigin': 'Ana buƙatar zaɓar ƙaramar hukumar asali.',
+                    'errorAddress': 'Ana buƙatar adireshin gida.',
+                    'errorCity': 'Ana buƙatar birni/gari.',
+                    'errorStateResidence': 'Ana buƙatar zaɓar jihar zama.',
+                    'errorLgaResidence': 'Ana buƙatar zaɓar ƙaramar hukumar zama.',
+                    'errorWard': 'Ana buƙatar mazaba.',
+                    'errorApcRegNo': 'Ana buƙatar lambar rijistar APC.',
+                    'errorApcJoinDate': 'Ana buƙatar ranar shiga mai inganci (dole ne ta kasance a baya).',
+                    'errorHeldPosition': 'Ana buƙatar wannan filin.',
+                    'errorPrevPosition': 'Ana buƙatar wannan filin idan eh.',
+                    'errorDegree': 'Ana buƙatar digiri.',
+                    'errorInstitution': 'Ana buƙatar hukuma/makaranta.',
+                    'errorYear': 'Ana buƙatar shekara tsakanin 1950 da 2025.',
+                    'errorDeclaration': 'Dole ne ka amince da bayanin.',
+                    'chatWelcome': 'Barka da zuwa Tattaunawar Neman Takara ta APC da Sakatare! Zan yi tambayoyi ɗaya bayan ɗaya.',
+                    'chatCodeVerified': 'An tabbatar da lambar tantancewar ka: ',
+                    'chatTyping': 'Sakatare yana rubutu',
+                    'chatQuestionFullName': 'Menene cikakken sunanka?',
+                    'chatErrorFullName': 'Ana buƙatar cikakken suna.',
+                    'chatQuestionDob': 'Menene ranar haihuwarka? (Tsari: YYYY-MM-DD)',
+                    'chatErrorDob': 'Tsarin ranar ba daidai ba ko kuma dole ne ranar ta kasance a baya (YYYY-MM-DD).',
+                    'chatQuestionGender': 'Menene jinsinka? (namiji/mace)',
+                    'chatErrorGender': 'Da fatan za a shigar da "namiji" ko "mace".',
+                    'chatQuestionPhone': 'Menene lambar wayarka? (misali, 08012345678)',
+                    'chatErrorPhone': 'Lambar wayar Najeriya ba daidai ba (lambobi 11 farawa da 0).',
+                    'chatQuestionEmail': 'Menene adireshin imel ɗinka? (na zaɓi, danna enter don tsallakewa)',
+                    'chatErrorEmail': 'Tsarin imel ba daidai ba.',
+                    'chatQuestionStateOrigin': 'Menene jihar asalinka?',
+                    'chatErrorStateOrigin': 'Sunan jihar ba daidai ba. Da fatan za a duba rubutun.',
+                    'chatQuestionLgaOrigin': 'Menene ƙaramar hukumar asalinka?',
+                    'chatErrorLgaOrigin': 'Ƙaramar hukuma ba daidai ba ga jihar da aka zaɓa.',
+                    'chatQuestionAddress': 'Menene adireshin gidanka?',
+                    'chatErrorAddress': 'Ana buƙatar adireshin.',
+                    'chatQuestionCity': 'Menene birninka/garinka?',
+                    'chatErrorCity': 'Ana buƙatar birni/gari.',
+                    'chatQuestionStateResidence': 'Menene jihar zamanka?',
+                    'chatErrorStateResidence': 'Sunan jihar ba daidai ba. Da fatan za a duba rubutun.',
+                    'chatQuestionLgaResidence': 'Menene ƙaramar hukumar zamanka?',
+                    'chatErrorLgaResidence': 'Ƙaramar hukuma ba daidai ba ga jihar da aka zaɓa.',
+                    'chatQuestionWard': 'Menene mazabarka?',
+                    'chatErrorWard': 'Ana buƙatar mazaba.',
+                    'chatQuestionApcRegNo': 'Menene lambar rijistar zama memba na APC?',
+                    'chatErrorApcRegNo': 'Ana buƙatar lambar rijistar APC.',
+                    'chatQuestionApcJoinDate': 'Menene ranar da ka shiga APC? (Tsari: YYYY-MM-DD)',
+                    'chatErrorApcJoinDate': 'Tsarin ranar ba daidai ba ko kuma dole ne ranar ta kasance a baya (YYYY-MM-DD).',
+                    'chatQuestionHeldPosition': 'Shin ka taɓa riƙe wani matsayi na jam\'iyya a baya? (eh/a\'a)',
+                    'chatErrorHeldPosition': 'Da fatan za a shigar da "eh" ko "a\'a".',
+                    'chatQuestionPrevPosition': 'Da fatan za a faɗi matsayi(n) da shekara(ru). (misali, Sakataren Mazaba (2018-2020))',
+                    'chatErrorPrevPosition': 'Ana buƙatar bayanan matsayin da ya gabata.',
+                    'chatStartQual': 'Yanzu, bari mu ƙara takaddun karatunka. Farawa daga mafi girma.',
+                    'chatQuestionDegree': 'Menene digirinka/takardar shaidarka? (misali, B.Sc. Kimiyyar Siyasa)',
+                    'chatErrorDegree': 'Ana buƙatar digiri.',
+                    'chatQuestionInstitution': 'Menene sunan hukumar/makarantar? (misali, Jami\'ar Lagos)',
+                    'chatErrorInstitution': 'Ana buƙatar hukuma/makaranta.',
+                    'chatQuestionYear': 'Wace shekara aka samu? (misali, 2010)',
+                    'chatErrorYear': 'Ana buƙatar shekara mai inganci tsakanin 1950 da 2025.',
+                    'chatQuestionMoreQual': 'Kuna so ku ƙara wata takardar? (eh/a\'a)',
+                    'chatErrorMoreQual': 'Da fatan za a shigar da "eh" ko "a\'a".',
+                    'chatQuestionDeclaration': 'Shin ka amince da bayanin? (Na bayyana da gaskiya cewa duk bayanan da na bayar gaskiya ne... Rubuta "eh" don amincewa.)',
+                    'chatErrorDeclaration': 'Dole ne ka rubuta "eh" don amincewa.',
+                    'chatComplete': 'An amsa duk tambayoyi! Danna "Miƙa Takara" a ƙasa.',
+                    'selectLga': 'Zaɓi LGA',
+                    'pdfTitle': 'Fom ɗin Neman Takarar Kansila na Mazabar APC',
+                    'pdfCode': 'Lambar Tabbatarwa:',
+                    'pdfSection1': 'Bayanin Keɓaɓɓu:',
+                    'pdfFullName': 'Cikakken Suna:',
+                    'pdfDob': 'Ranar Haihuwa:',
+                    'pdfGender': 'Jinsi:',
+                    'pdfPhone': 'Waya:',
+                    'pdfEmail': 'Imel:',
+                    'pdfStateOrigin': 'Jihar Asali:',
+                    'pdfLgaOrigin': 'LGA Asali:',
+                    'pdfSection2': 'Bayanin Tuntuɓa:',
+                    'pdfAddress': 'Adireshin:',
+                    'pdfCity': 'Birni:',
+                    'pdfStateResidence': 'Jihar Zama:',
+                    'pdfLgaResidence': 'LGA Zama:',
+                    'pdfWard': 'Mazaba:',
+                    'pdfSection3': 'Alaƙar Jam\'iyya:',
+                    'pdfApcRegNo': 'Lambar Rijistar APC:',
+                    'pdfJoinDate': 'Ranar Shiga:',
+                    'pdfHeldPosition': 'Matsayin da Aka Riƙe:',
+                    'pdfPrevPosition': 'Matsayin da ya gabata:',
+                    'pdfSection4': 'Takaddun Karatu:',
+                    'pdfDegree': 'Digiri:',
+                    'pdfInstitution': 'Hukumar:',
+                    'pdfYear': 'Shekara:',
+                    'pdfDeclaration': 'Bayyana:',
+                    'pdfNotApplicable': 'Babu',
+                    'receiptTitle': 'Rasit ɗin Neman Takara na APC',
+                    'receiptDate': 'Ranar Miƙawa:',
+                    'receiptThankYou': 'Mun gode da neman takararka!',
+                    'receiptOfficial': 'Wannan shine rasit ɗin ka na hukuma.'
                 },
-                ig: {
-                    full_name: 'Aha Ọpụrụmadụ',
-                    enter_full_name: 'Tinye aha gị n'ozuzu',
-                    // Fill with Igbo translations
-                    // ...
+                'ig': {
+                    'lockTitle': 'A machibidoro Ịbanye',
+                    'lockMsg1': 'A chọrọ koodu nnomin ọma iji nweta fọọmụ a.',
+                    'lockMsg2': 'Biko lelee koodu QR dị na kaadị nnomin APC gị iji gaa n\'ihu. Ọ bụrụ na ị ka zụtara kaadị gị, biko nwaa ọzọ.',
+                    'formTitle': 'Fọọmụ Nnomin Wọọdụ APC Maka Onye Kansụl',
+                    'formSubtitle': 'Ndebanye aha Onye Na-achọ Ọnọdụ Kansụl',
+                    'congressTitle': 'Mgbakọ APC 2025',
+                    'modeTitle': 'Họrọ Ụzọ Mmekọrịta',
+                    'modeForm': 'Fọọmụ Nkịtị',
+                    'modeChat': 'Soro Onye Odeakwụkwọ Kparịta',
+                    'section1Title': '1. Ozi Gbasara Onye Na-achọ Ọnọdụ',
+                    'fullNameLabel': 'Aha Zuru Ezu',
+                    'fullNamePlaceholder': 'Tinye aha gị zuru ezu',
+                    'dobLabel': 'Ụbọchị Ọmụmụ',
+                    'genderLabel': 'Okike',
+                    'genderSelect': 'Họrọ Okike',
+                    'genderMale': 'Nwoke',
+                    'genderFemale': 'Nwaanyị',
+                    'phoneLabel': 'Nọmba Ekwentị',
+                    'phonePlaceholder': 'ọmụmaatụ, 08012345678',
+                    'emailLabel': 'Adreesị Imel',
+                    'emailPlaceholder': 'ọmụmaatụ, aha_gị@example.com',
+                    'stateOriginLabel': 'Steeti Ebe I Si',
+                    'stateOriginSelect': 'Họrọ Steeti Ebe I Si',
+                    'lgaOriginLabel': 'LGA Ebe I Si',
+                    'lgaOriginSelect': 'Họrọ LGA Ebe I Si',
+                    'section2Title': '2. Ozi Nkpọtụrụ',
+                    'addressLabel': 'Adreesị Ebe Obibi',
+                    'addressPlaceholder': 'Nọmba ụlọ, aha okporo ụzọ',
+                    'cityLabel': 'Obodo/Ime Obodo',
+                    'cityPlaceholder': 'ọmụmaatụ, Abuja',
+                    'stateResidenceLabel': 'Steeti Ebe I Bi',
+                    'stateResidenceSelect': 'Họrọ Steeti Ebe I Bi',
+                    'lgaResidenceLabel': 'LGA Ebe I Bi',
+                    'lgaResidenceSelect': 'Họrọ LGA Ebe I Bi',
+                    'wardLabel': 'Wọọdụ',
+                    'wardPlaceholder': 'Tinye aha Wọọdụ gị/nọmba',
+                    'section3Title': '3. Mmekọrịta Gị na Otu',
+                    'nominationCodeLabel': 'Koodu Nnomin (Nke Akwadoro)',
+                    'apcRegNoLabel': 'Nọmba Ndebanye aha Otu APC',
+                    'apcRegNoPlaceholder': 'Tinye Nọmba Ndebanye aha APC',
+                    'apcJoinDateLabel': 'Ụbọchị I Sonyere APC',
+                    'heldPositionLabel': 'Ị nwetụla ọnọdụ ọ bụla n\'ime otu mbụ?',
+                    'yes': 'Ee',
+                    'no': 'Mba',
+                    'prevPositionLabel': 'Ọ bụrụ Ee, biko kwuo ọnọdụ(ndị) na afọ(ndị)',
+                    'prevPositionPlaceholder': 'ọmụmaatụ, Odeakwụkwọ Wọọdụ (2018-2020)',
+                    'section4Title': '4. Asambodo Mmụta',
+                    'section4Desc': 'Biko depụta asambodo mmụta gị, malite na nke kachasị elu.',
+                    'degreeLabel': 'Digiri/Asambodo',
+                    'degreePlaceholder': 'ọmụmaatụ, B.Sc. Political Science',
+                    'institutionLabel': 'Ụlọ Akwụkwọ',
+                    'institutionPlaceholder': 'ọmụmaatụ, University of Lagos',
+                    'yearLabel': 'Afọ E Nwetara',
+                    'yearPlaceholder': 'ọmụmaatụ, 2010',
+                    'addQualificationBtn': 'Tinye Asambodo Ọzọ',
+                    'section5Title': '5. Nkwupụta',
+                    'declarationText': 'Ana m ekwupụta n\'eziokwu na ozi niile enyere n\'ụdị nhọpụta a bụ eziokwu ma bụrụ nke ziri ezi dịka m kacha mara na nkwenye m. Aghọtara m na ozi ụgha ọ bụla nwere ike iduga na enweghị ntozu.',
+                    'submitFormBtn': 'Nyefee Fọọmụ Nnomin',
+                    'chatPlaceholder': 'Pịnye azịza gị...',
+                    'chatSendBtn': 'Zipu',
+                    'chatSubmitBtn': 'Nyefee Nnomin',
+                    'successTitle': 'Enyefere nke ọma!',
+                    'downloadFormBtn': 'Budata Fọọmụ E Mezuru',
+                    'downloadReceiptBtn': 'Budata Risiiti',
+                    'footer1': '© 2025 All Progressives Congress (APC). Ikike niile echekwabara.',
+                    'footer2': 'Nke APC Directorate of Digital Operations kwadoro.',
+                    'errorFullName': 'A chọrọ aha zuru ezu.',
+                    'errorDob': 'A chọrọ ụbọchị ọmụmụ ziri ezi (ga-abụrịrị n\'oge gara aga).',
+                    'errorGender': 'A chọrọ ịhọrọ okike.',
+                    'errorPhone': 'A chọrọ nọmba ekwentị Naijiria ziri ezi (nọmba 11 malite na 0).',
+                    'errorEmail': 'A chọrọ imel ziri ezi ma ọ bụrụ na enyere ya.',
+                    'errorStateOrigin': 'A chọrọ ịhọrọ steeti ebe i si.',
+                    'errorLgaOrigin': 'A chọrọ ịhọrọ LGA ebe i si.',
+                    'errorAddress': 'A chọrọ adreesị ebe obibi.',
+                    'errorCity': 'A chọrọ obodo/ime obodo.',
+                    'errorStateResidence': 'A chọrọ ịhọrọ steeti ebe i bi.',
+                    'errorLgaResidence': 'A chọrọ ịhọrọ LGA ebe i bi.',
+                    'errorWard': 'A chọrọ wọọdụ.',
+                    'errorApcRegNo': 'A chọrọ nọmba ndebanye aha APC.',
+                    'errorApcJoinDate': 'A chọrọ ụbọchị nsonye ziri ezi (ga-abụrịrị n\'oge gara aga).',
+                    'errorHeldPosition': 'A chọrọ ngalaba a.',
+                    'errorPrevPosition': 'A chọrọ ngalaba a ma ọ bụrụ ee.',
+                    'errorDegree': 'A chọrọ digiri.',
+                    'errorInstitution': 'A chọrọ ụlọ akwụkwọ.',
+                    'errorYear': 'A chọrọ afọ n\'etiti 1950 na 2025.',
+                    'errorDeclaration': 'Ị ga-ekwenyerịrị na nkwupụta ahụ.',
+                    'chatWelcome': 'Nnọọ na Nkata Nnomin APC na Onye Odeakwụkwọ! Aga m ajụ ajụjụ otu otu.',
+                    'chatCodeVerified': 'Akwadorola koodu nnomin gị: ',
+                    'chatTyping': 'Odeakwụkwọ na-ede ihe',
+                    'chatQuestionFullName': 'Gịnị bụ aha gị zuru ezu?',
+                    'chatErrorFullName': 'A chọrọ aha zuru ezu.',
+                    'chatQuestionDob': 'Gịnị bụ ụbọchị ọmụmụ gị? (Ụdị: YYYY-MM-DD)',
+                    'chatErrorDob': 'Ụdị ụbọchị ezighi ezi ma ọ bụ ụbọchị ga-abụrịrị n\'oge gara aga (YYYY-MM-DD).',
+                    'chatQuestionGender': 'Gịnị bụ okike gị? (nwoke/nwaanyị)',
+                    'chatErrorGender': 'Biko tinye "nwoke" ma ọ bụ "nwaanyị".',
+                    'chatQuestionPhone': 'Gịnị bụ nọmba ekwentị gị? (ọmụmaatụ, 08012345678)',
+                    'chatErrorPhone': 'Nọmba ekwentị Naijiria ezighi ezi (nọmba 11 malite na 0).',
+                    'chatQuestionEmail': 'Gịnị bụ adreesị imel gị? (nhọrọ, pịa enter ka ịwụfee)',
+                    'chatErrorEmail': 'Ụdị imel ezighi ezi.',
+                    'chatQuestionStateOrigin': 'Gịnị bụ steeti ebe i si?',
+                    'chatErrorStateOrigin': 'Aha steeti ezighi ezi. Biko lelee mkpọpụta.',
+                    'chatQuestionLgaOrigin': 'Gịnị bụ LGA ebe i si?',
+                    'chatErrorLgaOrigin': 'LGA ezighi ezi maka steeti ahọpụtara.',
+                    'chatQuestionAddress': 'Gịnị bụ adreesị ebe obibi gị?',
+                    'chatErrorAddress': 'A chọrọ adreesị.',
+                    'chatQuestionCity': 'Gịnị bụ obodo/ime obodo gị?',
+                    'chatErrorCity': 'A chọrọ obodo/ime obodo.',
+                    'chatQuestionStateResidence': 'Gịnị bụ steeti ebe i bi?',
+                    'chatErrorStateResidence': 'Aha steeti ezighi ezi. Biko lelee mkpọpụta.',
+                    'chatQuestionLgaResidence': 'Gịnị bụ LGA ebe i bi?',
+                    'chatErrorLgaResidence': 'LGA ezighi ezi maka steeti ahọpụtara.',
+                    'chatQuestionWard': 'Gịnị bụ wọọdụ gị?',
+                    'chatErrorWard': 'A chọrọ wọọdụ.',
+                    'chatQuestionApcRegNo': 'Gịnị bụ nọmba ndebanye aha otu APC gị?',
+                    'chatErrorApcRegNo': 'A chọrọ nọmba ndebanye aha APC.',
+                    'chatQuestionApcJoinDate': 'Gịnị bụ ụbọchị ị sonyere APC? (Ụdị: YYYY-MM-DD)',
+                    'chatErrorApcJoinDate': 'Ụdị ụbọchị ezighi ezi ma ọ bụ ụbọchị ga-abụrịrị n\'oge gara aga (YYYY-MM-DD).',
+                    'chatQuestionHeldPosition': 'Ị nwetụla ọnọdụ ọ bụla n\'ime otu mbụ? (ee/mba)',
+                    'chatErrorHeldPosition': 'Biko tinye "ee" ma ọ bụ "mba".',
+                    'chatQuestionPrevPosition': 'Biko kwuo ọnọdụ(ndị) na afọ(ndị). (ọmụmaatụ, Odeakwụkwọ Wọọdụ (2018-2020))',
+                    'chatErrorPrevPosition': 'A chọrọ nkọwa ọnọdụ gara aga.',
+                    'chatStartQual': 'Ugbu a, ka anyị tinye asambodo mmụta gị. Malite na nke kachasị elu.',
+                    'chatQuestionDegree': 'Gịnị bụ digiri/asambodo gị? (ọmụmaatụ, B.Sc. Political Science)',
+                    'chatErrorDegree': 'A chọrọ digiri.',
+                    'chatQuestionInstitution': 'Gịnị bụ ụlọ akwụkwọ ahụ? (ọmụmaatụ, University of Lagos)',
+                    'chatErrorInstitution': 'A chọrọ ụlọ akwụkwọ.',
+                    'chatQuestionYear': 'Afọ ole ka enwetara ya? (ọmụmaatụ, 2010)',
+                    'chatErrorYear': 'A chọrọ afọ ziri ezi n\'etiti 1950 na 2025.',
+                    'chatQuestionMoreQual': 'Ị chọrọ itinye asambodo ọzọ? (ee/mba)',
+                    'chatErrorMoreQual': 'Biko tinye "ee" ma ọ bụ "mba".',
+                    'chatQuestionDeclaration': 'Ị kwenyere na nkwupụta ahụ? (Ana m ekwupụta n\'eziokwu na ozi niile enyere bụ eziokwu... Pịnye "ee" iji kwenye.)',
+                    'chatErrorDeclaration': 'Ị ga-pịnyerịrị "ee" iji kwenye.',
+                    'chatComplete': 'Azala ajụjụ niile! Pịa "Nyefee Nnomin" n\'okpuru.',
+                    'selectLga': 'Họrọ LGA',
+                    'pdfTitle': 'Fọọmụ Nnomin Wọọdụ APC Maka Onye Kansụl',
+                    'pdfCode': 'Koodu Nnomin:',
+                    'pdfSection1': 'Ozi Gbasara Gị:',
+                    'pdfFullName': 'Aha Zuru Ezu:',
+                    'pdfDob': 'Ụbọchị Ọmụmụ:',
+                    'pdfGender': 'Okike:',
+                    'pdfPhone': 'Ekwentị:',
+                    'pdfEmail': 'Imel:',
+                    'pdfStateOrigin': 'Steeti Ebe I Si:',
+                    'pdfLgaOrigin': 'LGA Ebe I Si:',
+                    'pdfSection2': 'Ozi Nkpọtụrụ:',
+                    'pdfAddress': 'Adreesị:',
+                    'pdfCity': 'Obodo:',
+                    'pdfStateResidence': 'Steeti Ebe I Bi:',
+                    'pdfLgaResidence': 'LGA Ebe I Bi:',
+                    'pdfWard': 'Wọọdụ:',
+                    'pdfSection3': 'Mmekọrịta Gị na Otu:',
+                    'pdfApcRegNo': 'Nọmba Ndebanye aha APC:',
+                    'pdfJoinDate': 'Ụbọchị Nsonye:',
+                    'pdfHeldPosition': 'Ọnọdụ E Jidere:',
+                    'pdfPrevPosition': 'Ọnọdụ Ndị Gara Aga:',
+                    'pdfSection4': 'Asambodo Mmụta:',
+                    'pdfDegree': 'Digiri:',
+                    'pdfInstitution': 'Ụlọ Akwụkwọ:',
+                    'pdfYear': 'Afọ:',
+                    'pdfDeclaration': 'Nkwupụta:',
+                    'pdfNotApplicable': 'O Dịghị',
+                    'receiptTitle': 'Risiiti Nnomin APC',
+                    'receiptDate': 'Ụbọchị Enyefere:',
+                    'receiptThankYou': 'Daalụ maka nnomin gị!',
+                    'receiptOfficial': 'Nke a bụ risiiti gị.'
                 }
             };
 
-            // Function to update language
-            function updateLanguage(lang) {
-                document.querySelectorAll('[data-i18n]').forEach(el => {
-                    const key = el.dataset.i18n;
+            let currentLang = 'en';
+            let chatQuestions = [];
+
+            // --- LANGUAGE SELECTOR LOGIC ---
+            document.querySelectorAll('input[name="language"]').forEach(radio => {
+                radio.addEventListener('change', (e) => {
+                    setLanguage(e.target.value);
+                });
+            });
+
+            function setLanguage(lang) {
+                if (!translations[lang]) return;
+                currentLang = lang;
+
+                // Update all elements with data-translate
+                document.querySelectorAll('[data-translate]').forEach(el => {
+                    const key = el.getAttribute('data-translate');
                     if (translations[lang][key]) {
                         el.textContent = translations[lang][key];
                     }
                 });
-                document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
-                    const key = el.dataset.i18nPlaceholder;
+
+                // Update all placeholders
+                document.querySelectorAll('[data-translate-placeholder]').forEach(el => {
+                    const key = el.getAttribute('data-translate-placeholder');
                     if (translations[lang][key]) {
-                        el.placeholder = translations[lang][key];
+                        el.setAttribute('placeholder', translations[lang][key]);
                     }
                 });
-                // Update questions for chat
-                questions = getQuestions(lang);
-            }
 
-            // Get questions for language
-            function getQuestions(lang) {
-                return [
-                    { key: 'full_name', text: translations[lang].full_name_question, validate: (res) => res.trim() !== '', error: translations[lang].full_name_required },
-                    // ... add all questions with translated text and error
-                ];
-            }
-
-            // Language change listener
-            document.querySelectorAll('input[name="language"]').forEach(radio => {
-                radio.addEventListener('change', (e) => {
-                    updateLanguage(e.target.value);
+                // Update dynamic <option> placeholders
+                document.querySelectorAll('.form-select').forEach(select => {
+                    const firstOption = select.querySelector('option[value=""]');
+                    if (firstOption) {
+                        let key;
+                        if (select.id === 'gender') key = 'genderSelect';
+                        else if (select.id === 'state_of_origin') key = 'stateOriginSelect';
+                        else if (select.id === 'lga_of_origin') key = 'lgaOriginSelect';
+                        else if (select.id === 'state_of_residence') key = 'stateResidenceSelect';
+                        else if (select.id === 'lga_of_residence') key = 'lgaResidenceSelect';
+                        
+                        if (key && translations[lang][key]) {
+                            firstOption.textContent = translations[lang][key];
+                        }
+                    }
                 });
+
+                // Update LGA select text
+                lgaOfOriginSelect.querySelector('option[value=""]').textContent = translations[lang]['lgaOriginSelect'] || 'Select LGA of Origin';
+                lgaOfResidenceSelect.querySelector('option[value=""]').textContent = translations[lang]['lgaResidenceSelect'] || 'Select LGA of Residence';
+
+                // Re-populate states to ensure placeholder is correct
+                populateStates();
+            }
+
+            // --- ROBUST QR CODE VERIFICATION LOGIC ---
+            const lockOverlay = document.getElementById('lock-overlay');
+            const mainFormContainer = document.getElementById('main-form-container');
+            const nominationCodeInput = document.getElementById('nomination_code');
+
+            function getParamInsensitive(name) {
+                const usp = new URLSearchParams(window.location.search);
+                for (const [k, v] of usp.entries()) {
+                    if (k.toLowerCase() === name.toLowerCase()) return v;
+                }
+                if (window.location.hash && window.location.hash.includes('=')) {
+                    const hash = window.location.hash.replace(/^#/, '');
+                    const hashParams = new URLSearchParams(hash);
+                    for (const [k, v] of hashParams.entries()) {
+                        if (k.toLowerCase() === name.toLowerCase()) return v;
+                    }
+                }
+                return null;
+            }
+
+            let nominationCode = getParamInsensitive('code');
+            if (nominationCode) {
+                try { nominationCode = decodeURIComponent(nominationCode); } catch (_) {}
+            }
+
+            const hasCode = typeof nominationCode === 'string' && nominationCode.trim().length > 0;
+            if (nominationCodeInput) {
+                nominationCodeInput.value = hasCode ? nominationCode.trim() : '';
+            }
+
+            function showForm() {
+                lockOverlay?.classList.add('hidden');
+                mainFormContainer?.classList.remove('hidden');
+                if (lockOverlay) lockOverlay.style.display = 'none';
+                if (mainFormContainer) mainFormContainer.style.display = 'block';
+            }
+            function showLock() {
+                lockOverlay?.classList.remove('hidden');
+                mainFormContainer?.classList.add('hidden');
+                if (lockOverlay) lockOverlay.style.display = 'flex';
+                if (mainFormContainer) mainFormContainer.style.display = 'none';
+            }
+
+            if (hasCode) { showForm(); } else { showLock(); }
+
+            setTimeout(() => {
+                const showingForm = mainFormContainer && getComputedStyle(mainFormContainer).display !== 'none';
+                if (hasCode && !showingForm) {
+                    showForm();
+                }
+            }, 50);
+            // --- END ROBUST QR CODE VERIFICATION LOGIC ---
+
+            // --- NIGERIA STATES & LGAs LOGIC ---
+            const stateOfOriginSelect = document.getElementById('state_of_origin');
+            const lgaOfOriginSelect = document.getElementById('lga_of_origin');
+            const stateOfResidenceSelect = document.getElementById('state_of_residence');
+            const lgaOfResidenceSelect = document.getElementById('lga_of_residence');
+
+            let nigeriaData = [];
+            const jsonUrl = 'https://gist.githubusercontent.com/devhammed/0bb9eeac9ff22c895100d072f489dc98/raw/a7b19911407a89947c452339fee59f9335dc8225/nigeria-state-and-lgas.json';
+
+            fetch(jsonUrl)
+                .then(response => response.json())
+                .then(data => {
+                    nigeriaData = data;
+                    populateStates();
+                })
+                .catch(error => {
+                    console.error('Error fetching state/LGA data:', error);
+                });
+
+            function populateStates() {
+                const originPlaceholder = translations[currentLang]['stateOriginSelect'] || 'Select State of Origin';
+                const residencePlaceholder = translations[currentLang]['stateResidenceSelect'] || 'Select State of Residence';
+
+                const currentOrigin = stateOfOriginSelect.value;
+                const currentResidence = stateOfResidenceSelect.value;
+                
+                stateOfOriginSelect.innerHTML = `<option value="">${originPlaceholder}</option>`;
+                stateOfResidenceSelect.innerHTML = `<option value="">${residencePlaceholder}</option>`;
+
+                nigeriaData.forEach(state => {
+                    const option1 = document.createElement('option');
+                    option1.value = state.alias;
+                    option1.textContent = state.state;
+                    stateOfOriginSelect.appendChild(option1);
+
+                    const option2 = document.createElement('option');
+                    option2.value = state.alias;
+                    option2.textContent = state.state;
+                    stateOfResidenceSelect.appendChild(option2);
+                });
+
+                stateOfOriginSelect.value = currentOrigin;
+                stateOfResidenceSelect.value = currentResidence;
+            }
+
+            function populateLGAs(stateAlias, lgaSelect) {
+                const lgaPlaceholder = translations[currentLang]['selectLga'] || 'Select LGA';
+                const currentLga = lgaSelect.value;
+                lgaSelect.innerHTML = `<option value="">${lgaPlaceholder}</option>`;
+                if (!stateAlias) {
+                    lgaSelect.disabled = true;
+                    return;
+                }
+                const selectedState = nigeriaData.find(state => state.alias === stateAlias);
+                if (selectedState && selectedState.lgas) {
+                    selectedState.lgas.forEach(lga => {
+                        const option = document.createElement('option');
+                        option.value = lga;
+                        option.textContent = lga;
+                        lgaSelect.appendChild(option);
+                    });
+                    lgaSelect.disabled = false;
+                    lgaSelect.value = currentLga;
+                } else {
+                    lgaSelect.disabled = true;
+                }
+            }
+
+            stateOfOriginSelect.addEventListener('change', () => {
+                populateLGAs(stateOfOriginSelect.value, lgaOfOriginSelect);
             });
 
-            // Initial language
-            updateLanguage('en');
+            stateOfResidenceSelect.addEventListener('change', () => {
+                populateLGAs(stateOfResidenceSelect.value, lgaOfResidenceSelect);
+            });
+            // --- END NIGERIA STATES & LGAs LOGIC ---
 
-            // Rest of the script remains similar, but update chat messages to use translations[currentLang]
-            // For example, in startChat
-            addMessage(translations[currentLang].welcome);
-            addMessage(translations[currentLang].nomination_code_verified + ' ' + formData.nomination_code);
+            // --- PREVIOUS POSITION LOGIC ---
+            const posYes = document.getElementById('pos_yes');
+            const posNo = document.getElementById('pos_no');
+            const previousPositionSection = document.getElementById('previous_position_section');
 
-            // In validateForm, the errors are already handled by spans
-            // For chat, the error messages are translated in the questions error
+            function togglePreviousPosition() {
+                if (posYes.checked) {
+                    previousPositionSection.classList.remove('hidden');
+                    previousPositionSection.querySelector('textarea').setAttribute('required', 'required');
+                } else {
+                    previousPositionSection.classList.add('hidden');
+                    previousPositionSection.querySelector('textarea').removeAttribute('required');
+                }
+            }
 
-            // For APC colors, perhaps adjust if needed, but keep green as per original
-            // ...
+            posYes.addEventListener('change', togglePreviousPosition);
+            posNo.addEventListener('change', togglePreviousPosition);
+            togglePreviousPosition();
+            // --- END PREVIOUS POSITION LOGIC ---
+
+            // --- DYNAMIC QUALIFICATIONS LOGIC ---
+            const addQualificationBtn = document.getElementById('add_qualification');
+            const qualificationsContainer = document.getElementById('qualifications_container');
+            let qualificationCount = 1;
+
+            addQualificationBtn.addEventListener('click', function() {
+                qualificationCount++;
+                const newQualificationEntry = document.createElement('div');
+                newQualificationEntry.className = 'qualification-entry grid grid-cols-1 md:grid-cols-3 gap-4 items-end animate__animated animate__fadeIn';
+                newQualificationEntry.innerHTML = `
+                    <div>
+                        <label for="qualification_${qualificationCount}_degree" class="form-label" data-translate="degreeLabel">${translations[currentLang]['degreeLabel']}</label>
+                        <input type="text" id="qualification_${qualificationCount}_degree" name="qualification_degree[]" class="form-input" data-translate-placeholder="degreePlaceholder" placeholder="${translations[currentLang]['degreePlaceholder']}">
+                        <span id="qualification_${qualificationCount}_degree_error" class="error-message hidden" data-translate="errorDegree">${translations[currentLang]['errorDegree']}</span>
+                    </div>
+                    <div>
+                        <label for="qualification_${qualificationCount}_institution" class="form-label" data-translate="institutionLabel">${translations[currentLang]['institutionLabel']}</label>
+                        <input type="text" id="qualification_${qualificationCount}_institution" name="qualification_institution[]" class="form-input" data-translate-placeholder="institutionPlaceholder" placeholder="${translations[currentLang]['institutionPlaceholder']}">
+                        <span id="qualification_${qualificationCount}_institution_error" class="error-message hidden" data-translate="errorInstitution">${translations[currentLang]['errorInstitution']}</span>
+                    </div>
+                    <div>
+                        <label for="qualification_${qualificationCount}_year" class="form-label" data-translate="yearLabel">${translations[currentLang]['yearLabel']}</label>
+                        <input type="number" id="qualification_${qualificationCount}_year" name="qualification_year[]" class="form-input" data-translate-placeholder="yearPlaceholder" placeholder="${translations[currentLang]['yearPlaceholder']}" min="1950" max="2025">
+                        <span id="qualification_${qualificationCount}_year_error" class="error-message hidden" data-translate="errorYear">${translations[currentLang]['errorYear']}</span>
+                    </div>
+                `;
+                qualificationsContainer.appendChild(newQualificationEntry);
+            });
+            // --- END DYNAMIC QUALIFICATIONS LOGIC ---
+
+            // --- MODE SELECTION LOGIC ---
+            const modeSelector = document.getElementById('mode-selector');
+            const formSection = document.getElementById('form-section');
+            const chatSection = document.getElementById('chat-section');
+            const successSection = document.getElementById('success-section');
+            const formModeBtn = document.getElementById('form-mode-btn');
+            const chatModeBtn = document.getElementById('chat-mode-btn');
+
+            let formData = {
+                nomination_code: nominationCodeInput.value,
+                qualifications: [],
+                held_position: 'no',
+                previous_position: ''
+            };
+
+            formModeBtn.addEventListener('click', () => {
+                modeSelector.classList.add('hidden');
+                formSection.classList.remove('hidden');
+                formSection.classList.add('fade-in');
+            });
+
+            chatModeBtn.addEventListener('click', () => {
+                modeSelector.classList.add('hidden');
+                chatSection.classList.remove('hidden');
+                chatSection.classList.add('fade-in');
+                startChat();
+            });
+
+            // --- FORM VALIDATION AND SUBMISSION LOGIC ---
+            const nominationForm = document.getElementById('nomination-form');
+            nominationForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                if (validateForm()) {
+                    collectFormData();
+                    showSuccess();
+                }
+            });
+
+            function validateForm() {
+                let isValid = true;
+                const today = new Date('2025-10-27');
+
+                document.querySelectorAll('.error-message').forEach(el => el.classList.add('hidden'));
+
+                function showError(id) {
+                    document.getElementById(id).classList.remove('hidden');
+                    isValid = false;
+                }
+
+                // Full Name
+                if (!document.getElementById('full_name').value.trim()) showError('full_name_error');
+                // DOB
+                const dob = document.getElementById('dob').value;
+                if (!dob || new Date(dob) >= today) showError('dob_error');
+                // Gender
+                if (!document.getElementById('gender').value) showError('gender_error');
+                // Phone
+                const phoneRegex = /^0\d{10}$/;
+                if (!phoneRegex.test(document.getElementById('phone').value)) showError('phone_error');
+                // Email (optional)
+                const email = document.getElementById('email').value;
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (email && !emailRegex.test(email)) showError('email_error');
+                // State of Origin
+                if (!document.getElementById('state_of_origin').value) showError('state_of_origin_error');
+                // LGA of Origin
+                if (!document.getElementById('lga_of_origin').value) showError('lga_of_origin_error');
+                // Address
+                if (!document.getElementById('address').value.trim()) showError('address_error');
+                // City
+                if (!document.getElementById('city').value.trim()) showError('city_error');
+                // State of Residence
+                if (!document.getElementById('state_of_residence').value) showError('state_of_residence_error');
+                // LGA of Residence
+                if (!document.getElementById('lga_of_residence').value) showError('lga_of_residence_error');
+                // Ward
+                if (!document.getElementById('ward').value.trim()) showError('ward_error');
+                // APC Reg No
+                if (!document.getElementById('apc_reg_no').value.trim()) showError('apc_reg_no_error');
+                // APC Join Date
+                const apcJoinDate = document.getElementById('apc_join_date').value;
+                if (!apcJoinDate || new Date(apcJoinDate) >= today) showError('apc_join_date_error');
+                // Held Position
+                const heldPosition = document.querySelector('input[name="held_position"]:checked');
+                if (!heldPosition) {
+                    showError('held_position_error');
+                } else if (heldPosition.value === 'yes' && !document.getElementById('previous_position').value.trim()) {
+                    showError('previous_position_error');
+                }
+                // Qualifications
+                document.querySelectorAll('.qualification-entry').forEach((entry, index) => {
+                    const degree = entry.querySelector(`[name="qualification_degree[]"]`);
+                    const institution = entry.querySelector(`[name="qualification_institution[]"]`);
+                    const year = entry.querySelector(`[name="qualification_year[]"]`);
+                    
+                    if (degree.required && !degree.value.trim()) showError(`qualification_${index+1}_degree_error`);
+                    if (institution.required && !institution.value.trim()) showError(`qualification_${index+1}_institution_error`);
+                    if (year.required && (!year.value || year.value < 1950 || year.value > 2025)) showError(`qualification_${index+1}_year_error`);
+                });
+                // Declaration
+                if (!document.getElementById('declaration').checked) showError('declaration_error');
+
+                return isValid;
+            }
+
+            function collectFormData() {
+                formData.full_name = document.getElementById('full_name').value;
+                formData.dob = document.getElementById('dob').value;
+                formData.gender = document.getElementById('gender').value;
+                formData.phone = document.getElementById('phone').value;
+                formData.email = document.getElementById('email').value;
+                formData.state_of_origin = document.getElementById('state_of_origin').options[document.getElementById('state_of_origin').selectedIndex].text;
+                formData.lga_of_origin = document.getElementById('lga_of_origin').value;
+                formData.address = document.getElementById('address').value;
+                formData.city = document.getElementById('city').value;
+                formData.state_of_residence = document.getElementById('state_of_residence').options[document.getElementById('state_of_residence').selectedIndex].text;
+                formData.lga_of_residence = document.getElementById('lga_of_residence').value;
+                formData.ward = document.getElementById('ward').value;
+                formData.apc_reg_no = document.getElementById('apc_reg_no').value;
+                formData.apc_join_date = document.getElementById('apc_join_date').value;
+                formData.held_position = document.querySelector('input[name="held_position"]:checked').value;
+                if (formData.held_position === 'yes') {
+                    formData.previous_position = document.getElementById('previous_position').value;
+                }
+                formData.qualifications = [];
+                document.querySelectorAll('.qualification-entry').forEach(entry => {
+                    const degree = entry.querySelector(`[name="qualification_degree[]"]`).value;
+                    const institution = entry.querySelector(`[name="qualification_institution[]"]`).value;
+                    const year = entry.querySelector(`[name="qualification_year[]"]`).value;
+                    if (degree || institution || year) {
+                        formData.qualifications.push({ degree, institution, year });
+                    }
+                });
+                formData.declaration = document.getElementById('declaration').checked ? 'Yes' : 'No';
+            }
+
+            // --- CHAT LOGIC ---
+            const chatMessages = document.getElementById('chat-messages');
+            const chatInput = document.getElementById('chat-input');
+            const chatSend = document.getElementById('chat-send');
+            const chatSubmitSection = document.getElementById('chat-submit-section');
+            const chatSubmit = document.getElementById('chat-submit');
+
+            let currentQuestionIndex = 0;
+            let collectingQual = false;
+            let qualTemp = { degree: '', institution: '', year: '' };
+            let qualPhase = 0; // 0: ask degree, 1: wait degree, 2: ask inst, 3: wait inst, 4: ask year, 5: wait year, 6: ask more, 7: wait more
+            let tempStateOrigin = '';
+            let tempStateResidence = '';
+            const today = new Date('2025-10-27');
+
+            const baseChatQuestions = [
+                { key: 'full_name', textKey: 'chatQuestionFullName', validate: (res) => res.trim() !== '', errorKey: 'chatErrorFullName' },
+                { key: 'dob', textKey: 'chatQuestionDob', validate: (res) => /^\d{4}-\d{2}-\d{2}$/.test(res) && new Date(res) < today, errorKey: 'chatErrorDob' },
+                { key: 'gender', textKey: 'chatQuestionGender', validate: (res) => [translations[currentLang]['genderMale'].toLowerCase(), translations[currentLang]['genderFemale'].toLowerCase(), 'male', 'female'].includes(res.toLowerCase()), errorKey: 'chatErrorGender' },
+                { key: 'phone', textKey: 'chatQuestionPhone', validate: (res) => /^0\d{10}$/.test(res), errorKey: 'chatErrorPhone' },
+                { key: 'email', textKey: 'chatQuestionEmail', validate: (res) => !res || /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(res), errorKey: 'chatErrorEmail' },
+                { key: 'state_of_origin', textKey: 'chatQuestionStateOrigin', validate: (res) => nigeriaData.some(state => state.state.toLowerCase() === res.toLowerCase()), errorKey: 'chatErrorStateOrigin' },
+                { key: 'lga_of_origin', textKey: 'chatQuestionLgaOrigin', validate: (res) => {
+                    const state = nigeriaData.find(s => s.state.toLowerCase() === tempStateOrigin.toLowerCase());
+                    return state && state.lgas.some(lga => lga.toLowerCase() === res.toLowerCase());
+                }, errorKey: 'chatErrorLgaOrigin' },
+                { key: 'address', textKey: 'chatQuestionAddress', validate: (res) => res.trim() !== '', errorKey: 'chatErrorAddress' },
+                { key: 'city', textKey: 'chatQuestionCity', validate: (res) => res.trim() !== '', errorKey: 'chatErrorCity' },
+                { key: 'state_of_residence', textKey: 'chatQuestionStateResidence', validate: (res) => nigeriaData.some(state => state.state.toLowerCase() === res.toLowerCase()), errorKey: 'chatErrorStateResidence' },
+                { key: 'lga_of_residence', textKey: 'chatQuestionLgaResidence', validate: (res) => {
+                    const state = nigeriaData.find(s => s.state.toLowerCase() === tempStateResidence.toLowerCase());
+                    return state && state.lgas.some(lga => lga.toLowerCase() === res.toLowerCase());
+                }, errorKey: 'chatErrorLgaResidence' },
+                { key: 'ward', textKey: 'chatQuestionWard', validate: (res) => res.trim() !== '', errorKey: 'chatErrorWard' },
+                { key: 'apc_reg_no', textKey: 'chatQuestionApcRegNo', validate: (res) => res.trim() !== '', errorKey: 'chatErrorApcRegNo' },
+                { key: 'apc_join_date', textKey: 'chatQuestionApcJoinDate', validate: (res) => /^\d{4}-\d{2}-\d{2}$/.test(res) && new Date(res) < today, errorKey: 'chatErrorApcJoinDate' },
+                { key: 'held_position', textKey: 'chatQuestionHeldPosition', validate: (res) => [translations[currentLang]['yes'].toLowerCase(), translations[currentLang]['no'].toLowerCase(), 'yes', 'no'].includes(res.toLowerCase()), errorKey: 'chatErrorHeldPosition' }
+            ];
+
+            function buildChatQuestions() {
+                chatQuestions = baseChatQuestions.map(q => ({
+                    key: q.key,
+                    text: translations[currentLang][q.textKey],
+                    validate: q.validate,
+                    error: translations[currentLang][q.errorKey]
+                }));
+            }
+
+            function addMessage(text, isUser = false, isError = false) {
+                const bubble = document.createElement('div');
+                bubble.classList.add('chat-bubble', isUser ? 'chat-user' : 'chat-bot');
+                if (isError) {
+                    bubble.style.backgroundColor = '#dc2626'; // red-600
+                }
+                bubble.textContent = text;
+                chatMessages.appendChild(bubble);
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            }
+
+            function addTypingIndicator() {
+                const typing = document.createElement('div');
+                typing.classList.add('chat-typing');
+                typing.id = 'typing-indicator';
+                typing.textContent = translations[currentLang]['chatTyping'] || 'Secretary is typing';
+                chatMessages.appendChild(typing);
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+                return typing;
+            }
+
+            function askQuestionWithTyping(text) {
+                const typing = addTypingIndicator();
+                setTimeout(() => {
+                    typing.remove();
+                    addMessage(text);
+                }, 1500);
+            }
+
+            function askNextQuestion() {
+                const lang = currentLang;
+                if (collectingQual) {
+                    if (qualPhase === 0) {
+                        askQuestionWithTyping(translations[lang]['chatQuestionDegree']);
+                        qualPhase = 1;
+                    } else if (qualPhase === 2) {
+                        askQuestionWithTyping(translations[lang]['chatQuestionInstitution']);
+                        qualPhase = 3;
+                    } else if (qualPhase === 4) {
+                        askQuestionWithTyping(translations[lang]['chatQuestionYear']);
+                        qualPhase = 5;
+                    } else if (qualPhase === 6) {
+                        askQuestionWithTyping(translations[lang]['chatQuestionMoreQual']);
+                        qualPhase = 7;
+                    }
+                    return;
+                }
+
+                if (currentQuestionIndex < chatQuestions.length) {
+                    askQuestionWithTyping(chatQuestions[currentQuestionIndex].text);
+                } else if (formData.held_position === 'yes' && !formData.previous_position) {
+                    askQuestionWithTyping(translations[lang]['chatQuestionPrevPosition']);
+                } else if (!collectingQual) {
+                    askQuestionWithTyping(translations[lang]['chatStartQual']);
+                    collectingQual = true;
+                    qualPhase = 0;
+                    askNextQuestion();
+                } else if (formData.declaration !== 'Yes') {
+                    askQuestionWithTyping(translations[lang]['chatQuestionDeclaration']);
+                } else {
+                    askQuestionWithTyping(translations[lang]['chatComplete']);
+                    chatSubmitSection.classList.remove('hidden');
+                    chatInput.disabled = true;
+                    chatSend.disabled = true;
+                }
+            }
+
+            function startChat() {
+                buildChatQuestions(); // Build questions with current language
+                addMessage(translations[currentLang]['chatWelcome']);
+                addMessage(translations[currentLang]['chatCodeVerified'] + formData.nomination_code);
+                askNextQuestion();
+            }
+
+            chatSend.addEventListener('click', () => {
+                const response = chatInput.value.trim();
+                const lang = currentLang;
+                if (!response && currentQuestionIndex !== 4) return;
+                addMessage(response, true);
+                chatInput.value = '';
+
+                let advanced = false;
+
+                if (collectingQual) {
+                    if (qualPhase === 1) {
+                        if (response) {
+                            qualTemp.degree = response;
+                            qualPhase = 2;
+                            advanced = true;
+                        } else {
+                            addMessage(translations[lang]['chatErrorDegree'], false, true);
+                        }
+                    } else if (qualPhase === 3) {
+                        if (response) {
+                            qualTemp.institution = response;
+                            qualPhase = 4;
+                            advanced = true;
+                        } else {
+                            addMessage(translations[lang]['chatErrorInstitution'], false, true);
+                        }
+                    } else if (qualPhase === 5) {
+                        const yearNum = parseInt(response);
+                        if (!isNaN(yearNum) && yearNum >= 1950 && yearNum <= 2025) {
+                            qualTemp.year = response;
+                            formData.qualifications.push({ ...qualTemp });
+                            qualTemp = { degree: '', institution: '', year: '' };
+                            qualPhase = 6;
+                            advanced = true;
+                        } else {
+                            addMessage(translations[lang]['chatErrorYear'], false, true);
+                        }
+                    } else if (qualPhase === 7) {
+                        const resLower = response.toLowerCase();
+                        if ([translations[lang]['yes'].toLowerCase(), 'yes'].includes(resLower)) {
+                            qualPhase = 0;
+                            advanced = true;
+                        } else if ([translations[lang]['no'].toLowerCase(), 'no'].includes(resLower)) {
+                            collectingQual = false;
+                            advanced = true;
+                        } else {
+                            addMessage(translations[lang]['chatErrorMoreQual'], false, true);
+                        }
+                    }
+                    if (advanced) askNextQuestion();
+                    return;
+                }
+
+                if (currentQuestionIndex < chatQuestions.length) {
+                    const q = chatQuestions[currentQuestionIndex];
+                    if (q.validate(response)) {
+                        formData[q.key] = response;
+                        if (q.key === 'state_of_origin') tempStateOrigin = response;
+                        if (q.key === 'state_of_residence') tempStateResidence = response;
+                        if (q.key === 'held_position') {
+                            formData.held_position = [translations[lang]['yes'].toLowerCase(), 'yes'].includes(response.toLowerCase()) ? 'yes' : 'no';
+                        }
+                        if(q.key === 'gender') {
+                            formData.gender = [translations[lang]['genderMale'].toLowerCase(), 'male'].includes(response.toLowerCase()) ? 'male' : 'female';
+                        }
+                        currentQuestionIndex++;
+                        advanced = true;
+                    } else {
+                        addMessage(q.error, false, true);
+                    }
+                } else if (formData.held_position === 'yes' && !formData.previous_position) {
+                    if (response.trim()) {
+                        formData.previous_position = response;
+                        advanced = true;
+                    } else {
+                        addMessage(translations[lang]['chatErrorPrevPosition'], false, true);
+                    }
+                } else if (formData.declaration !== 'Yes') {
+                    if ([translations[lang]['yes'].toLowerCase(), 'yes'].includes(response.toLowerCase())) {
+                        formData.declaration = 'Yes';
+                        advanced = true;
+                    } else {
+                        addMessage(translations[lang]['chatErrorDeclaration'], false, true);
+                    }
+                }
+
+                if (advanced) askNextQuestion();
+            });
+
+            chatInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') chatSend.click();
+            });
+
+            chatSubmit.addEventListener('click', () => {
+                showSuccess();
+            });
+
+            // --- SUCCESS AND DOWNLOAD LOGIC ---
+            function showSuccess() {
+                formSection.classList.add('hidden');
+                chatSection.classList.add('hidden');
+                successSection.classList.remove('hidden');
+                successSection.classList.add('fade-in');
+            }
+
+            function getLangString(key) {
+                return translations[currentLang][key] || translations['en'][key];
+            }
+
+            document.getElementById('download-form-btn').addEventListener('click', () => {
+                const doc = new jsPDF();
+                let y = 10;
+                doc.setFont('Helvetica'); // jsPDF default, supports basic latin
+                
+                doc.setFontSize(16);
+                doc.text(getLangString('pdfTitle'), 105, y, { align: 'center' });
+                y += 10;
+                doc.setFontSize(12);
+                doc.text(`${getLangString('pdfCode')} ${formData.nomination_code}`, 10, y);
+                y += 10;
+                doc.text(getLangString('pdfSection1'), 10, y);
+                y += 5;
+                doc.text(`${getLangString('pdfFullName')} ${formData.full_name}`, 10, y);
+                y += 5;
+                doc.text(`${getLangString('pdfDob')} ${formData.dob}`, 10, y);
+                y += 5;
+                doc.text(`${getLangString('pdfGender')} ${formData.gender}`, 10, y);
+                y += 5;
+                doc.text(`${getLangString('pdfPhone')} ${formData.phone}`, 10, y);
+                y += 5;
+                doc.text(`${getLangString('pdfEmail')} ${formData.email || getLangString('pdfNotApplicable')}`, 10, y);
+                y += 5;
+                doc.text(`${getLangString('pdfStateOrigin')} ${formData.state_of_origin}`, 10, y);
+                y += 5;
+                doc.text(`${getLangString('pdfLgaOrigin')} ${formData.lga_of_origin}`, 10, y);
+                y += 10;
+                doc.text(getLangString('pdfSection2'), 10, y);
+                y += 5;
+                doc.text(`${getLangString('pdfAddress')} ${formData.address}`, 10, y);
+                y += 5;
+                doc.text(`${getLangString('pdfCity')} ${formData.city}`, 10, y);
+                y += 5;
+                doc.text(`${getLangString('pdfStateResidence')} ${formData.state_of_residence}`, 10, y);
+                y += 5;
+                doc.text(`${getLangString('pdfLgaResidence')} ${formData.lga_of_residence}`, 10, y);
+                y += 5;
+                doc.text(`${getLangString('pdfWard')} ${formData.ward}`, 10, y);
+                y += 10;
+                doc.text(getLangString('pdfSection3'), 10, y);
+                y += 5;
+                doc.text(`${getLangString('pdfApcRegNo')} ${formData.apc_reg_no}`, 10, y);
+                y += 5;
+                doc.text(`${getLangString('pdfJoinDate')} ${formData.apc_join_date}`, 10, y);
+                y += 5;
+                doc.text(`${getLangString('pdfHeldPosition')} ${formData.held_position}`, 10, y);
+                if (formData.held_position === 'yes') {
+                    y += 5;
+                    doc.text(`${getLangString('pdfPrevPosition')} ${formData.previous_position}`, 10, y);
+                }
+                y += 10;
+                doc.text(getLangString('pdfSection4'), 10, y);
+                formData.qualifications.forEach((qual, index) => {
+                    y += 5;
+                    doc.text(`${index + 1}. ${getLangString('pdfDegree')} ${qual.degree}, ${getLangString('pdfInstitution')} ${qual.institution}, ${getLangString('pdfYear')} ${qual.year}`, 10, y);
+                });
+                y += 10;
+                doc.text(`${getLangString('pdfDeclaration')} ${formData.declaration}`, 10, y);
+                doc.save('APC_Nomination_Form.pdf');
+            });
+
+            document.getElementById('download-receipt-btn').addEventListener('click', () => {
+                const doc = new jsPDF();
+                let y = 10;
+                doc.setFontSize(16);
+                doc.text(getLangString('receiptTitle'), 105, y, { align: 'center' });
+                y += 10;
+                doc.setFontSize(12);
+                doc.text(`${getLangString('pdfCode')} ${formData.nomination_code}`, 10, y);
+                y += 5;
+                doc.text(`${getLangString('pdfFullName')} ${formData.full_name}`, 10, y);
+                y += 5;
+                doc.text(`${getLangString('receiptDate')} ${new Date().toLocaleDateString()}`, 10, y);
+                y += 10;
+                doc.text(getLangString('receiptThankYou'), 10, y);
+                y += 5;
+                doc.text(getLangString('receiptOfficial'), 10, y);
+                doc.save('APC_Nomination_Receipt.pdf');
+            });
+
+            // Set default language on load
+            setLanguage('en');
         });
     </script>
 </body>
 </html>
+
