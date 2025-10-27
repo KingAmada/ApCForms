@@ -159,6 +159,24 @@
             color: #333;
             margin-left: auto;
         }
+        .chat-typing {
+            background-color: #006400;
+            color: white;
+            margin-right: auto;
+            padding: 0.5rem 1rem;
+            border-radius: 1rem;
+            display: flex;
+            align-items: center;
+        }
+        .chat-typing::after {
+            content: '...';
+            animation: typing 1s steps(3, end) infinite;
+        }
+        @keyframes typing {
+            0% { content: '.'; }
+            33% { content: '..'; }
+            66% { content: '...'; }
+        }
         @keyframes fadeInUp {
             from {
                 opacity: 0;
@@ -175,6 +193,11 @@
         @keyframes fadeIn {
             from { opacity: 0; }
             to { opacity: 1; }
+        }
+        .error-message {
+            color: red;
+            font-size: 0.875rem;
+            margin-top: 0.25rem;
         }
     </style>
 </head>
@@ -218,7 +241,7 @@
                 <h2 class="text-2xl font-bold text-gray-800 mb-4">Choose Interaction Mode</h2>
                 <div class="flex justify-center space-x-4">
                     <button id="form-mode-btn" class="gradient-button text-white font-bold py-3 px-8 rounded-full text-lg shadow-md hover:shadow-xl transition-all duration-300">Normal Form</button>
-                    <button id="chat-mode-btn" class="gradient-button text-white font-bold py-3 px-8 rounded-full text-lg shadow-md hover:shadow-xl transition-all duration-300">Chatbot Mode</button>
+                    <button id="chat-mode-btn" class="gradient-button text-white font-bold py-3 px-8 rounded-full text-lg shadow-md hover:shadow-xl transition-all duration-300">Chat with the Secretary</button>
                 </div>
             </div>
 
@@ -232,10 +255,12 @@
                             <div>
                                 <label for="full_name" class="form-label">Full Name</label>
                                 <input type="text" id="full_name" name="full_name" class="form-input" placeholder="Enter your full name" required>
+                                <span id="full_name_error" class="error-message hidden">Full name is required.</span>
                             </div>
                             <div>
                                 <label for="dob" class="form-label">Date of Birth</label>
-                                <input type="date" id="dob" name="dob" class="form-input" required>
+                                <input type="date" id="dob" name="dob" class="form-input" required max="2025-10-27">
+                                <span id="dob_error" class="error-message hidden">Valid date of birth is required (must be in the past).</span>
                             </div>
                             <div>
                                 <label for="gender" class="form-label">Gender</label>
@@ -244,26 +269,31 @@
                                     <option value="male">Male</option>
                                     <option value="female">Female</option>
                                 </select>
+                                <span id="gender_error" class="error-message hidden">Gender is required.</span>
                             </div>
                             <div>
                                 <label for="phone" class="form-label">Phone Number</label>
-                                <input type="tel" id="phone" name="phone" class="form-input" placeholder="e.g., 08012345678" required>
+                                <input type="tel" id="phone" name="phone" class="form-input" placeholder="e.g., 08012345678" required pattern="0\d{10}">
+                                <span id="phone_error" class="error-message hidden">Valid Nigerian phone number is required (11 digits starting with 0).</span>
                             </div>
                             <div class="md:col-span-2">
                                 <label for="email" class="form-label">Email Address</label>
                                 <input type="email" id="email" name="email" class="form-input" placeholder="e.g., yourname@example.com">
+                                <span id="email_error" class="error-message hidden">Valid email is required if provided.</span>
                             </div>
                             <div>
                                 <label for="state_of_origin" class="form-label">State of Origin</label>
                                 <select id="state_of_origin" name="state_of_origin" class="form-select" required>
                                     <option value="">Select State of Origin</option>
                                 </select>
+                                <span id="state_of_origin_error" class="error-message hidden">State of origin is required.</span>
                             </div>
                             <div>
                                 <label for="lga_of_origin" class="form-label">LGA of Origin</label>
                                 <select id="lga_of_origin" name="lga_of_origin" class="form-select" required disabled>
                                     <option value="">Select LGA of Origin</option>
                                 </select>
+                                <span id="lga_of_origin_error" class="error-message hidden">LGA of origin is required.</span>
                             </div>
                         </div>
                     </section>
@@ -275,26 +305,31 @@
                             <div>
                                 <label for="address" class="form-label">Residential Address</label>
                                 <input type="text" id="address" name="address" class="form-input" placeholder="House number, street name" required>
+                                <span id="address_error" class="error-message hidden">Residential address is required.</span>
                             </div>
                             <div>
                                 <label for="city" class="form-label">City/Town</label>
                                 <input type="text" id="city" name="city" class="form-input" placeholder="e.g., Abuja" required>
+                                <span id="city_error" class="error-message hidden">City/town is required.</span>
                             </div>
                             <div>
                                 <label for="state_of_residence" class="form-label">State of Residence</label>
                                 <select id="state_of_residence" name="state_of_residence" class="form-select" required>
                                     <option value="">Select State of Residence</option>
                                 </select>
+                                <span id="state_of_residence_error" class="error-message hidden">State of residence is required.</span>
                             </div>
                             <div>
                                 <label for="lga_of_residence" class="form-label">LGA of Residence</label>
                                 <select id="lga_of_residence" name="lga_of_residence" class="form-select" required disabled>
                                     <option value="">Select LGA of Residence</option>
                                 </select>
+                                <span id="lga_of_residence_error" class="error-message hidden">LGA of residence is required.</span>
                             </div>
                             <div class="md:col-span-2">
                                 <label for="ward" class="form-label">Ward</label>
                                 <input type="text" id="ward" name="ward" class="form-input" placeholder="Enter your Ward name/number" required>
+                                <span id="ward_error" class="error-message hidden">Ward is required.</span>
                             </div>
                         </div>
                     </section>
@@ -310,10 +345,12 @@
                             <div>
                                 <label for="apc_reg_no" class="form-label">APC Membership Registration Number</label>
                                 <input type="text" id="apc_reg_no" name="apc_reg_no" class="form-input" placeholder="Enter APC Reg. No." required>
+                                <span id="apc_reg_no_error" class="error-message hidden">APC registration number is required.</span>
                             </div>
                             <div class="md:col-span-2">
                                 <label for="apc_join_date" class="form-label">Date Joined APC</label>
-                                <input type="date" id="apc_join_date" name="apc_join_date" class="form-input" required>
+                                <input type="date" id="apc_join_date" name="apc_join_date" class="form-input" required max="2025-10-27">
+                                <span id="apc_join_date_error" class="error-message hidden">Valid join date is required (must be in the past).</span>
                             </div>
                             <div class="md:col-span-2">
                                 <label class="form-label">Have you held any party position before?</label>
@@ -327,10 +364,12 @@
                                         <span class="text-gray-700">No</span>
                                     </label>
                                 </div>
+                                <span id="held_position_error" class="error-message hidden">This field is required.</span>
                             </div>
                             <div id="previous_position_section" class="md:col-span-2 hidden">
                                 <label for="previous_position" class="form-label">If Yes, please state the position(s) and year(s)</label>
                                 <textarea id="previous_position" name="previous_position" rows="3" class="form-textarea" placeholder="e.g., Ward Secretary (2018-2020)"></textarea>
+                                <span id="previous_position_error" class="error-message hidden">This field is required if yes.</span>
                             </div>
                         </div>
                     </section>
@@ -344,14 +383,17 @@
                                 <div>
                                     <label for="qualification_1_degree" class="form-label">Degree/Certificate</label>
                                     <input type="text" id="qualification_1_degree" name="qualification_degree[]" class="form-input" placeholder="e.g., B.Sc. Political Science" required>
+                                    <span id="qualification_1_degree_error" class="error-message hidden">Degree is required.</span>
                                 </div>
                                 <div>
                                     <label for="qualification_1_institution" class="form-label">Institution</label>
                                     <input type="text" id="qualification_1_institution" name="qualification_institution[]" class="form-input" placeholder="e.g., University of Lagos" required>
+                                    <span id="qualification_1_institution_error" class="error-message hidden">Institution is required.</span>
                                 </div>
                                 <div>
                                     <label for="qualification_1_year" class="form-label">Year Obtained</label>
                                     <input type="number" id="qualification_1_year" name="qualification_year[]" class="form-input" placeholder="e.g., 2010" required min="1950" max="2025">
+                                    <span id="qualification_1_year_error" class="error-message hidden">Year between 1950 and 2025 is required.</span>
                                 </div>
                             </div>
                         </div>
@@ -374,6 +416,7 @@
                                 </span>
                             </label>
                         </div>
+                        <span id="declaration_error" class="error-message hidden">You must agree to the declaration.</span>
                     </section>
 
                     <!-- SUBMIT BUTTON -->
@@ -580,14 +623,17 @@
                     <div>
                         <label for="qualification_${qualificationCount}_degree" class="form-label">Degree/Certificate</label>
                         <input type="text" id="qualification_${qualificationCount}_degree" name="qualification_degree[]" class="form-input" placeholder="e.g., M.Sc. Public Admin">
+                        <span id="qualification_${qualificationCount}_degree_error" class="error-message hidden">Degree is required.</span>
                     </div>
                     <div>
                         <label for="qualification_${qualificationCount}_institution" class="form-label">Institution</label>
                         <input type="text" id="qualification_${qualificationCount}_institution" name="qualification_institution[]" class="form-input" placeholder="e.g., Ahmadu Bello University">
+                        <span id="qualification_${qualificationCount}_institution_error" class="error-message hidden">Institution is required.</span>
                     </div>
                     <div>
                         <label for="qualification_${qualificationCount}_year" class="form-label">Year Obtained</label>
                         <input type="number" id="qualification_${qualificationCount}_year" name="qualification_year[]" class="form-input" placeholder="e.g., 2012" min="1950" max="2025">
+                        <span id="qualification_${qualificationCount}_year_error" class="error-message hidden">Year between 1950 and 2025 is required.</span>
                     </div>
                 `;
                 qualificationsContainer.appendChild(newQualificationEntry);
@@ -622,13 +668,165 @@
                 startChat();
             });
 
-            // --- FORM SUBMISSION LOGIC ---
+            // --- FORM VALIDATION AND SUBMISSION LOGIC ---
             const nominationForm = document.getElementById('nomination-form');
             nominationForm.addEventListener('submit', (e) => {
                 e.preventDefault();
-                collectFormData();
-                showSuccess();
+                if (validateForm()) {
+                    collectFormData();
+                    showSuccess();
+                }
             });
+
+            function validateForm() {
+                let isValid = true;
+                const today = new Date('2025-10-27'); // Current date as per prompt
+
+                // Clear previous errors
+                document.querySelectorAll('.error-message').forEach(el => el.classList.add('hidden'));
+
+                // Full Name
+                const fullName = document.getElementById('full_name');
+                if (!fullName.value.trim()) {
+                    document.getElementById('full_name_error').classList.remove('hidden');
+                    isValid = false;
+                }
+
+                // DOB
+                const dob = document.getElementById('dob');
+                if (!dob.value || new Date(dob.value) >= today) {
+                    document.getElementById('dob_error').classList.remove('hidden');
+                    isValid = false;
+                }
+
+                // Gender
+                const gender = document.getElementById('gender');
+                if (!gender.value) {
+                    document.getElementById('gender_error').classList.remove('hidden');
+                    isValid = false;
+                }
+
+                // Phone
+                const phone = document.getElementById('phone');
+                const phoneRegex = /^0\d{10}$/;
+                if (!phoneRegex.test(phone.value)) {
+                    document.getElementById('phone_error').classList.remove('hidden');
+                    isValid = false;
+                }
+
+                // Email (optional, but validate if provided)
+                const email = document.getElementById('email');
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (email.value && !emailRegex.test(email.value)) {
+                    document.getElementById('email_error').classList.remove('hidden');
+                    isValid = false;
+                }
+
+                // State of Origin
+                const stateOrigin = document.getElementById('state_of_origin');
+                if (!stateOrigin.value) {
+                    document.getElementById('state_of_origin_error').classList.remove('hidden');
+                    isValid = false;
+                }
+
+                // LGA of Origin
+                const lgaOrigin = document.getElementById('lga_of_origin');
+                if (!lgaOrigin.value) {
+                    document.getElementById('lga_of_origin_error').classList.remove('hidden');
+                    isValid = false;
+                }
+
+                // Address
+                const address = document.getElementById('address');
+                if (!address.value.trim()) {
+                    document.getElementById('address_error').classList.remove('hidden');
+                    isValid = false;
+                }
+
+                // City
+                const city = document.getElementById('city');
+                if (!city.value.trim()) {
+                    document.getElementById('city_error').classList.remove('hidden');
+                    isValid = false;
+                }
+
+                // State of Residence
+                const stateResidence = document.getElementById('state_of_residence');
+                if (!stateResidence.value) {
+                    document.getElementById('state_of_residence_error').classList.remove('hidden');
+                    isValid = false;
+                }
+
+                // LGA of Residence
+                const lgaResidence = document.getElementById('lga_of_residence');
+                if (!lgaResidence.value) {
+                    document.getElementById('lga_of_residence_error').classList.remove('hidden');
+                    isValid = false;
+                }
+
+                // Ward
+                const ward = document.getElementById('ward');
+                if (!ward.value.trim()) {
+                    document.getElementById('ward_error').classList.remove('hidden');
+                    isValid = false;
+                }
+
+                // APC Reg No
+                const apcRegNo = document.getElementById('apc_reg_no');
+                if (!apcRegNo.value.trim()) {
+                    document.getElementById('apc_reg_no_error').classList.remove('hidden');
+                    isValid = false;
+                }
+
+                // APC Join Date
+                const apcJoinDate = document.getElementById('apc_join_date');
+                if (!apcJoinDate.value || new Date(apcJoinDate.value) >= today) {
+                    document.getElementById('apc_join_date_error').classList.remove('hidden');
+                    isValid = false;
+                }
+
+                // Held Position
+                const heldPosition = document.querySelector('input[name="held_position"]:checked');
+                if (!heldPosition) {
+                    document.getElementById('held_position_error').classList.remove('hidden');
+                    isValid = false;
+                } else if (heldPosition.value === 'yes') {
+                    const previousPosition = document.getElementById('previous_position');
+                    if (!previousPosition.value.trim()) {
+                        document.getElementById('previous_position_error').classList.remove('hidden');
+                        isValid = false;
+                    }
+                }
+
+                // Qualifications
+                const qualEntries = document.querySelectorAll('.qualification-entry');
+                qualEntries.forEach((entry, index) => {
+                    const degree = entry.querySelector(`#qualification_${index+1}_degree`);
+                    if (degree.required && !degree.value.trim()) {
+                        entry.querySelector(`#qualification_${index+1}_degree_error`).classList.remove('hidden');
+                        isValid = false;
+                    }
+                    const institution = entry.querySelector(`#qualification_${index+1}_institution`);
+                    if (institution.required && !institution.value.trim()) {
+                        entry.querySelector(`#qualification_${index+1}_institution_error`).classList.remove('hidden');
+                        isValid = false;
+                    }
+                    const year = entry.querySelector(`#qualification_${index+1}_year`);
+                    if (year.required && (!year.value || year.value < 1950 || year.value > 2025)) {
+                        entry.querySelector(`#qualification_${index+1}_year_error`).classList.remove('hidden');
+                        isValid = false;
+                    }
+                });
+
+                // Declaration
+                const declaration = document.getElementById('declaration');
+                if (!declaration.checked) {
+                    document.getElementById('declaration_error').classList.remove('hidden');
+                    isValid = false;
+                }
+
+                return isValid;
+            }
 
             function collectFormData() {
                 formData.full_name = document.getElementById('full_name').value;
@@ -672,66 +870,95 @@
             let currentQuestionIndex = 0;
             let collectingQual = false;
             let qualTemp = { degree: '', institution: '', year: '' };
-            let qualPhase = 0; // 0: degree, 1: institution, 2: year, 3: add more?
+            let qualPhase = 0; // 0: ask degree, 1: wait degree, 2: ask inst, 3: wait inst, 4: ask year, 5: wait year, 6: ask more, 7: wait more
+            let tempStateOrigin = '';
+            let tempStateResidence = '';
+            const today = new Date('2025-10-27');
 
             const questions = [
-                { key: 'full_name', text: 'What is your full name?' },
-                { key: 'dob', text: 'What is your date of birth? (Format: YYYY-MM-DD)' },
-                { key: 'gender', text: 'What is your gender? (male/female)' },
-                { key: 'phone', text: 'What is your phone number? (e.g., 08012345678)' },
-                { key: 'email', text: 'What is your email address? (optional)' },
-                { key: 'state_of_origin', text: 'What is your state of origin?' },
-                { key: 'lga_of_origin', text: 'What is your LGA of origin?' },
-                { key: 'address', text: 'What is your residential address?' },
-                { key: 'city', text: 'What is your city/town?' },
-                { key: 'state_of_residence', text: 'What is your state of residence?' },
-                { key: 'lga_of_residence', text: 'What is your LGA of residence?' },
-                { key: 'ward', text: 'What is your ward?' },
-                { key: 'apc_reg_no', text: 'What is your APC membership registration number?' },
-                { key: 'apc_join_date', text: 'What is the date you joined APC? (Format: YYYY-MM-DD)' },
-                { key: 'held_position', text: 'Have you held any party position before? (yes/no)' }
+                { key: 'full_name', text: 'What is your full name?', validate: (res) => res.trim() !== '' , error: 'Full name is required.' },
+                { key: 'dob', text: 'What is your date of birth? (Format: YYYY-MM-DD)', validate: (res) => /^\d{4}-\d{2}-\d{2}$/.test(res) && new Date(res) < today, error: 'Invalid date format or date must be in the past (YYYY-MM-DD).' },
+                { key: 'gender', text: 'What is your gender? (male/female)', validate: (res) => ['male', 'female'].includes(res.toLowerCase()), error: 'Please enter "male" or "female".' },
+                { key: 'phone', text: 'What is your phone number? (e.g., 08012345678)', validate: (res) => /^0\d{10}$/.test(res), error: 'Invalid Nigerian phone number (11 digits starting with 0).' },
+                { key: 'email', text: 'What is your email address? (optional, press enter to skip)', validate: (res) => !res || /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(res), error: 'Invalid email format.' },
+                { key: 'state_of_origin', text: 'What is your state of origin?', validate: (res) => nigeriaData.some(state => state.state.toLowerCase() === res.toLowerCase()), error: 'Invalid state name.' },
+                { key: 'lga_of_origin', text: 'What is your LGA of origin?', validate: (res) => {
+                    const state = nigeriaData.find(s => s.state.toLowerCase() === tempStateOrigin.toLowerCase());
+                    return state && state.lgas.some(lga => lga.toLowerCase() === res.toLowerCase());
+                }, error: 'Invalid LGA for the selected state.' },
+                { key: 'address', text: 'What is your residential address?', validate: (res) => res.trim() !== '', error: 'Address is required.' },
+                { key: 'city', text: 'What is your city/town?', validate: (res) => res.trim() !== '', error: 'City/town is required.' },
+                { key: 'state_of_residence', text: 'What is your state of residence?', validate: (res) => nigeriaData.some(state => state.state.toLowerCase() === res.toLowerCase()), error: 'Invalid state name.' },
+                { key: 'lga_of_residence', text: 'What is your LGA of residence?', validate: (res) => {
+                    const state = nigeriaData.find(s => s.state.toLowerCase() === tempStateResidence.toLowerCase());
+                    return state && state.lgas.some(lga => lga.toLowerCase() === res.toLowerCase());
+                }, error: 'Invalid LGA for the selected state.' },
+                { key: 'ward', text: 'What is your ward?', validate: (res) => res.trim() !== '', error: 'Ward is required.' },
+                { key: 'apc_reg_no', text: 'What is your APC membership registration number?', validate: (res) => res.trim() !== '', error: 'APC registration number is required.' },
+                { key: 'apc_join_date', text: 'What is the date you joined APC? (Format: YYYY-MM-DD)', validate: (res) => /^\d{4}-\d{2}-\d{2}$/.test(res) && new Date(res) < today, error: 'Invalid date format or date must be in the past (YYYY-MM-DD).' },
+                { key: 'held_position', text: 'Have you held any party position before? (yes/no)', validate: (res) => ['yes', 'no'].includes(res.toLowerCase()), error: 'Please enter "yes" or "no".' }
             ];
 
-            function addMessage(text, isUser = false) {
+            function addMessage(text, isUser = false, isError = false) {
                 const bubble = document.createElement('div');
                 bubble.classList.add('chat-bubble', isUser ? 'chat-user' : 'chat-bot');
+                if (isError) {
+                    bubble.style.backgroundColor = '#ff0000';
+                }
                 bubble.textContent = text;
                 chatMessages.appendChild(bubble);
                 chatMessages.scrollTop = chatMessages.scrollHeight;
             }
 
+            function addTypingIndicator() {
+                const typing = document.createElement('div');
+                typing.classList.add('chat-typing');
+                typing.id = 'typing-indicator';
+                typing.textContent = 'Secretary is typing';
+                chatMessages.appendChild(typing);
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+                return typing;
+            }
+
+            function askQuestionWithTyping(text) {
+                const typing = addTypingIndicator();
+                setTimeout(() => {
+                    typing.remove();
+                    addMessage(text);
+                }, 1500); // 1.5 seconds typing delay
+            }
+
             function askNextQuestion() {
                 if (collectingQual) {
                     if (qualPhase === 0) {
-                        addMessage('What is your degree/certificate? (e.g., B.Sc. Political Science)');
+                        askQuestionWithTyping('What is your degree/certificate? (e.g., B.Sc. Political Science)');
                         qualPhase = 1;
                     } else if (qualPhase === 2) {
-                        addMessage('What is the institution? (e.g., University of Lagos)');
+                        askQuestionWithTyping('What is the institution? (e.g., University of Lagos)');
                         qualPhase = 3;
                     } else if (qualPhase === 4) {
-                        addMessage('What is the year obtained? (e.g., 2010)');
+                        askQuestionWithTyping('What is the year obtained? (e.g., 2010)');
                         qualPhase = 5;
                     } else if (qualPhase === 6) {
-                        addMessage('Do you want to add another qualification? (yes/no)');
+                        askQuestionWithTyping('Do you want to add another qualification? (yes/no)');
                         qualPhase = 7;
                     }
                     return;
                 }
 
                 if (currentQuestionIndex < questions.length) {
-                    addMessage(questions[currentQuestionIndex].text);
-                } else if (formData.held_position === 'yes') {
-                    addMessage('Please state the position(s) and year(s). (e.g., Ward Secretary (2018-2020))');
-                    currentQuestionIndex++; // Skip to after
-                } else if (currentQuestionIndex === questions.length) {
-                    addMessage('Now, let\'s add your academic qualifications. Starting with the highest.');
+                    askQuestionWithTyping(questions[currentQuestionIndex].text);
+                } else if (formData.held_position === 'yes' && !formData.previous_position) {
+                    askQuestionWithTyping('Please state the position(s) and year(s). (e.g., Ward Secretary (2018-2020))');
+                } else if (!collectingQual) {
+                    askQuestionWithTyping('Now, let\'s add your academic qualifications. Starting with the highest.');
                     collectingQual = true;
                     qualPhase = 0;
                     askNextQuestion();
-                } else if (currentQuestionIndex === questions.length + 1) {
-                    addMessage('Do you agree to the declaration? (I solemnly declare that all information provided is true... Type "yes" to agree.)');
+                } else if (formData.declaration !== 'Yes') {
+                    askQuestionWithTyping('Do you agree to the declaration? (I solemnly declare that all information provided is true... Type "yes" to agree.)');
                 } else {
-                    addMessage('All questions answered! Click "Submit Nomination" below.');
+                    askQuestionWithTyping('All questions answered! Click "Submit Nomination" below.');
                     chatSubmitSection.classList.remove('hidden');
                     chatInput.disabled = true;
                     chatSend.disabled = true;
@@ -739,65 +966,93 @@
             }
 
             function startChat() {
-                addMessage('Welcome to the APC Nomination Chatbot! I\'ll ask questions one by one.');
+                addMessage('Welcome to the APC Nomination Chat with the Secretary! I\'ll ask questions one by one.');
                 addMessage(`Your nomination code is verified: ${formData.nomination_code}`);
                 askNextQuestion();
             }
 
             chatSend.addEventListener('click', () => {
                 const response = chatInput.value.trim();
-                if (!response) return;
+                if (!response && currentQuestionIndex !== 4) return; // Allow skip for email
                 addMessage(response, true);
                 chatInput.value = '';
 
+                let advanced = false;
+
                 if (collectingQual) {
                     if (qualPhase === 1) {
-                        qualTemp.degree = response;
-                        qualPhase = 2;
-                        askNextQuestion();
-                    } else if (qualPhase === 3) {
-                        qualTemp.institution = response;
-                        qualPhase = 4;
-                        askNextQuestion();
-                    } else if (qualPhase === 5) {
-                        qualTemp.year = response;
-                        formData.qualifications.push({ ...qualTemp });
-                        qualTemp = { degree: '', institution: '', year: '' };
-                        qualPhase = 6;
-                        askNextQuestion();
-                    } else if (qualPhase === 7) {
-                        if (response.toLowerCase() === 'yes') {
-                            qualPhase = 0;
-                            askNextQuestion();
+                        if (response) {
+                            qualTemp.degree = response;
+                            qualPhase = 2;
+                            advanced = true;
                         } else {
-                            collectingQual = false;
-                            currentQuestionIndex = questions.length + 1;
-                            askNextQuestion();
+                            addMessage('Degree is required.', false, true);
+                        }
+                    } else if (qualPhase === 3) {
+                        if (response) {
+                            qualTemp.institution = response;
+                            qualPhase = 4;
+                            advanced = true;
+                        } else {
+                            addMessage('Institution is required.', false, true);
+                        }
+                    } else if (qualPhase === 5) {
+                        const yearNum = parseInt(response);
+                        if (!isNaN(yearNum) && yearNum >= 1950 && yearNum <= 2025) {
+                            qualTemp.year = response;
+                            formData.qualifications.push({ ...qualTemp });
+                            qualTemp = { degree: '', institution: '', year: '' };
+                            qualPhase = 6;
+                            advanced = true;
+                        } else {
+                            addMessage('Valid year between 1950 and 2025 is required.', false, true);
+                        }
+                    } else if (qualPhase === 7) {
+                        const resLower = response.toLowerCase();
+                        if (['yes', 'no'].includes(resLower)) {
+                            if (resLower === 'yes') {
+                                qualPhase = 0;
+                            } else {
+                                collectingQual = false;
+                            }
+                            advanced = true;
+                        } else {
+                            addMessage('Please enter "yes" or "no".', false, true);
                         }
                     }
+                    if (advanced) askNextQuestion();
                     return;
                 }
 
                 if (currentQuestionIndex < questions.length) {
                     const q = questions[currentQuestionIndex];
-                    formData[q.key] = response;
-                    if (q.key === 'held_position') {
-                        formData.held_position = response.toLowerCase();
-                        if (formData.held_position !== 'yes') {
-                            currentQuestionIndex = questions.length; // Skip previous position
-                        }
+                    if (q.validate(response)) {
+                        formData[q.key] = response;
+                        if (q.key === 'state_of_origin') tempStateOrigin = response;
+                        if (q.key === 'state_of_residence') tempStateResidence = response;
+                        if (q.key === 'held_position') formData.held_position = response.toLowerCase();
+                        currentQuestionIndex++;
+                        advanced = true;
+                    } else {
+                        addMessage(q.error, false, true);
                     }
-                    currentQuestionIndex++;
-                    askNextQuestion();
-                } else if (currentQuestionIndex === questions.length && formData.held_position === 'yes') {
-                    formData.previous_position = response;
-                    currentQuestionIndex++;
-                    askNextQuestion();
-                } else if (currentQuestionIndex === questions.length + 1) {
-                    formData.declaration = response.toLowerCase() === 'yes' ? 'Yes' : 'No';
-                    currentQuestionIndex++;
-                    askNextQuestion();
+                } else if (formData.held_position === 'yes' && !formData.previous_position) {
+                    if (response.trim()) {
+                        formData.previous_position = response;
+                        advanced = true;
+                    } else {
+                        addMessage('Previous position details are required.', false, true);
+                    }
+                } else if (formData.declaration !== 'Yes') {
+                    if (response.toLowerCase() === 'yes') {
+                        formData.declaration = 'Yes';
+                        advanced = true;
+                    } else {
+                        addMessage('You must type "yes" to agree to the declaration.', false, true);
+                    }
                 }
+
+                if (advanced) askNextQuestion();
             });
 
             chatInput.addEventListener('keypress', (e) => {
@@ -896,4 +1151,4 @@
         });
     </script>
 </body>
-</html>
+    </html>
