@@ -3,6 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- === NEW META TAGS & FAVICON === -->
+    <meta name="description" content="Complete your official APC Wardship Nomination Form for the 2025 Congress. Register as a councilor aspirant using our secure online form or chatbot.">
+    <meta name="keywords" content="APC, Nomination Form, Councilor, Wardship, Politics, Nigeria, APC Congress 2025, Registration">
+    <link rel="icon" href="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTqsRHyM2yS67F34fBfngJ3oC9U2GuLtUawNOh9qrYPn6WCON3BZzZA2NUS&s=10" type="image/x-icon">
+    <!-- === END NEW META TAGS & FAVICON === -->
+
     <title>APC Councilors Wardship Nomination Form</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
@@ -938,6 +945,7 @@
             function setLanguage(lang) {
                 if (!translations[lang]) return;
                 currentLang = lang;
+                document.documentElement.lang = lang; // Set html lang attribute
 
                 document.querySelectorAll('[data-translate]').forEach(el => {
                     const key = el.getAttribute('data-translate');
@@ -1260,8 +1268,14 @@
 
                 document.querySelectorAll('.error-message').forEach(el => el.classList.add('hidden'));
 
-                function showError(id) {
-                    const el = document.getElementById(id);
+                function showError(id, customIndex = -1) {
+                    let el;
+                    if(customIndex > -1) {
+                        el = document.getElementById(`${id}_${customIndex+1}_error`);
+                    } else {
+                        el = document.getElementById(id);
+                    }
+                    
                     if (el) {
                         el.classList.remove('hidden');
                         isValid = false;
@@ -1304,14 +1318,14 @@
                     const year = entry.querySelector(`[name="qualification_year"]`);
                     
                     if (index === 0) { // Only first is strictly required
-                        if (!degree.value.trim()) showError(`qualification_1_degree_error`);
-                        if (!institution.value.trim()) showError(`qualification_1_institution_error`);
-                        if (!year.value || year.value < 1950 || year.value > 2025) showError(`qualification_1_year_error`);
+                        if (!degree.value.trim()) showError('qualification_degree_error', index);
+                        if (!institution.value.trim()) showError('qualification_institution_error', index);
+                        if (!year.value || year.value < 1950 || year.value > 2025) showError('qualification_year_error', index);
                     } else { // For others, if one field is filled, others should be too
                         if (degree.value || institution.value || year.value) {
-                             if (!degree.value.trim()) showError(`qualification_${index+1}_degree_error`);
-                             if (!institution.value.trim()) showError(`qualification_${index+1}_institution_error`);
-                             if (!year.value || year.value < 1950 || year.value > 2025) showError(`qualification_${index+1}_year_error`);
+                             if (!degree.value.trim()) showError('qualification_degree_error', index);
+                             if (!institution.value.trim()) showError('qualification_institution_error', index);
+                             if (!year.value || year.value < 1950 || year.value > 2025) showError('qualification_year_error', index);
                         }
                     }
                 });
@@ -1912,4 +1926,5 @@
     </script>
 </body>
 </html>
+
 
