@@ -4,11 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- === NEW META TAGS & FAVICON === -->
     <meta name="description" content="Complete your official APC Wardship Nomination Form for the 2025 Congress. Register as a councilor aspirant using our secure online form or chatbot.">
     <meta name="keywords" content="APC, Nomination Form, Councilor, Wardship, Politics, Nigeria, APC Congress 2025, Registration">
     <link rel="icon" href="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTqsRHyM2yS67F34fBfngJ3oC9U2GuLtUawNOh9qrYPn6WCON3BZzZA2NUS&s=10" type="image/x-icon">
-    <!-- === END NEW META TAGS & FAVICON === -->
 
     <title>APC Councilors Wardship Nomination Form</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -337,7 +335,8 @@
         <!-- HEADER -->
         <header class="gradient-header text-white p-8 rounded-t-xl flex flex-col md:flex-row items-center justify-between text-center md:text-left shadow-xl">
             <div class="flex items-center space-x-4 mb-4 md:mb-0">
-                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTqsRHyM2yS67F34fBfngJ3oC9U2GuLtUawNOh9qrYPn6WCON3BZzZA2NUS&s=10" alt="APC Logo" class="h-20 w-20 rounded-full bg-white p-2 border-2 border-yellow-400">
+                <!-- === ADDED ID 'header-logo' FOR PDF === -->
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTqsRHyM2yS67F34fBfngJ3oC9U2GuLtUawNOh9qrYPn6WCON3BZzZA2NUS&s=10" alt="APC Logo" id="header-logo" class="h-20 w-20 rounded-full bg-white p-2 border-2 border-yellow-400">
                 <div>
                     <h1 class="text-3xl font-bold mb-1" data-translate="formTitle">APC Wardship Nomination Form</h1>
                     <p class="text-lg font-light" data-translate="formSubtitle">Councilor Aspirant Registration</p>
@@ -778,35 +777,38 @@
                     'selectLga': 'Select LGA',
                     'pdfTitle': 'APC Wardship Nomination Form',
                     'pdfCode': 'Nomination Code:',
-                    'pdfSection1': 'Personal Information:',
+                    'pdfSection1': 'Personal Information', // Removed numbers
                     'pdfFullName': 'Full Name:',
-                    'pdfDob': 'DOB:',
+                    'pdfDob': 'Date of Birth:',
                     'pdfGender': 'Gender:',
                     'pdfPhone': 'Phone:',
                     'pdfEmail': 'Email:',
                     'pdfStateOrigin': 'State of Origin:',
                     'pdfLgaOrigin': 'LGA of Origin:',
-                    'pdfSection2': 'Contact Information:',
+                    'pdfSection2': 'Contact Information',
                     'pdfAddress': 'Address:',
-                    'pdfCity': 'City:',
+                    'pdfCity': 'City/Town:',
                     'pdfStateResidence': 'State of Residence:',
                     'pdfLgaResidence': 'LGA of Residence:',
                     'pdfWard': 'Ward:',
-                    'pdfSection3': 'Party Affiliation:',
+                    'pdfSection3': 'Party Affiliation',
                     'pdfApcRegNo': 'APC Reg No:',
-                    'pdfJoinDate': 'Join Date:',
+                    'pdfJoinDate': 'Date Joined:',
                     'pdfHeldPosition': 'Held Position:',
                     'pdfPrevPosition': 'Previous Positions:',
-                    'pdfSection4': 'Academic Qualifications:',
+                    'pdfSection4': 'Academic Qualifications',
                     'pdfDegree': 'Degree:',
                     'pdfInstitution': 'Institution:',
                     'pdfYear': 'Year:',
-                    'pdfDeclaration': 'Declaration:',
+                    'pdfSection5': 'Declaration',
+                    'pdfDeclaration': 'I agree to the declaration:',
                     'pdfNotApplicable': 'N/A',
                     'receiptTitle': 'APC Nomination Receipt',
                     'receiptDate': 'Submission Date:',
                     'receiptThankYou': 'Thank you for your nomination!',
-                    'receiptOfficial': 'This is your official receipt.'
+                    'receiptOfficial': 'This is your official receipt for the 2025 APC Congress.',
+                    'receiptAspirant': 'Aspirant Details',
+                    'receiptVerified': 'VERIFIED'
                 }
             };
             
@@ -1271,7 +1273,12 @@
                 function showError(id, customIndex = -1) {
                     let el;
                     if(customIndex > -1) {
-                        el = document.getElementById(`${id}_${customIndex+1}_error`);
+                        el = document.getElementById(`qualification_${customIndex+1}_degree_error`);
+                        if(el) el.classList.remove('hidden');
+                        el = document.getElementById(`qualification_${customIndex+1}_institution_error`);
+                        if(el) el.classList.remove('hidden');
+                        el = document.getElementById(`qualification_${customIndex+1}_year_error`);
+                        if(el) el.classList.remove('hidden');
                     } else {
                         el = document.getElementById(id);
                     }
@@ -1318,9 +1325,9 @@
                     const year = entry.querySelector(`[name="qualification_year"]`);
                     
                     if (index === 0) { // Only first is strictly required
-                        if (!degree.value.trim()) showError('qualification_degree_error', index);
-                        if (!institution.value.trim()) showError('qualification_institution_error', index);
-                        if (!year.value || year.value < 1950 || year.value > 2025) showError('qualification_year_error', index);
+                        if (!degree.value.trim()) showError('qualification_1_degree_error');
+                        if (!institution.value.trim()) showError('qualification_1_institution_error');
+                        if (!year.value || year.value < 1950 || year.value > 2025) showError('qualification_1_year_error');
                     } else { // For others, if one field is filled, others should be too
                         if (degree.value || institution.value || year.value) {
                              if (!degree.value.trim()) showError('qualification_degree_error', index);
@@ -1816,107 +1823,248 @@
                 return stateValue;
             }
 
+            // === NEW PDF STYLING CONSTANTS ===
+            const apcGreen = '#006400';
+            const darkText = '#333333';
+            const lightText = '#555555';
+            const margin = 15;
+
+            /**
+             * PDF Helper: Draws the branded header
+             */
+            function drawHeader(doc, title) {
+                const pageWidth = doc.internal.pageSize.getWidth();
+                const logoImg = document.getElementById('header-logo');
+                
+                // Green Header Bar
+                doc.setFillColor(apcGreen);
+                doc.rect(0, 0, pageWidth, 35, 'F');
+                
+                // Add Logo
+                try {
+                    doc.addImage(logoImg, 'PNG', margin, 5, 25, 25);
+                } catch(e) {
+                    console.error("Error adding logo to PDF:", e);
+                }
+                
+                // Add Title
+                doc.setFontSize(18);
+                doc.setFont('Helvetica', 'bold');
+                doc.setTextColor('#FFFFFF');
+                doc.text(title, margin + 30, 22);
+                
+                // Return Y cursor
+                return 45;
+            }
+
+            /**
+             * PDF Helper: Draws a styled section title
+             */
+            function drawSectionTitle(doc, y, title) {
+                const pageWidth = doc.internal.pageSize.getWidth();
+                doc.setFontSize(14);
+                doc.setFont('Helvetica', 'bold');
+                doc.setTextColor(apcGreen);
+                doc.text(title, margin, y);
+                
+                doc.setDrawColor(apcGreen);
+                doc.setLineWidth(0.5);
+                doc.line(margin, y + 2, pageWidth - margin, y + 2);
+                
+                return y + 10;
+            }
+
+            /**
+             * PDF Helper: Draws a key-value pair in two columns
+             */
+            function drawField(doc, y, label, value) {
+                const pageWidth = doc.internal.pageSize.getWidth();
+                const valueX = margin + 50; // X position for the value
+                const valueWidth = pageWidth - margin - valueX;
+                
+                doc.setFontSize(10);
+                doc.setFont('Helvetica', 'bold');
+                doc.setTextColor(lightText);
+                doc.text(label, margin, y);
+                
+                doc.setFont('Helvetica', 'normal');
+                doc.setTextColor(darkText);
+                
+                const val = value || getLangString('pdfNotApplicable');
+                const splitValue = doc.splitTextToSize(val, valueWidth);
+                doc.text(splitValue, valueX, y);
+                
+                // Increment Y based on number of lines
+                return y + (splitValue.length * 5) + 4;
+            }
+            
+            /**
+             * PDF Helper: Draws the footer
+             */
+            function drawFooter(doc) {
+                const pageHeight = doc.internal.pageSize.getHeight();
+                const pageWidth = doc.internal.pageSize.getWidth();
+                
+                doc.setDrawColor('#DDDDDD');
+                doc.setLineWidth(0.2);
+                doc.line(margin, pageHeight - 20, pageWidth - margin, pageHeight - 20);
+                
+                doc.setFontSize(9);
+                doc.setTextColor(lightText);
+                doc.text(getLangString('footer1'), pageWidth / 2, pageHeight - 15, { align: 'center' });
+            }
+            
+            /**
+             * PDF Helper: Checks for page break and adds new page
+             */
+            function checkPageBreak(doc, y, requiredHeight = 20) {
+                const pageHeight = doc.internal.pageSize.getHeight();
+                if (y > pageHeight - requiredHeight - margin) {
+                    drawFooter(doc); // Add footer to current page
+                    doc.addPage();
+                    y = drawHeader(doc, getLangString('pdfTitle')); // Add header to new page
+                }
+                return y;
+            }
+
+
+            // === ENHANCED PDF DOWNLOAD (FORM) ===
             document.getElementById('download-form-btn').addEventListener('click', () => {
                 const doc = new jsPDF();
-                let y = 10;
-                doc.setFont('Helvetica');
                 
                 const fullName = `${formData.first_name || ''} ${formData.middle_name || ''} ${formData.last_name || ''}`.trim().replace(/\s+/g, ' ');
                 const stateOriginName = getStateName(formData.state_of_origin);
                 const stateResidenceName = getStateName(formData.state_of_residence);
 
-                doc.setFontSize(16);
-                doc.text(getLangString('pdfTitle'), 105, y, { align: 'center' });
-                y += 10;
-                doc.setFontSize(12);
-                doc.text(`${getLangString('pdfCode')} ${formData.nomination_code}`, 10, y);
-                y += 10;
-                doc.setFontSize(14);
-                doc.text(getLangString('pdfSection1'), 10, y);
-                y += 7;
-                doc.setFontSize(12);
-                doc.text(`${getLangString('pdfFullName')} ${fullName}`, 10, y);
-                y += 7;
-                doc.text(`${getLangString('pdfDob')} ${formData.dob || getLangString('pdfNotApplicable')}`, 10, y);
-                y += 7;
-                doc.text(`${getLangString('pdfGender')} ${formData.gender || getLangString('pdfNotApplicable')}`, 10, y);
-                y += 7;
-                doc.text(`${getLangString('pdfPhone')} ${formData.phone || getLangString('pdfNotApplicable')}`, 10, y);
-                y += 7;
-                doc.text(`${getLangString('pdfEmail')} ${formData.email || getLangString('pdfNotApplicable')}`, 10, y);
-                y += 7;
-                doc.text(`${getLangString('pdfStateOrigin')} ${stateOriginName || getLangString('pdfNotApplicable')}`, 10, y);
-                y += 7;
-                doc.text(`${getLangString('pdfLgaOrigin')} ${formData.lga_of_origin || getLangString('pdfNotApplicable')}`, 10, y);
-                y += 10;
-                doc.setFontSize(14);
-                doc.text(getLangString('pdfSection2'), 10, y);
-                y += 7;
-                doc.setFontSize(12);
-                doc.text(`${getLangString('pdfAddress')} ${formData.address || getLangString('pdfNotApplicable')}`, 10, y);
-                y += 7;
-                doc.text(`${getLangString('pdfCity')} ${formData.city || getLangString('pdfNotApplicable')}`, 10, y);
-                y += 7;
-                doc.text(`${getLangString('pdfStateResidence')} ${stateResidenceName || getLangString('pdfNotApplicable')}`, 10, y);
-                y += 7;
-                doc.text(`${getLangString('pdfLgaResidence')} ${formData.lga_of_residence || getLangString('pdfNotApplicable')}`, 10, y);
-                y += 7;
-                doc.text(`${getLangString('pdfWard')} ${formData.ward || getLangString('pdfNotApplicable')}`, 10, y);
-                y += 10;
-                doc.setFontSize(14);
-                doc.text(getLangString('pdfSection3'), 10, y);
-                y += 7;
-                doc.setFontSize(12);
-                doc.text(`${getLangString('pdfApcRegNo')} ${formData.apc_reg_no || getLangString('pdfNotApplicable')}`, 10, y);
-                y += 7;
-                doc.text(`${getLangString('pdfJoinDate')} ${formData.apc_join_date || getLangString('pdfNotApplicable')}`, 10, y);
-                y += 7;
-                doc.text(`${getLangString('pdfHeldPosition')} ${formData.held_position || getLangString('pdfNotApplicable')}`, 10, y);
+                let y = drawHeader(doc, getLangString('pdfTitle'));
+
+                y = checkPageBreak(doc, y, 40);
+                y = drawSectionTitle(doc, y, getLangString('pdfSection1'));
+                
+                y = checkPageBreak(doc, y);
+                y = drawField(doc, y, getLangString('pdfFullName'), fullName);
+                y = checkPageBreak(doc, y);
+                y = drawField(doc, y, getLangString('pdfCode'), formData.nomination_code);
+                y = checkPageBreak(doc, y);
+                y = drawField(doc, y, getLangString('pdfDob'), formData.dob);
+                y = checkPageBreak(doc, y);
+                y = drawField(doc, y, getLangString('pdfGender'), formData.gender);
+                y = checkPageBreak(doc, y);
+                y = drawField(doc, y, getLangString('pdfPhone'), formData.phone);
+                y = checkPageBreak(doc, y);
+                y = drawField(doc, y, getLangString('pdfEmail'), formData.email);
+                y = checkPageBreak(doc, y);
+                y = drawField(doc, y, getLangString('pdfStateOrigin'), stateOriginName);
+                y = checkPageBreak(doc, y);
+                y = drawField(doc, y, getLangString('pdfLgaOrigin'), formData.lga_of_origin);
+                y += 5; // Extra padding
+                
+                y = checkPageBreak(doc, y, 40);
+                y = drawSectionTitle(doc, y, getLangString('pdfSection2'));
+                y = checkPageBreak(doc, y);
+                y = drawField(doc, y, getLangString('pdfAddress'), formData.address);
+                y = checkPageBreak(doc, y);
+                y = drawField(doc, y, getLangString('pdfCity'), formData.city);
+                y = checkPageBreak(doc, y);
+                y = drawField(doc, y, getLangString('pdfStateResidence'), stateResidenceName);
+                y = checkPageBreak(doc, y);
+                y = drawField(doc, y, getLangString('pdfLgaResidence'), formData.lga_of_residence);
+                y = checkPageBreak(doc, y);
+                y = drawField(doc, y, getLangString('pdfWard'), formData.ward);
+                y += 5;
+
+                y = checkPageBreak(doc, y, 40);
+                y = drawSectionTitle(doc, y, getLangString('pdfSection3'));
+                y = checkPageBreak(doc, y);
+                y = drawField(doc, y, getLangString('pdfApcRegNo'), formData.apc_reg_no);
+                y = checkPageBreak(doc, y);
+                y = drawField(doc, y, getLangString('pdfJoinDate'), formData.apc_join_date);
+                y = checkPageBreak(doc, y);
+                y = drawField(doc, y, getLangString('pdfHeldPosition'), formData.held_position);
                 if (formData.held_position === 'yes') {
-                    y += 7;
-                    doc.text(`${getLangString('pdfPrevPosition')} ${formData.previous_position || getLangString('pdfNotApplicable')}`, 10, y);
+                    y = checkPageBreak(doc, y);
+                    y = drawField(doc, y, getLangString('pdfPrevPosition'), formData.previous_position);
                 }
-                y += 10;
-                doc.setFontSize(14);
-                doc.text(getLangString('pdfSection4'), 10, y);
-                y += 7;
-                doc.setFontSize(12);
+                y += 5;
+
+                y = checkPageBreak(doc, y, 40);
+                y = drawSectionTitle(doc, y, getLangString('pdfSection4'));
                 if(formData.qualifications.length > 0) {
                     formData.qualifications.forEach((qual, index) => {
-                        doc.text(`${index + 1}. ${getLangString('pdfDegree')} ${qual.degree}, ${getLangString('pdfInstitution')} ${qual.institution}, ${getLangString('pdfYear')} ${qual.year}`, 10, y);
-                        y += 7;
+                        y = checkPageBreak(doc, y, 20);
+                        doc.setFont('Helvetica', 'bold');
+                        doc.setTextColor(darkText);
+                        doc.text(`${index + 1}. ${qual.degree || getLangString('pdfNotApplicable')}`, margin, y);
+                        y += 6;
+                        
+                        doc.setFont('Helvetica', 'normal');
+                        doc.setTextColor(lightText);
+                        doc.text(`${getLangString('pdfInstitution')} ${qual.institution || getLangString('pdfNotApplicable')}`, margin + 5, y);
+                        y += 6;
+                        doc.text(`${getLangString('pdfYear')} ${qual.year || getLangString('pdfNotApplicable')}`, margin + 5, y);
+                        y += 8;
                     });
                 } else {
-                    doc.text(getLangString('pdfNotApplicable'), 10, y);
+                    y = checkPageBreak(doc, y);
+                    doc.setFont('Helvetica', 'normal');
+                    doc.setTextColor(darkText);
+                    doc.text(getLangString('pdfNotApplicable'), margin, y);
                     y += 7;
                 }
-                y += 3;
-                doc.setFontSize(14);
-                doc.text(getLangString('section5Title'), 10, y);
-                y += 7;
-                doc.setFontSize(12);
-                doc.text(`${getLangString('pdfDeclaration')} ${formData.declaration || getLangString('pdfNotApplicable')}`, 10, y);
+                y += 5;
+
+                y = checkPageBreak(doc, y, 40);
+                y = drawSectionTitle(doc, y, getLangString('pdfSection5'));
+                y = checkPageBreak(doc, y);
+                y = drawField(doc, y, getLangString('pdfDeclaration'), formData.declaration);
+
+                drawFooter(doc); // Add footer to the last page
                 doc.save('APC_Nomination_Form.pdf');
             });
 
+            // === ENHANCED PDF DOWNLOAD (RECEIPT) ===
             document.getElementById('download-receipt-btn').addEventListener('click', () => {
                 const doc = new jsPDF();
-                let y = 10;
-                const fullName = `${formData.first_name || ''} ${formData.middle_name || ''} ${formData.last_name || ''}`.trim().replace(/\s+/g, ' ');
+                const pageWidth = doc.internal.pageSize.getWidth();
                 
-                doc.setFontSize(16);
-                doc.text(getLangString('receiptTitle'), 105, y, { align: 'center' });
-                y += 10;
-                doc.setFontSize(12);
-                doc.text(`${getLangString('pdfCode')} ${formData.nomination_code}`, 10, y);
-                y += 7;
-                doc.text(`${getLangString('pdfFullName')} ${fullName}`, 10, y);
-                y += 7;
-                doc.text(`${getLangString('receiptDate')} ${new Date().toLocaleDateString()}`, 10, y);
-                y += 10;
-                doc.text(getLangString('receiptThankYou'), 10, y);
-                y += 7;
-                doc.text(getLangString('receiptOfficial'), 10, y);
+                const fullName = `${formData.first_name || ''} ${formData.middle_name || ''} ${formData.last_name || ''}`.trim().replace(/\s+/g, ' ');
+
+                let y = drawHeader(doc, getLangString('receiptTitle'));
+                
+                y = checkPageBreak(doc, y);
+
+                // Add "VERIFIED" Stamp
+                doc.setFillColor(apcGreen);
+                doc.rect(pageWidth - margin - 50, y, 50, 10, 'F');
+                doc.setTextColor('#FFFFFF');
+                doc.setFont('Helvetica', 'bold');
+                doc.setFontSize(10);
+                doc.text(getLangString('receiptVerified'), pageWidth - margin - 25, y + 6.5, { align: 'center' });
+                y += 15; // Padding after stamp
+                
+                doc.setFontSize(11);
+                doc.setFont('Helvetica', 'normal');
+                doc.setTextColor(darkText);
+                doc.text(getLangString('receiptThankYou'), margin, y);
+                y += 6;
+                doc.text(getLangString('receiptOfficial'), margin, y);
+                y += 12;
+
+                y = checkPageBreak(doc, y, 40);
+                y = drawSectionTitle(doc, y, getLangString('receiptAspirant'));
+                
+                y = checkPageBreak(doc, y);
+                y = drawField(doc, y, getLangString('pdfFullName'), fullName);
+                y = checkPageBreak(doc, y);
+                y = drawField(doc, y, getLangString('pdfCode'), formData.nomination_code);
+                y = checkPageBreak(doc, y);
+                y = drawField(doc, y, getLangString('pdfPhone'), formData.phone);
+                y = checkPageBreak(doc, y);
+                y = drawField(doc, y, getLangString('pdfWard'), formData.ward);
+                y = checkPageBreak(doc, y);
+                y = drawField(doc, y, getLangString('receiptDate'), new Date().toLocaleDateString());
+
+                drawFooter(doc);
                 doc.save('APC_Nomination_Receipt.pdf');
             });
 
